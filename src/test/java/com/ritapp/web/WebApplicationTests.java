@@ -1,10 +1,10 @@
-package com.example.RitApp;
+package com.ritapp.web;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class RitAppApplicationTests {
+class WebApplicationTests {
 
 	@Test
 	void contextLoads() {
