@@ -1,4 +1,4 @@
-package com.ritapp.web.security;
+package com.RitApp.web.security;
 
 
 import org.springframework.context.annotation.Configuration;
