@@ -1,4 +1,4 @@
-package com.ritapp.web;
+package com.RitApp.web;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
