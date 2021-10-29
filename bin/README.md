@@ -1,2 +1,0 @@
-# RitApp
- ProyectoFinal
