@@ -2,14 +2,24 @@
 package com.RitApp.web.entidades;
 
 import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import lombok.Data;
+import javax.persistence.OneToMany;
+
 import org.hibernate.annotations.GenericGenerator;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@AllArgsConstructor
+@Builder
+@NoArgsConstructor
 public class Perfil {
     
     @Id
@@ -18,9 +28,11 @@ public class Perfil {
     private String id;
     private String gitHubLink;
     private String experienciaLaboral;
-    private List<Idioma> idioma;
+    @OneToMany
+    private List<Idioma> idiomas;
     private String disponibilidadHoraria;
     private String formacionAcademica;
+    @OneToMany
     private List<Lenguaje> lenguajes;
     private String seniority;
     private String estado;
