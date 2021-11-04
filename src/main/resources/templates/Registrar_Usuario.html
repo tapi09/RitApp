@@ -1,0 +1,77 @@
+<!DOCTYPE html >
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Registrar_Usuario</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="root">
+        <form th:action="@{/usuario/registrar}" method="POST" class="form-register">
+            <div class="form-register__header">
+                <ul class="progressbar">
+                    <li class="progressbar__option active">paso 1</li>
+                    <li class="progressbar__option">paso 2</li>
+                    <li class="progressbar__option">paso 3</li>
+                </ul>
+                <h1 class="form-register__title">Resgistrate Usuario</h1>
+            </div>
+            <div class="form-register__body">
+                <div class="step active" id="step-1">
+                    <div class="step__header">
+                        <h2 class="step__title">Información personal<small></small></h2>
+                    </div>
+                    <div class="step__body">
+                        <p th:if="${error != null}" th:text="${error}" style="color:red;"> </p>  
+                        <input type="text" placeholder="DNI" class="step__input"  name="dni" th:value="${dni}">
+                        <input type="email" placeholder="Correo" class="step__input"  name="email" th:value="${email}">
+                        <input type="password" placeholder="Contrasea" class="step__input"  name="contrasea_1" th:value="${contrasea_1}">
+                        <input type="password" placeholder="Confirmar contraseña" class="step__input"  name="contrasena_2" th:value="${contrasena_2}">
+                    </div>
+                    <div class="step__footer">
+                        <button type="button" class="step__button step__button--next" data-to_step="2" data-step="1">Siguiente</button>
+                    </div>
+                </div>
+                <div class="step" id="step-2">
+                    <div class="step__header">
+                        <h2 class="step__title">Información personal<small></small></h2>
+                    </div>
+                    <div class="step__body">
+                        <p th:if="${error != null}" th:text="${error}" style="color:red;"> </p>  
+                        <input type="text" placeholder="Nombre" class="step__input" name="nombre" th:value="${nombre}">
+                        <input type="text" placeholder="Apellido" class="step__input" name="apellido" th:value="${apellido}">
+                        <input type="date" placeholder="Fecha De Nacimiento" class="step__input" name="fechaDeNacimiento" th:value="${fechaDeNacimiento}">
+                        <input type="number" placeholder="Edad" class="step__input" name="edad" th:value="${edad}">
+                        <input type="text" placeholder="Genero" class="step__input" name="genero" th:value="${genero}">
+                        <input type="text" placeholder="Telefono" class="step__input" name="telefono" th:value="${telefono}">
+                    </div>
+                    <div class="step__footer">
+                        <button type="button" class="step__button step__button--back" data-to_step="1" data-step="2">Anterior</button>
+                        <button type="button" class="step__button step__button--next" data-to_step="3" data-step="2">Siguiente</button>
+                    </div>
+                </div>
+                <div class="step" id="step-3">
+                    <div class="step__header">
+                        <h2 class="step__title">Información personal<small></small></h2>
+                    </div>
+                    <div class="step__body">
+                        <p th:if="${error != null}" th:text="${error}" style="color:red;"> </p>  
+                        <input type="text" placeholder="Direccion" class="step__input" name="direccion" th:value="${direccion}">
+                        <input type="text" placeholder="Pais " class="step__input" name="pais" th:value="${pais}">
+                       <!-- <input type="text" placeholder="Foto " class="step__input" name="foto" th:value="${foto}">
+                        <input type="text" placeholder="CV " class="step__input" name="CV" th:value="${cv}"> -->
+                         falta perfil
+                    </div>
+                    <div class="step__footer">
+                        <button type="button" class="step__button step__button--back" data-to_step="2" data-step="3">Anterior</button>
+                        <button type="submit" class="step__button">Registrarse</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script th:src="@{/js/app.js}"></script>
+</body>
+</html>
