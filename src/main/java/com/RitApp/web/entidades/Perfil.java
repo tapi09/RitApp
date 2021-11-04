@@ -39,7 +39,5 @@ public class Perfil {
     private String trabajoActual;
     private int fase;
 
-    
-    
-    
+     
 }
