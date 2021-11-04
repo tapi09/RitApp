@@ -1,5 +1,5 @@
-package com.RitApp.web.entidades;
-
-public enum Nivel {
-	BASICO, INTERMEDIO, AVANZADO;
-}
+//package com.RitApp.web.entidades;
+//
+//public enum Nivel {
+//	BASICO, INTERMEDIO, AVANZADO;
+//}

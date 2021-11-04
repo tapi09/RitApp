@@ -4,32 +4,23 @@ package com.RitApp.web.entidades;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
-import org.hibernate.annotations.GenericGenerator;
-
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Data
-@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
-@SuperBuilder
+@Builder
 @NoArgsConstructor
-public class Empresa extends Registro {
-    
+public class Foto {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
+    private String mime;
     private String nombre;
-    private String actividad;
-    private String sitioWeb;
-    private String beneficios;
-    private String sobreNosotros;
-    private String pais;
-    private Foto foto;
+    private byte[] contenido;
 }

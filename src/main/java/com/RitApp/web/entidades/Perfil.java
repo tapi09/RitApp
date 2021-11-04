@@ -29,11 +29,11 @@ public class Perfil {
     private String gitHubLink;
     private String experienciaLaboral;
     @OneToMany
-    private List<Idioma> idiomas;
+    private String idiomas;
     private String disponibilidadHoraria;
     private String formacionAcademica;
     @OneToMany
-    private List<Lenguaje> lenguajes;
+    private String lenguajes;
     private String seniority;
     private String estado;
     private String trabajoActual;

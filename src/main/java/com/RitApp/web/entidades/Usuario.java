@@ -1,4 +1,3 @@
-
 package com.RitApp.web.entidades;
 
 import java.awt.Image;
@@ -6,39 +5,39 @@ import java.io.File;
 import java.util.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 @NoArgsConstructor
-public class Usuario {
-	@Id
-	private String dni;
-	private String email;
-	private String contraseña;
-	private String nombre;
-	private String apellido;
-	@Temporal(TemporalType.DATE)
-	private Date fechaNacimiento;
-	private int edad;
-	private Integer telefono;
+public class Usuario extends Registro {
 
-	private Image foto;
-	private File cv;
-	private String genero;
-	private String direccion;
-	private String pais;
-	@OneToOne
-	private Perfil perfil;
+    private String dni;
+    private String nombre;
+    private String apellido;
+    @Temporal(TemporalType.DATE)
+    private Date fechaNacimiento;
+    private int edad;
+    private Integer telefono;
 
+    private Image foto;
+    private File cv;
+    private String genero;
+    private String direccion;
+    private String pais;
+    @OneToOne
+    private Perfil perfil;
+
+    
 }
