@@ -1,6 +1,8 @@
 
 package com.RitApp.web.servicios;
 
+import java.awt.Image;
+import java.io.File;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -21,10 +23,11 @@ public class UsuarioServicio {
 	private UsuarioRepositorio usuarioRepositorio;
 
 	@Transactional
-	public void crearUsuario(String dni, String email, String contraseña, String nombre, String apellido, Date fechaNac,
-			Integer edad, Integer telefono, String genero, String direccion, String pais, Perfil perfil)
-			throws Exception {
-		validar(dni, email, contraseña, nombre, apellido, fechaNac, edad, telefono, genero, direccion, pais, perfil);
+	public void crearUsuario(String dni, String email, String contrasena, String nombre, String apellido, Date fechaNac,
+			Integer edad, Integer telefono, String genero, String direccion,
+			String pais , Perfil perfil, Image foto, File cv ) throws Exception {
+		validar(dni, email, contrasena, nombre, apellido, fechaNac, edad, telefono, genero, direccion,
+				pais/* , perfil */);
 		Usuario usuario;
 		usuario = new Usuario();
 
@@ -38,20 +41,22 @@ public class UsuarioServicio {
 		usuario.setGenero(genero);
 		usuario.setDireccion(direccion);
 		usuario.setPais(pais);
-		usuario.setPerfil(perfil);
+		/*
+		 * usuario.setPerfil(perfil); usuario.setFoto(foto); usuario.setCv(cv);
+		 */
 
 		usuarioRepositorio.save(usuario);
 	}
-	
+
 	@Transactional
 	public void modificar(String dni, String email, String contraseña, String nombre, String apellido, Date fechaNac,
-			Integer edad, Integer telefono, String genero, String direccion, String pais, Perfil perfil)
-			throws Exception {
-		validar(dni, email, contraseña, nombre, apellido, fechaNac, edad, telefono, genero, direccion, pais, perfil);
+			Integer edad, Integer telefono, String genero, String direccion, String pais, Perfil perfil, Image foto,
+			File cv) throws Exception {
+		validar(dni, email, contraseña, nombre, apellido, fechaNac, edad, telefono, genero, direccion,
+				pais/* , perfil */);
 		Usuario usuario;
-		usuario =  buscarXId(dni);
+		usuario = buscarXId(dni);
 
-		
 		usuario.setEmail(email);
 		usuario.setNombre(nombre);
 		usuario.setApellido(apellido);
@@ -62,21 +67,22 @@ public class UsuarioServicio {
 		usuario.setDireccion(direccion);
 		usuario.setPais(pais);
 		usuario.setPerfil(perfil);
+		/* usuario.setFoto(foto); */
+		usuario.setCv(cv);
 
 		usuarioRepositorio.save(usuario);
 	}
+
 	@Transactional
 	public void eliminar(String dni) throws Exception {
 		Usuario usuario = buscarXId(dni);
-			usuarioRepositorio.delete(usuario);
-		
+		usuarioRepositorio.delete(usuario);
+
 	}
-	
-	
-	
 
 	public void validar(String dni, String email, String contraseña, String nombre, String apellido, Date fechaNac,
-			Integer edad, Integer telefono, String genero, String direccion, String pais, Perfil perfil)
+			Integer edad, Integer telefono, String genero, String direccion,
+			String pais/* , Perfil perfil */)
 			throws Exception {
 
 		if (dni.isEmpty() || dni == null) {
@@ -112,21 +118,24 @@ public class UsuarioServicio {
 		if (pais.isEmpty() || pais == null) {
 			throw new Exception("el pais no pude ser nulo");
 		}
+/*		}
 		if (perfil == null) {
 			throw new Exception("el perfil no pude ser nulo");
-		}
+		}*/
+
 	}
-	
-	public Usuario buscarXId(String dni)throws Exception{
+
+	public Usuario buscarXId(String dni) throws Exception {
 		Optional<Usuario> respuesta = usuarioRepositorio.findById(dni);
 		if (respuesta.isPresent()) {
 			return respuesta.get();
 		} else {
 			throw new Exception("no se encuentra ningun Usuario con el id");
 		}
-		
+
 	}
-	public List<Usuario> listar(){
+
+	public List<Usuario> listar() {
 		return usuarioRepositorio.findAll();
 	}
 }
