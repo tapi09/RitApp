@@ -22,7 +22,11 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @NoArgsConstructor
 public class Usuario extends Registro {
+<<<<<<< Updated upstream
 
+=======
+    
+>>>>>>> Stashed changes
     private String dni;
     private String nombre;
     private String apellido;
