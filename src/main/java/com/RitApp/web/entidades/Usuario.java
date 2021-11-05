@@ -23,7 +23,11 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 public class Usuario extends Registro {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
+=======
+    
+>>>>>>> Stashed changes
 =======
     
 >>>>>>> Stashed changes
@@ -35,7 +39,11 @@ public class Usuario extends Registro {
     private int edad;
     private Integer telefono;
 
+<<<<<<< Updated upstream
     private Image foto;
+=======
+    private Foto foto;
+>>>>>>> Stashed changes
     private File cv;
     private String genero;
     private String direccion;

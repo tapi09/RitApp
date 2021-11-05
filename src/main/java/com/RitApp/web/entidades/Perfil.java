@@ -32,7 +32,10 @@ public class Perfil {
     private String idiomas;
     private String disponibilidadHoraria;
     private String formacionAcademica;
+<<<<<<< Updated upstream
     @OneToMany
+=======
+>>>>>>> Stashed changes
     private String lenguajes;
     private String seniority;
     private String estado;

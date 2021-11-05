@@ -17,10 +17,13 @@ import lombok.experimental.SuperBuilder;
 public class Empresa extends Registro {
     
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
     private String nombre;
