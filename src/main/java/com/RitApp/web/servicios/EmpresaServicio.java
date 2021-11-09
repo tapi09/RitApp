@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.RitApp.web.entidades.Empresa;
-import com.RitApp.web.entidades.Foto;
 import com.RitApp.web.repositorios.EmpresaRepositorio;
 
 @Service
@@ -19,9 +18,7 @@ public class EmpresaServicio {
     
     @Autowired
     private EmpresaRepositorio empresaRepositorio;
-    
-    @Autowired
-    private FotoServicio fotoServicio;
+
 
     @Transactional
     public void crearEmpresa(String email, String contraseña1, String contraseña2, String nombre, String actividad, String sitioWeb, String beneficios, String sobreNostros, String pais, MultipartFile archivo) throws Exception {
@@ -37,10 +34,6 @@ public class EmpresaServicio {
             empresa.setBeneficios(beneficios);
             empresa.setSobreNosotros(sobreNostros);
             empresa.setPais(pais);
-            
-            
-            Foto foto = fotoServicio.guardarFoto(archivo);
-            empresa.setFoto(foto);
             
             empresaRepositorio.save(empresa);
             

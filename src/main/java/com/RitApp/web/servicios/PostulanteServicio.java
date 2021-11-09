@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.RitApp.web.entidades.Perfil;
 import com.RitApp.web.entidades.Postulante;
 import com.RitApp.web.enums.Rol;
 import com.RitApp.web.repositorios.PostulanteRepositorio;
@@ -24,9 +23,9 @@ public class PostulanteServicio {
 
 	@Transactional
 	public void crearUsuario(String dni, String email, String contraseña, String nombre, String apellido, Date fechaNac,
-			Integer edad, Integer telefono, String genero, String direccion, String pais, Perfil perfil)
+			Integer edad, Integer telefono, String genero, String direccion, String pais)
 			throws Exception {
-		validar(dni, email, contraseña, nombre, apellido, fechaNac, edad, telefono, genero, direccion, pais, perfil);
+		validar(dni, email, contraseña, nombre, apellido, fechaNac, edad, telefono, genero, direccion, pais);
 		Postulante postulante;
 		BCryptPasswordEncoder encoder= new BCryptPasswordEncoder();
 		postulante = new Postulante();		
@@ -40,7 +39,6 @@ public class PostulanteServicio {
 		postulante.setGenero(genero);
 		postulante.setDireccion(direccion);
 		postulante.setPais(pais);
-		postulante.setPerfil(perfil);
 		postulante.setClave(encoder.encode(contraseña));
 		postulante.setRol(Rol.POSTULANTE);
 
@@ -49,9 +47,9 @@ public class PostulanteServicio {
 	
 	@Transactional
 	public void modificar(String dni, String email, String contraseña, String nombre, String apellido, Date fechaNac,
-			Integer edad, Integer telefono, String genero, String direccion, String pais, Perfil perfil)
+			Integer edad, Integer telefono, String genero, String direccion, String pais)
 			throws Exception {
-		validar(dni, email, contraseña, nombre, apellido, fechaNac, edad, telefono, genero, direccion, pais, perfil);
+		validar(dni, email, contraseña, nombre, apellido, fechaNac, edad, telefono, genero, direccion, pais);
 		Postulante postulante;
 		postulante =  buscarXId(dni);
 
@@ -65,8 +63,7 @@ public class PostulanteServicio {
 		postulante.setGenero(genero);
 		postulante.setDireccion(direccion);
 		postulante.setPais(pais);
-		postulante.setPerfil(perfil);
-
+	
 		postulanteRepositorio.save(postulante);
 	}
 	@Transactional
@@ -80,7 +77,7 @@ public class PostulanteServicio {
 	
 
 	public void validar(String dni, String email, String contraseña, String nombre, String apellido, Date fechaNac,
-			Integer edad, Integer telefono, String genero, String direccion, String pais, Perfil perfil)
+			Integer edad, Integer telefono, String genero, String direccion, String pais)
 			throws Exception {
 
 		if (dni.isEmpty() || dni == null) {
@@ -115,10 +112,7 @@ public class PostulanteServicio {
 		}
 		if (pais.isEmpty() || pais == null) {
 			throw new Exception("el pais no pude ser nulo");
-		}
-		if (perfil == null) {
-			throw new Exception("el perfil no pude ser nulo");
-		}
+		}		
 	}
 	
 	public Postulante buscarXId(String dni)throws Exception{

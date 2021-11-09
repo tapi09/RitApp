@@ -32,8 +32,6 @@ public class Trabajo {
     private int tiempo;
     private double sueldo;
     private String lugar;
-    @OneToOne
-    private Perfil perfilABuscar;
     @OneToMany
     private List<Postulante> listaPostulantes;
     @OneToMany

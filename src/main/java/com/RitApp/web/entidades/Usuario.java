@@ -12,13 +12,20 @@ import org.hibernate.annotations.GenericGenerator;
 
 import com.RitApp.web.enums.Rol;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-@Data
+
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @SuperBuilder
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Usuario {
     @Id
     @GeneratedValue(generator = "uuid")

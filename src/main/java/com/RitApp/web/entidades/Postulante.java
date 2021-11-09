@@ -1,10 +1,8 @@
 package com.RitApp.web.entidades;
 
-import java.io.File;
 import java.util.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -13,9 +11,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 @Entity
 @Data
-@Builder
+@SuperBuilder
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
@@ -28,14 +27,8 @@ public class Postulante extends Usuario {
     private Date fechaNacimiento;
     private int edad;
     private Integer telefono;
-    @OneToOne
-    private Foto foto;
-    private File cv;
     private String genero;
     private String direccion;
     private String pais;
-    @OneToOne
-    private Perfil perfil;
-
     
 }
