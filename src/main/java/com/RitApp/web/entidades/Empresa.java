@@ -2,35 +2,27 @@
 package com.RitApp.web.entidades;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 
 @Entity
 @Data
+@Builder
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
-@SuperBuilder
 @NoArgsConstructor
-public class Empresa extends Registro {
-    
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    private String id;
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
+public class Empresa extends Usuario {
     private String nombre;
     private String actividad;
     private String sitioWeb;
     private String beneficios;
     private String sobreNosotros;
     private String pais;
+    @OneToOne
     private Foto foto;
 }

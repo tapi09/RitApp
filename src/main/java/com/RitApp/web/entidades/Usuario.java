@@ -1,55 +1,31 @@
 package com.RitApp.web.entidades;
 
-import java.awt.Image;
-import java.io.File;
-import java.util.Date;
-
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
-import lombok.AllArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
+
+import com.RitApp.web.enums.Rol;
+
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-@Entity
 @Data
-@EqualsAndHashCode(callSuper = true)
-@AllArgsConstructor
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 @SuperBuilder
-@NoArgsConstructor
-public class Usuario extends Registro {
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-
-=======
-    
->>>>>>> Stashed changes
-=======
-    
->>>>>>> Stashed changes
-    private String dni;
-    private String nombre;
-    private String apellido;
-    @Temporal(TemporalType.DATE)
-    private Date fechaNacimiento;
-    private int edad;
-    private Integer telefono;
-
-<<<<<<< Updated upstream
-    private Image foto;
-=======
-    private Foto foto;
->>>>>>> Stashed changes
-    private File cv;
-    private String genero;
-    private String direccion;
-    private String pais;
-    @OneToOne
-    private Perfil perfil;
-
-    
+public class Usuario {
+    @Id
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2") 
+    protected String id;
+    protected String email;
+    protected String clave;
+    @Enumerated(EnumType.STRING)
+    protected Rol rol;
 }

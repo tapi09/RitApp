@@ -1,15 +1,42 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="es">
 
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>prueba</title>
+    
     <link rel="stylesheet" href="">
   </head>
   <body>
-  <h1> pruebita </h1>
-
+     <h1> pruebita </h1>
+     <div>
+   		 	<a href="/empresa/registrar" class="btn btn-info">Registar Empresa</a>
+    		<a href="/usuario" class="btn btn-info">Registar Usuario</a>
+    		<a href="/trabajo/registrar" class="btn btn-info">Registar Trabajo</a>
+    </div>
+    <br>
+    <hr>
+    <br>
+    <div>
+    		<a href="/empresa/modificar" class="btn btn-info">Modificar Empresa</a>
+    		<a href="/usuario/modificar" class="btn btn-info">Modificar Usuario</a>
+    		<a href="/trabajo/seleccion_modificar" class="btn btn-info">Modificar Trabajo</a>
+    </div>
+    <br>
+    <hr>
+    <br>
+    <div>
+    		<a href="/trabajo/tabla" class="btn btn-info">Consultar Trabajos</a>
+    		<a href="/trabajo/consulta_ver" class="btn btn-info">ver Trabajos</a>
+    </div>
+     <br>
+    <hr>
+    <br>
+    <div>
+    		<a href="/login" class="btn btn-info">Login</a>
+    		<a href="/logout" class="btn btn-info">Logout</a>
+    </div>
   </body>
 </html>

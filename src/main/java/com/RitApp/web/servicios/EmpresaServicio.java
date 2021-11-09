@@ -1,18 +1,18 @@
 
 package com.RitApp.web.servicios;
 
-import com.RitApp.web.entidades.Empresa;
-import com.RitApp.web.entidades.Foto;
-import com.RitApp.web.repositorios.EmpresaRepositorio;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.RitApp.web.entidades.Empresa;
+import com.RitApp.web.entidades.Foto;
+import com.RitApp.web.repositorios.EmpresaRepositorio;
 
 @Service
 public class EmpresaServicio {
@@ -22,17 +22,15 @@ public class EmpresaServicio {
     
     @Autowired
     private FotoServicio fotoServicio;
-    
-    //Estaria bueno AGREGAR un LOGO a la empresa cuando la creamos
-    //MultipartFile seria la entidad para cargar archivos
+
     @Transactional
     public void crearEmpresa(String email, String contraseña1, String contraseña2, String nombre, String actividad, String sitioWeb, String beneficios, String sobreNostros, String pais, MultipartFile archivo) throws Exception {
         try {
             validarContraseña(contraseña1, contraseña2);
-            
+            BCryptPasswordEncoder encoder= new BCryptPasswordEncoder();
             Empresa empresa = new Empresa();
             empresa.setEmail(email);
-            empresa.setContraseña(contraseña1);
+            empresa.setClave(encoder.encode(contraseña1));
             empresa.setNombre(nombre);
             empresa.setActividad(actividad);
             empresa.setSitioWeb(sitioWeb);
@@ -56,7 +54,7 @@ public class EmpresaServicio {
         try {
             Empresa empresa = empresaRepositorio.getById(id);
             empresa.setEmail(email);
-            empresa.setContraseña(contraseña);
+            empresa.setClave(contraseña);
             empresa.setNombre(nombre);
             empresa.setActividad(actividad);
             empresa.setSitioWeb(sitioWeb);

@@ -35,9 +35,9 @@ public class Trabajo {
     @OneToOne
     private Perfil perfilABuscar;
     @OneToMany
-    private List<Usuario> listaPostulantes;
+    private List<Postulante> listaPostulantes;
     @OneToMany
-    private List<Usuario> listaMatch;
+    private List<Postulante> listaMatch;
     @ManyToOne
     private Empresa empresa;
 }
