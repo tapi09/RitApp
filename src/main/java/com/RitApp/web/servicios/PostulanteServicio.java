@@ -1,7 +1,6 @@
 
 package com.RitApp.web.servicios;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,38 +21,29 @@ public class PostulanteServicio {
 	private PostulanteRepositorio postulanteRepositorio;
 
 	@Transactional
-	public void crearUsuario(String dni, String email, String contraseña, String nombre, String apellido, Date fechaNac,
-			Integer edad, Integer telefono, String genero, String direccion, String pais)
-			throws Exception {
-		validar(dni, email, contraseña, nombre, apellido, fechaNac, edad, telefono, genero, direccion, pais);
+	public void crearPostulante(String nombre, String apellido, String email, String contraseña, String contraseña1,
+			Integer telefono) throws Exception {
+		validar(nombre, apellido, email, contraseña, contraseña1, telefono);
 		Postulante postulante;
-		BCryptPasswordEncoder encoder= new BCryptPasswordEncoder();
-		postulante = new Postulante();		
-		postulante.setDni(dni);
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		postulante = new Postulante();
 		postulante.setEmail(email);
 		postulante.setNombre(nombre);
 		postulante.setApellido(apellido);
-		postulante.setFechaNacimiento(fechaNac);
-		postulante.setEdad(edad);
 		postulante.setTelefono(telefono);
-		postulante.setGenero(genero);
-		postulante.setDireccion(direccion);
-		postulante.setPais(pais);
 		postulante.setClave(encoder.encode(contraseña));
 		postulante.setRol(Rol.POSTULANTE);
 
 		postulanteRepositorio.save(postulante);
 	}
-	
-	@Transactional
+
+	/*@Transactional
 	public void modificar(String dni, String email, String contraseña, String nombre, String apellido, Date fechaNac,
-			Integer edad, Integer telefono, String genero, String direccion, String pais)
-			throws Exception {
+			Integer edad, Integer telefono, String genero, String direccion, String pais) throws Exception {
 		validar(dni, email, contraseña, nombre, apellido, fechaNac, edad, telefono, genero, direccion, pais);
 		Postulante postulante;
-		postulante =  buscarXId(dni);
+		postulante = buscarXId(dni);
 
-		
 		postulante.setEmail(email);
 		postulante.setNombre(nombre);
 		postulante.setApellido(apellido);
@@ -63,67 +53,53 @@ public class PostulanteServicio {
 		postulante.setGenero(genero);
 		postulante.setDireccion(direccion);
 		postulante.setPais(pais);
-	
+
 		postulanteRepositorio.save(postulante);
-	}
+	}*/
+
 	@Transactional
-	public void eliminar(String dni) throws Exception {
-		Postulante postulante = buscarXId(dni);
-			postulanteRepositorio.delete(postulante);
-		
+	public void eliminar(String id) throws Exception {
+		Postulante postulante = buscarXId(id);
+		postulanteRepositorio.delete(postulante);
+
 	}
-	
-	
-	
 
-	public void validar(String dni, String email, String contraseña, String nombre, String apellido, Date fechaNac,
-			Integer edad, Integer telefono, String genero, String direccion, String pais)
-			throws Exception {
+	public void validar(String nombre, String apellido, String email, String contraseña, String contraseña1, Integer telefono) throws Exception {
 
-		if (dni.isEmpty() || dni == null) {
-			throw new Exception("el dni no pude ser nulo");
-		}
 		if (email.isEmpty() || email == null) {
 			throw new Exception("el email no pude ser nulo");
 		}
 		if (contraseña.isEmpty() || contraseña == null) {
 			throw new Exception("la contraseña no pude ser nula");
+			
+		}
+		if (!contraseña.equals(contraseña1)) {
+			throw new Exception("las contraseñas deben coincidir");
+			
 		}
 		if (nombre.isEmpty() || nombre == null) {
 			throw new Exception("el nombre no pude ser nulo");
 		}
 		if (apellido.isEmpty() || apellido == null) {
 			throw new Exception("el apellido no pude ser nulo");
-		}
-		if (fechaNac == null) {
-			throw new Exception("fechaNac no pude ser nula");
-		}
-		if (edad == null) {
-			throw new Exception(" edad no pude ser nula");
+
 		}
 		if (telefono == null) {
 			throw new Exception("el telefono no pude ser nulo");
+
 		}
-		if (genero.isEmpty() || genero == null) {
-			throw new Exception("el genero no pude ser nulo");
-		}
-		if (direccion.isEmpty() || direccion == null) {
-			throw new Exception("la direccion no pude ser nula");
-		}
-		if (pais.isEmpty() || pais == null) {
-			throw new Exception("el pais no pude ser nulo");
-		}		
 	}
-	
-	public Postulante buscarXId(String dni)throws Exception{
-		Optional<Postulante> respuesta = postulanteRepositorio.findById(dni);
+
+	public Postulante buscarXId(String id) throws Exception {
+		Optional<Postulante> respuesta = postulanteRepositorio.findById(id);
 		if (respuesta.isPresent()) {
 			return respuesta.get();
 		} else {
 			throw new Exception("no se encuentra ningun Postulante con el id");
 		}
 	}
-	public List<Postulante> listar(){
+
+	public List<Postulante> listar() {
 		return postulanteRepositorio.findAll();
 	}
 }

@@ -18,26 +18,21 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.RitApp.web.entidades.Usuario;
+import com.RitApp.web.enums.Rol;
 import com.RitApp.web.repositorios.UsuarioRepositorio;
 
 @Service
 public class UsuarioServicio implements UserDetailsService {
 	@Autowired
 	private UsuarioRepositorio usuarioRepositorio;
-	
-	public void guardar(Usuario user) {
-		BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
-		user.setClave(encoder.encode(user.getClave()));		
-		usuarioRepositorio.save(user);
-	}
-
 	@Override
+
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {			
 		try {
 			Usuario usuario = usuarioRepositorio.buscarPorEmail(email);			
 			if (usuario != null) {
 				List<GrantedAuthority> authorities = new ArrayList<>();
-				GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().toString());
+				GrantedAuthority p = new SimpleGrantedAuthority(usuario.getRol().toString());
 				authorities.add(p);
 				ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
 				HttpSession session = attr.getRequest().getSession(true);
@@ -50,6 +45,25 @@ public class UsuarioServicio implements UserDetailsService {
 		}
 		return null;
 	}
+	public void guardarUser(String email,String password) {
+		BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
+		Usuario usuario= new Usuario();
+		usuario.setEmail(email);	
+		usuario.setClave(encoder.encode(password));
+		usuario.setRol(Rol.POSTULANTE);
+		usuarioRepositorio.save(usuario);	
+		
+	}
+	public boolean estado(String email) {
+		Usuario nuevoUsuario=new Usuario();
+		nuevoUsuario=usuarioRepositorio.buscarPorEmail(email);	
+    	if (nuevoUsuario!=null) {
+		return true;
+    	}else {
+			return false;
+		}
+	}
 	
+	}
 	
-}
+
