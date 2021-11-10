@@ -9,6 +9,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PostulanteRepositorio extends JpaRepository<Postulante, String> {
-	@Query("SELECT a from Postulante a WHERE a.email LIKE :email")
-	public Postulante buscarPorEmail(@Param("email") String email);
+
 }

@@ -14,18 +14,12 @@
         <div class="step__header">
             <h2 class="step__title">Login<small></small></h2>
         </div>
-        <div class="text-right">
-            <a href="/logout" class="step__button step__button--next">Logout</a>
-            <br>
-            <p th:if="${logout != null}" th:text="${logout}" style="color:green;"> </p>
-        </div>
-
         <form  th:action="@{/logincheck}" method="POST" class="form-register">
             <p th:if="${error != null}" th:text="${error}" style="color:red;"> </p>
 
             <input type="text" Placeholder="email" name="email" class="step__input" />
             <br>
-            <input type="text" Placeholder="clave" name="clave" class="step__input" />
+            <input type="password" Placeholder="password" name="password" class="step__input" />
             <br>
             <br>
             <button type="submit" class="step__button step__button--next">Ingresar</button>

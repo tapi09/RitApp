@@ -12,19 +12,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("/login")
 public class LoginController {
-	@GetMapping("")
-	public String login(Model modelo,@RequestParam(required=false) String error,@RequestParam(required=false) String email) {		
-		if (error!= null) {
-			modelo.addAttribute("error", "El usuario o la contraseña son incorrectos");
-		}
-		if (email!= null) {
-			modelo.addAttribute("username", email);
-		}
-	return null;
+
+	@GetMapping ("/pagina_inicio")
+	public String paginainicio(HttpSession session, Authentication usuario,Model modelo) {
+		modelo.addAttribute("mensaje", "Bienvenido "+usuario.getName());
+		modelo.addAttribute("rol", "Su rol es "+usuario.getAuthorities().toString());
+		return"/pagina_inicio";
 	}
-	@GetMapping("/loginsuccess")
-	public String loginresolver() {
-				
-		return "redirect:/";
-}
 }
