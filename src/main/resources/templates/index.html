@@ -15,6 +15,7 @@
     <br>
     <div>
     <p>Breve reseña sobre la pagina</p>
+    <p th:if="${logout != null}" th:text="${logout}" style="color:red;"> </p>
     		<a href="/registro_empresa" class="btn btn-info">registro empresas</a>
     		<a href="/registro_postulante" class="btn btn-info">registro postulanes</a>
     		<a href="/login" class="btn btn-info">Login</a>
