@@ -1,44 +1,38 @@
-
 package com.RitApp.web.entidades;
 
-import java.awt.Image;
-import java.io.File;
-import java.util.Date;
-
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+
+import org.hibernate.annotations.GenericGenerator;
+
+import com.RitApp.web.enums.Rol;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+
 
 @Entity
 @Data
 @AllArgsConstructor
-@Builder
 @NoArgsConstructor
+@SuperBuilder
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Usuario {
-	@Id
-	private String dni;
-	private String email;
-	private String contraseña;
-	private String nombre;
-	private String apellido;
-	@Temporal(TemporalType.DATE)
-	private Date fechaNacimiento;
-	private int edad;
-	private Integer telefono;
-
-	private Image foto;
-	private File cv;
-	private String genero;
-	private String direccion;
-	private String pais;
-	@OneToOne
-	private Perfil perfil;
-
+    @Id
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2") 
+    protected String id;
+    protected String email;
+    protected String clave;
+    @Enumerated(EnumType.STRING)
+    protected Rol rol;
 }

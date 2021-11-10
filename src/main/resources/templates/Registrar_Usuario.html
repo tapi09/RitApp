@@ -1,0 +1,235 @@
+<!DOCTYPE html >
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Registrar_Usuario</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="root">
+        <form th:action="@{/usuario/crear}" method="POST" enctype="multipart/form-data" class="form-register">
+            <div class="form-register__header">
+                <ul class="progressbar">
+                    <li class="progressbar__option active">paso 1</li>
+                    <li class="progressbar__option">paso 2</li>
+                    <li class="progressbar__option">paso 3</li>
+                    <li class="progressbar__option">paso 4</li>
+                    <li class="progressbar__option">paso 5</li>
+                </ul>
+                <h1 class="form-register__title">Registro</h1>
+            </div>
+            <div class="form-register__body">
+                <div class="step active" id="step-1">
+                    <div class="step__header">
+                        <h2 class="step__title">Información personal<small></small></h2>
+                    </div>
+                    <div class="step__body">
+                        <p th:if="${error != null}" th:text="${error}" style="color:red;"> </p> 
+                        <input type="text" placeholder="Nombre" class="step__input" name="nombre" th:value="${nombre}">
+                        <input type="text" placeholder="Apellido" class="step__input" name="apellido" th:value="${apellido}"> 
+                        <input type="text" placeholder="DNI" class="step__input"  name="dni" th:value="${dni}">
+                        <input type="email" placeholder="Correo" class="step__input"  name="email" th:value="${email}">
+                        <input type="password" placeholder="Contraseña" class="step__input"  name="contraseña1" th:value="${contrasea_1}">
+                        <input type="password" placeholder="Confirmar contraseña" class="step__input"  name="contrasea_2" th:value="${contrasea_2}">
+                    </div>
+                    <div class="step__footer">
+                        <button type="button" class="step__button step__button--next" data-to_step="2" data-step="1">Siguiente</button>
+                    </div>
+                </div>
+                <div class="step" id="step-2">
+                    <div class="step__header">
+                        <h2 class="step__title">Información personal<small></small></h2>
+                    </div>
+                    <div class="step__body">
+                        <p th:if="${error != null}" th:text="${error}" style="color:red;"> </p>  
+                        <input type="date" placeholder="Fecha De Nacimiento" class="step__input" name="fechaDeNacimiento" th:value="${fechaDeNacimiento}">
+                        <input type="number" placeholder="Edad" class="step__input" name="edad" th:value="${edad}">
+                        <select type="text" size="1" class="step__input" name="genero" th:value="${genero}"> 
+                            <option value="" selected>Genero</option>
+                            <option value="Hombre">Hombre</option>
+                            <option value="Mujer">Mujer</option>
+                        </select>
+                        <input type="text" placeholder="Telefono" class="step__input" name="telefono" th:value="${telefono}">
+                        <input type="text" placeholder="Direccion" class="step__input" name="direccion" th:value="${direccion}">
+                        <input type="text" placeholder="Pais " class="step__input" name="pais" th:value="${pais}">
+                    </div>
+                    <div class="step__footer">
+                        <button type="button" class="step__button step__button--back" data-to_step="1" data-step="2">Anterior</button>
+                        <button type="button" class="step__button step__button--next" data-to_step="3" data-step="2">Siguiente</button>
+                    </div>
+                </div>
+                <div class="step" id="step-3">
+                    <div class="step__header">
+                        <h2 class="step__title">Información personal<small></small></h2>
+                    </div>
+                    <div class="step__body">
+                        <p th:if="${error != null}" th:text="${error}" style="color:red;"> </p> 
+                       <label for="Foto"> Foto </label> 
+                       <input type="file" id="Foto" class="step__input" name="foto">
+                       <label for="CV"> CV </label> 
+                       <input type="file" id="CV" accept= ".doc,.docx, .pdf" class="step__input" name="cv">
+                    </div>
+                    <div class="step__footer">
+                        <button type="button" class="step__button step__button--back" data-to_step="2" data-step="3">Anterior</button>
+                        <button type="button" class="step__button step__button--next" data-to_step="4" data-step="3">Siguiente</button>
+                    </div>
+                </div>
+                <div class="step" id="step-4">
+                    <div class="step__header">
+                        <h2 class="step__title">Perfil Laboral<small></small></h2>
+                    </div>
+                    <div class="step__body">
+                        <p th:if="${error != null}" th:text="${error}" style="color:red;"> </p>  
+                        <input type="text" placeholder="Proyectos" class="step__input" name="proyectos" th:value="${proyectos}">
+                        <input type="text" placeholder="Experiencias " class="step__input" name="experiencias" th:value="${experiencias}">
+                        
+                        <select type="text" size="1" class="step__input" name="disponibilidadHoraria" th:value="${disponibilidadHoraria}"> 
+                            <option value="" selected> Disponibilidad Horaria</option>
+                            <option value="Part-Time">Part-Time</option>
+                            <option value="Full-Time">Full-Time</option>
+                        </select>
+                        
+                        <select type="text" size="1" class="step__input" name="idioma_1" th:value="${idioma_1}"> 
+                            <option value="" selected> Idioma</option>
+                            <option value="Ingles">Ingles</option>
+                            <option value="Italiano">Italiano</option>
+                            <option value="Frances">Frances</option>
+                        </select>
+                        
+                        <select type="text" size="1" class="step__input" name="nivelIdioma_1" th:value="${nivelIdioma_1}"> 
+                            <option value="" selected> Nivel </option>
+                            <option value="Basico">Basico</option>
+                            <option value="Intermedio">Intermedio</option>
+                            <option value="Avanzado">Avanzado</option>
+                        </select>
+                        
+                        <select type="text"  size="1" class="step__input" name="idioma_2" th:value="${idioma_2}"> 
+                            <option value="" selected>Idioma</option>
+                            <option value="Ingles">Ingles</option>
+                            <option value="Italiano">Italiano</option>
+                            <option value="Frances">Frances</option>
+                        </select>
+                        
+                        <select type="text"  size="1" class="step__input" name="nivelIdioma_2" th:value="${nivelIdioma_2}"> 
+                            <option value="" selected> Nivel </option>
+                            <option value="Basico">Basico</option>
+                            <option value="Intermedio">Intermedio</option>
+                            <option value="Avanzado">Avanzado</option>
+                        </select>
+                        
+                        <select type="text"  size="1" class="step__input" name="idioma_3" th:value="${idioma_3}"> 
+                             <option value="" selected>Idioma</option>
+                            <option value="Ingles">Ingles</option>
+                            <option value="Italiano">Italiano</option>
+                            <option value="Frances">Frances</option>
+                        </select>
+                        
+                        <select type="text"  size="1" class="step__input" name="nivelIdioma_3" th:value="${nivelIdioma_3}"> 
+                            <option value="" selected> Nivel </option>
+                            <option value="Basico">Basico</option>
+                            <option value="Intermedio">Intermedio</option>
+                            <option value="Avanzado">Avanzado</option>
+                        </select>
+                        
+                    </div>
+                    <div class="step__footer">
+                        <button type="button" class="step__button step__button--back" data-to_step="3" data-step="4">Anterior</button>
+                        <button type="button" class="step__button step__button--next" data-to_step="5" data-step="4">Siguiente</button>
+                    </div>
+                </div>
+                <div class="step" id="step-5">
+                    <div class="step__header">
+                        <h2 class="step__title">Perfil Laboral</h2><small></small></h2>
+                    </div>
+                    <div class="step__body">
+                        <p th:if="${error != null}" th:text="${error}" style="color:red;"> </p>  
+                        <input type="text" placeholder="formacionAcademica" class="step__input" name="formacionAcademica" th:value="${formacionAcademica}">
+                        
+                        <select type="text" size="1" class="step__input" name="lenguaje_1" th:value="${lenguaje_1}"> 
+                            <option value="" selected> Lenguaje</option>
+                            <option value="Java">Java</option>
+                            <option value="Python">Python</option>
+                            <option value="Ruby">Ruby</option>
+                            <option value="PHP">PHP</option>
+                            <option value="Java_Script">Java Script</option>
+                            <option value="React">React</option>
+                        </select>
+                        <select type="text" size="1" class="step__input" name="lenguaje_2" th:value="${lenguaje_2}"> 
+                            <option value="" selected> Lenguaje</option>
+                            <option value="Java">Java</option>
+                            <option value="Python">Python</option>
+                            <option value="Ruby">Ruby</option>
+                            <option value="PHP">PHP</option>
+                            <option value="Java_Script">Java Script</option>
+                            <option value="React">React</option>
+                        </select>
+                        <select type="text" size="1" class="step__input" name="lenguaje_3" th:value="${lenguaje_3}"> 
+                            <option value="" selected> Lenguaje</option>
+                            <option value="Java">Java</option>
+                            <option value="Python">Python</option>
+                            <option value="Ruby">Ruby</option>
+                            <option value="PHP">PHP</option>
+                            <option value="Java_Script">Java Script</option>
+                            <option value="React">React</option>
+                        </select>
+                        <select type="text" size="1" class="step__input" name="lenguaje_4" th:value="${lenguaje_4}"> 
+                            <option value="" selected> Lenguaje</option>
+                            <option value="Java">Java</option>
+                            <option value="Python">Python</option>
+                            <option value="Ruby">Ruby</option>
+                            <option value="PHP">PHP</option>
+                            <option value="Java_Script">Java Script</option>
+                            <option value="React">React</option>
+                        </select>
+                        <select type="text" size="1" class="step__input" name="lenguaje_5" th:value="${lenguaje_5}"> 
+                            <option value="" selected> Lenguaje</option>
+                            <option value="Java">Java</option>
+                            <option value="Python">Python</option>
+                            <option value="Ruby">Ruby</option>
+                            <option value="PHP">PHP</option>
+                            <option value="Java_Script">Java Script</option>
+                            <option value="React">React</option>
+                        </select>
+                        <select type="text" size="1" class="step__input" name="lenguaje_6" th:value="${lenguaje_6}"> 
+                            <option value="" selected> Lenguaje</option>
+                            <option value="Java">Java</option>
+                            <option value="Python">Python</option>
+                            <option value="Ruby">Ruby</option>
+                            <option value="PHP">PHP</option>
+                            <option value="Java_Script">Java Script</option>
+                            <option value="React">React</option>
+                        </select>
+                         
+                        
+                        <select type="text" size="1" class="step__input" name="senioritys" th:value="${senioritys}"> 
+                            <option value="" selected> Senioritys</option>
+                            <option value="Trainee">Trainee</option>
+                            <option value="Junior">Junior</option>
+                            <option value="Semi-Senior">Semi-Senior</option>
+                            <option value="Senior">Senior</option> 
+                        </select>
+                       
+                        </select>
+                        
+                        <select type="text" size="1" class="step__input" name="estado" th:value="${estado}"> 
+                            <option value="" selected> Estado</option>
+                            <option value="Desempleado">Desempleado</option>
+                            <option value="Empleado">Empleado</option>                     
+                        </select>
+ 
+                        <input type="text" placeholder="Trabajo Actual" class="step__input" name="trabaja" th:value="${trabaja}">
+                        
+                    </div>
+                    <div class="step__footer">
+                        <button type="button" class="step__button step__button--back" data-to_step="4" data-step="5">Anterior</button>
+                        <button type="submit" class="step__button">Registrarse</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script th:src="@{/js/app.js}"></script>
+</body>
+</html>
