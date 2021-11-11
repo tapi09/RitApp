@@ -1,14 +1,10 @@
 
 package com.RitApp.web.entidades;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -26,16 +22,17 @@ public class Trabajo {
 	@Id
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
-    private String id;
-    private String puesto;
-    private String tipo;
-    private int tiempo;
-    private double sueldo;
-    private String lugar;
-    @OneToMany
-    private List<Postulante> listaPostulantes;
-    @OneToMany
-    private List<Postulante> listaMatch;
-    @ManyToOne
-    private Empresa empresa;
+	private String id;
+	private String puesto;
+	private String lenguaje;
+	private String tipo;
+	private String tiempo;
+	@ManyToOne
+	private Empresa empresa;
+	/*
+	 * @OneToMany private List<Postulante> listaPostulantes;
+	 * 
+	 * @OneToMany private List<Postulante> listaMatch;
+	 */
+
 }

@@ -7,7 +7,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -29,10 +28,9 @@ public class PortalController {
 		}
 		return "login";
 	}
-	@PostMapping("/logout")
+	@GetMapping("/logout")
 	public String logout(HttpSession session, Authentication usuario,Model modelo){
-			modelo.addAttribute("logout", "Cerro sesion con exito");
-			return "redirect:/";
+			return "login";
 	}
 	@GetMapping("/registro_postulante")
 	public String registro_postulante(){
