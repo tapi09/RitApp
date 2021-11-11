@@ -6,7 +6,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.RitApp.web.entidades.Usuario;
-import com.RitApp.web.entidades.Postulante;
 @Repository
 public interface UsuarioRepositorio extends JpaRepository <Usuario, String> {
 	@Query("SELECT a from Usuario a WHERE a.email LIKE :email")

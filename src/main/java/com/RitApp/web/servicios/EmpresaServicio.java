@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.RitApp.web.entidades.Empresa;
-import com.RitApp.web.enums.Rol;
 import com.RitApp.web.repositorios.EmpresaRepositorio;
 
 @Service
@@ -22,7 +21,7 @@ public class EmpresaServicio {
 
 
     @Transactional
-    public void crearEmpresa(String email, String contraseña1, String contraseña2, String nombre, String actividad, String sitioWeb, String beneficios, String sobreNostros, String pais) throws Exception {
+    public void crearEmpresa(String email, String contraseña1, String contraseña2, String nombre, String actividad, String sitioWeb, String beneficios, String sobreNostros, String pais, MultipartFile archivo) throws Exception {
         try {
             validarContraseña(contraseña1, contraseña2);
             BCryptPasswordEncoder encoder= new BCryptPasswordEncoder();
@@ -34,8 +33,8 @@ public class EmpresaServicio {
             empresa.setSitioWeb(sitioWeb);
             empresa.setBeneficios(beneficios);
             empresa.setSobreNosotros(sobreNostros);
-            empresa.setPais(pais);  
-            empresa.setRol(Rol.EMPRESA);
+            empresa.setPais(pais);
+            
             empresaRepositorio.save(empresa);
             
         } catch (Exception e) {
