@@ -5,38 +5,44 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>prueba</title>
-    
-    <link rel="stylesheet" href="">
+    <title>Index</title>
+    <link rel="stylesheet" href="/css/style.css">
   </head>
+  
   <body>
-     <h1> pruebita </h1>
-     <div>
-   		 	<a href="/empresa/registrar" class="btn btn-info">Registar Empresa</a>
-    		<a href="/usuario" class="btn btn-info">Registar Usuario</a>
-    		<a href="/trabajo/registrar" class="btn btn-info">Registar Trabajo</a>
-    </div>
-    <br>
-    <hr>
-    <br>
-    <div>
-    		<a href="/empresa/modificar" class="btn btn-info">Modificar Empresa</a>
-    		<a href="/usuario/modificar" class="btn btn-info">Modificar Usuario</a>
-    		<a href="/trabajo/seleccion_modificar" class="btn btn-info">Modificar Trabajo</a>
-    </div>
-    <br>
-    <hr>
-    <br>
-    <div>
-    		<a href="/trabajo/tabla" class="btn btn-info">Consultar Trabajos</a>
-    		<a href="/trabajo/consulta_ver" class="btn btn-info">ver Trabajos</a>
-    </div>
-     <br>
-    <hr>
-    <br>
-    <div>
-    		<a href="/login" class="btn btn-info">Login</a>
-    		<a href="/logout" class="btn btn-info">Logout</a>
-    </div>
+   	<div class="root"> 
+	  	<header>
+	  		<div class="welcome">
+	                <h1>Bienvenidos a RiTaap</h1>
+	                <hr>
+	                <p> El Match laboral Agil y Eficiente</p>
+	                <button id="Registro(abajo)"> A Registrarse</button>
+	     </div>
+	  	</header>
+	  	
+	  	<main>
+	        <!--acerca de-->
+			
+	        <h2>Acerca de Nosotros</h2>
+	        <p>Somos una Tool PRO , que permite tanto a empresas y candidatos conseguir el mayor numero de informacion, sobre candidatos, empresas o puestos vacantes en el menor tiempo posible.</p>
+			<br>
+			<p>Nuestro objetivo es el Job Matching , poner en contacto a la empresa como al candidato de una manera mucho más relajada, y que resulte para ambas partes más distendida.</p>
+	
+	
+	    </main>
+
+
+	    <p th:if="${logout != null}" th:text="${logout}" style="color:red;"> </p>
+	    		<a href="/registro_empresa" class="step__button step__button--next">registro empresas</a>
+	    		<a href="/registro_postulante" class="step__button step__button--next">registro postulanes</a>
+	    		<a href="/login" class="step__button step__button--next">Login</a>
+	    </div>
+	 </div> 
+	 
+	 
+	  <!--Scripts-->
+    <script src="https://kit.fontawesome.com/35db202371.js"></script>
+    <script src="js/app.js"></script>
+    
   </body>
 </html>

@@ -1,7 +1,5 @@
 package com.RitApp.web.controllers;
 
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,11 +7,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import com.RitApp.web.entidades.Postulante;
+
 import com.RitApp.web.servicios.PostulanteServicio;
 
 @Controller
-@RequestMapping("/usuario")
+@RequestMapping("/postulante")
 public class PostulanteController {
 
 	@Autowired
@@ -37,12 +35,10 @@ public class PostulanteController {
 		return "/login";
 	}
 	@PostMapping("/crear")
-	public String crear(Model modelo, @RequestParam String apellido, @RequestParam String contraseña, 
-			@RequestParam String direccion, @RequestParam String dni, @RequestParam Integer edad,
-			@RequestParam String email, @RequestParam Date fechaNac, @RequestParam String genero, 
-			@RequestParam String nombre, @RequestParam String pais, @RequestParam Integer telefono) throws Exception {
+	public String crear(Model modelo, @RequestParam String nombre, @RequestParam String apellido, 
+			@RequestParam String email, @RequestParam String contraseña, @RequestParam String contraseña1, @RequestParam Integer telefono) throws Exception {
 		try {
-			service.crearUsuario(dni, email, contraseña, nombre, apellido, fechaNac, edad, telefono, genero, direccion, pais);
+			service.crearPostulante(nombre, apellido, email, contraseña, contraseña1,telefono);
 
 		} catch (Exception e) {
 			System.err.println("error " + e.getMessage());
@@ -51,28 +47,25 @@ public class PostulanteController {
 		}
 		return "index.html";
 	}
-	@PostMapping("/modificar")
-	public String modificar(Model modelo, @RequestParam String dni) throws Exception {
-		try {
-			Postulante postulante = new Postulante();
-			if(dni!=null) {
-			postulante= service.buscarXId(dni);
-			}
-			modelo.addAttribute("usuario", postulante);
-		} catch (Exception e) {
-			System.out.println("error " + e.getMessage());
-			modelo.addAttribute("error ", e.getMessage());
-			return "error.html";
-		}
-		return "editarUsuario.html";
-	}
+
+	/*
+	 * @PostMapping("/modificar") public String modificar(Model
+	 * modelo, @RequestParam String dni) throws Exception { try { Postulante
+	 * postulante = new Postulante(); if(dni!=null) { postulante=
+	 * service.buscarXId(dni); } modelo.addAttribute("usuario", postulante); } catch
+	 * (Exception e) { System.out.println("error " + e.getMessage());
+	 * modelo.addAttribute("error ", e.getMessage()); return "error.html"; } return
+	 * "editarUsuario.html";
+	 * }
+	 */
+	
 	@GetMapping("/eliminar")
-	public String eliminar(@RequestParam String dni) throws Exception {
+	public String eliminar(@RequestParam String id) throws Exception {
 		try {
-			if(dni!=null) {
-				service.eliminar(dni);
+			if(id!=null) {
+				service.eliminar(id);
 			}else {
-			System.out.println("dni null");
+			throw new Exception ("id null");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
