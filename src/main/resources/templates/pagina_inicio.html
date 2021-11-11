@@ -16,11 +16,11 @@
             <p th:if="${mensaje != null}" th:text="${mensaje}" style="color:green;"> </p>
             <p th:if="${rol != null}" th:text="${rol}" style="color:green;"> </p>
         </div>
-        <div sec:authorize="hasRole('POSTULANTE')" class="text-right">
+        <div sec:authorize="hasRole('ROLE_POSTULANTE')" class="text-right">
             <a href="/trabajos" class="step__button step__button--next">trabajos</a>
             <br>
         </div>
-        <div sec:authorize="hasRole('EMPRESA')" class="text-right">
+        <div sec:authorize="hasRole('ROLE_EMPRESA')" class="text-right">
             <a href="/trabajos" class="step__button step__button--next">GENERAR PUESTO</a>
             <br>
             
