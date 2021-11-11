@@ -34,4 +34,5 @@ public class Trabajo {
 	 * 
 	 * @OneToMany private List<Postulante> listaMatch;
 	 */
+
 }

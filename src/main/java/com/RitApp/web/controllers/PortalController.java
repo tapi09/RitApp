@@ -35,6 +35,7 @@ public class PortalController {
 		modelo.addAttribute("rol", "Su rol es "+usuario.getAuthorities());
 		return"/pagina_inicio";
 }
+
 	@GetMapping("/logout")
 	public String logout(HttpSession session, Authentication usuario,Model modelo){
 			return "login";
