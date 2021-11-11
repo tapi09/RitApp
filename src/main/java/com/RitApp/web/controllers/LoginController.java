@@ -13,10 +13,5 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/login")
 public class LoginController {
 
-	@GetMapping ("/pagina_inicio")
-	public String paginainicio(HttpSession session, Authentication usuario,Model modelo) {
-		modelo.addAttribute("mensaje", "Bienvenido "+usuario.getName());
-		modelo.addAttribute("rol", "Su rol es "+usuario.getAuthorities().toString());
-		return"/pagina_inicio";
-	}
+
 }

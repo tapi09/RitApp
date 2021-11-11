@@ -27,7 +27,13 @@ public class PortalController {
 		if (error!=null) {
 			modelo.addAttribute("error", "Nombre de usuario o contraseña incorrecta");
 		}
-		return "login";
+		return "login";	
+	}
+	@GetMapping ("/pagina_inicio")
+	public String paginainicio(HttpSession session, Authentication usuario,Model modelo) {
+		modelo.addAttribute("mensaje", "Bienvenido "+usuario.getName());
+		modelo.addAttribute("rol", "Su rol es "+usuario.getAuthorities());
+		return"/pagina_inicio";
 	}
 	@PostMapping("/logout")
 	public String logout(HttpSession session, Authentication usuario,Model modelo){
