@@ -11,39 +11,36 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.RitApp.web.servicios.TrabajoServicio;
 
 @Controller
-@RequestMapping ("/trabajo")
+@RequestMapping("/trabajo")
 public class TrabajoController {
-	
+
 	@Autowired
 	TrabajoServicio servicio;
-	
+
 	@GetMapping("/listarTrabajos")
-	public String listar(Model model)throws Exception{
-		try {
-
+	public String listar(Model model) throws Exception {
+		
+			System.out.println("xxx");
 			model.addAttribute("trabajos", servicio.listarTrabajos());
-		} catch (Exception e) {
-			System.err.println("error " + e.getMessage());
-			model.addAttribute("error ", e.getMessage());
-			return "error.html";
-
-		}
+	
 		return "listarTrabajos.html";
 	}
-	
-	@PostMapping("/crearTrabajo")
-	public String crear(Model modelo,  @RequestParam String puesto, @RequestParam String tipo, @RequestParam String lenguaje, @RequestParam String tiempo ) throws Exception {
-		try {
-			servicio.crearTrabajo( puesto, lenguaje, tipo, tiempo);
 
-		} catch (Exception e) {
-			System.err.println("error " + e.getMessage());
-			modelo.addAttribute("error ", e.getMessage());
-			return "error.html";
-		}
-		return "redirect:/trabajo/listar";
+	@GetMapping("/crearTrabajo")
+	public String creando() {
+		return "crearTrabajo.html";
 	}
-	
+
+	@PostMapping("/crearTrabajo")
+	public String crear(Model modelo, @RequestParam String puesto, @RequestParam String tipo,
+			@RequestParam String lenguaje, @RequestParam String tiempo) throws Exception {
+		
+			servicio.crearTrabajo(puesto, lenguaje, tipo, tiempo);
+
+		
+		return "redirect:/trabajo/listarTrabajos";
+	}
+
 	/*
 	 * @PostMapping("/modificarTrabajo") public String modificarTrabajo(Model
 	 * modelo, @RequestParam String id) throws Exception { try { Trabajo trabajo =
@@ -52,14 +49,14 @@ public class TrabajoController {
 	 * System.out.println("error " + e.getMessage()); modelo.addAttribute("error ",
 	 * e.getMessage()); return "error.html"; } return "modificarTrabajo.html"; }
 	 */
-	
+
 	@GetMapping("/eliminarTrabajo")
 	public String eliminar(@RequestParam String id) throws Exception {
 		try {
-			if(id!=null) {
+			if (id != null) {
 				servicio.eliminar(id);
-			}else {
-			System.out.println("tipo null");
+			} else {
+				System.out.println("tipo null");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -67,8 +64,6 @@ public class TrabajoController {
 		return "redirect:/trabajo/listar";
 
 	}
-	
-	
 	
 
 }

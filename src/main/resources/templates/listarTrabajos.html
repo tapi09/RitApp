@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Ver Trabajos</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link rel="stylesheet" th:href="@{/css/style.css}">
+    
+</head>
+<body>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+           
+                <th>Puesto</th>
+                <th>Lenguaje</th>
+                <th>Tipo</th>
+                <th>Tiempo</th>
+               <!-- <th>Empresa</th>-->
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each= "trabajo : ${trabajos}">
+             
+                <td th:text="${trabajo.puesto}"></td>
+                <td th:text="${trabajo.lenguaje}"></td>
+                <td th:text="${trabajo.tipo}"></td>
+                <td th:text="${trabajo.tiempo}"></td>
+               <td sec:authorize="hasRole('ROLE_POSTULANTE')" >
+              
+            	<button href="" text="Registrar" class="step__button step__button--next">Postularse </button>
+			
+                 
+                <!--<td th:text="${trabajo.empresa}"></td>-->
+            </tr>
+        </tbody>
+    </table>
+    
+    
+</body>
+</html>

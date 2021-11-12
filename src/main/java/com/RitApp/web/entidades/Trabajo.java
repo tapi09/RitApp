@@ -27,8 +27,9 @@ public class Trabajo {
 	private String lenguaje;
 	private String tipo;
 	private String tiempo;
-	@ManyToOne
-	private Empresa empresa;
+	/*
+	 * @ManyToOne private Empresa empresa;
+	 */
 	/*
 	 * @OneToMany private List<Postulante> listaPostulantes;
 	 * 
