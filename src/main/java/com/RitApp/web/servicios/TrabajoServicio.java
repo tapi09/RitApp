@@ -1,4 +1,5 @@
 package com.RitApp.web.servicios;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -14,7 +15,7 @@ public class TrabajoServicio {
 	private TrabajoRepositorio trabajoRepositorio;
 
 	// Crear trabajo (Empresa)
-	public void crearTrabajo( String puesto, String lenguaje, String tipo, String tiempo) throws Exception {
+	public void crearTrabajo(String puesto, String lenguaje, String tipo, String tiempo) throws Exception {
 		validar(puesto, lenguaje, tipo, tiempo);
 		try {
 			Trabajo trabajo = new Trabajo();
@@ -23,8 +24,9 @@ public class TrabajoServicio {
 			trabajo.setLenguaje(lenguaje);
 			trabajo.setTipo(tipo);
 			trabajo.setTiempo(tiempo);
-
+			System.out.println("lcdsm");
 			trabajoRepositorio.save(trabajo);
+			System.out.println("LPM");
 
 		} catch (Exception e) {
 			throw new Exception("Error al crear trabajo");
