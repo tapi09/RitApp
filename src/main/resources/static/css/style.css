@@ -137,8 +137,8 @@
     padding: 20px 15px;
     background-color: var(--color-header-step);
     border-radius: 20px 20px 0 0;
-    position: top;
 }
+
 
 .step__title {
     font-size: 1.1rem;
@@ -176,5 +176,48 @@
     color: white;
     border-radius: 10px;
     cursor: pointer;
-    position: relative;
+}
+/** INDEX **/
+
+.pagina {
+    min-height: 100vh;
+    background-image: linear-gradient(var(--color-bg-1), var(--color-bg-2));
+}
+/* Bienvenidos */
+#Bienvenidos{
+	width:100%;
+	height:30%;
+	margin: 0 px;
+}
+
+/* Sobre Nosotros */
+#Sobre_Nosotros{
+	width:100%;
+	height:70%;
+	margin: 0 px;
+}
+#titulo{
+    float: center;
+	margin-top: 1%;
+	margin-left: 3%;
+	padding-top: 2%;
+	
+	text-align:center; 
+	font-weight:normal;
+	font-family:"Arial";
+	line-height:1px;
+	color:black;
+}
+
+#parrafo{
+    float: left;
+	margin-top: 0.1%;
+	margin-left: 3%;
+	padding-top: 0%;
+	
+	text-align: left; 
+	font-weight:normal;
+	font-family:"Arial"; 
+	
+	color:black; 
 }

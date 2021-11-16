@@ -29,5 +29,6 @@ public class Postulante extends Usuario {
     private String genero;
     private String direccion;
     private String pais;
+    private Perfil perfil;
     
 }

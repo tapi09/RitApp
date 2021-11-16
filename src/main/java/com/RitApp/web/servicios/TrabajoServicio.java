@@ -1,8 +1,8 @@
 package com.RitApp.web.servicios;
 
+import com.RitApp.web.entidades.Perfil;
 import java.util.List;
 import java.util.Optional;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,20 +14,25 @@ import com.RitApp.web.repositorios.TrabajoRepositorio;
 public class TrabajoServicio {
 	@Autowired
 	private TrabajoRepositorio trabajoRepositorio;
+        
+        @Autowired
+        private PerfilServicio perfilServicio;
+        
+        
 
 	// Crear trabajo (Empresa)
-	public void crearTrabajo(String puesto, String lenguaje, String tipo, String tiempo) throws Exception {
-		validar(puesto, lenguaje, tipo, tiempo);
+	public void crearTrabajo(String puesto, String zona, String modalidad, String lenguaje, String seniority, String idioma, String estudios, String algoSobreMi) throws Exception {
+		validar(puesto, zona, modalidad);
 		try {
 			Trabajo trabajo = new Trabajo();
-
+                        
 			trabajo.setPuesto(puesto);
-			trabajo.setLenguaje(lenguaje);
-			trabajo.setTipo(tipo);
-			trabajo.setTiempo(tiempo);
-			System.out.println("lcdsm");
+			trabajo.setModalidad(modalidad);
+			trabajo.setZona(zona);
+                        Perfil perfil = perfilServicio.crearPerfil(lenguaje, seniority, idioma, estudios, algoSobreMi);
+                        trabajo.setPerfil(perfil);
 			trabajoRepositorio.save(trabajo);
-			System.out.println("LPM");
+			
 
 		} catch (Exception e) {
 			throw new Exception("Error al crear trabajo");
@@ -83,21 +88,19 @@ public class TrabajoServicio {
 	 * }
 	 */
 	// Validar trabajo (DB)
-	public void validar(String puesto, String lenguaje, String tipo, String tiempo) throws Exception {
+	public void validar(String puesto, String modalidad, String zona) throws Exception {
 		try {
 
 			if (puesto.isEmpty() || puesto == null) {
 				throw new Exception("El campo 'puesto' no puede quedar en blanco!");
 			}
-			if (tipo.isEmpty() || tipo == null) {
-				throw new Exception("El campo 'tipo' no puede quedar en blanco!");
+			if (modalidad.isEmpty() || modalidad == null) {
+				throw new Exception("El campo 'modalidad' no puede quedar en blanco!");
 			}
-			if (tiempo.isEmpty() || tiempo == null) {
-				throw new Exception("El campo 'tiempo' no puede quedar en blanco!");
+			if (zona.isEmpty() || zona == null) {
+				throw new Exception("El campo 'zona' no puede quedar en blanco!");
 			}
-			if (lenguaje.isEmpty() || lenguaje == null) {
-				throw new Exception("El campo 'lenguaje' no puede quedar en blanco!");
-			}
+			
 
 		} catch (Exception e) {
 			throw new Exception("Error en la validación de datos del trabajo");
