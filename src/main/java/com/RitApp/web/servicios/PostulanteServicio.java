@@ -1,6 +1,7 @@
 
 package com.RitApp.web.servicios;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,15 +11,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.RitApp.web.entidades.Empresa;
 import com.RitApp.web.entidades.Postulante;
+import com.RitApp.web.entidades.Trabajo;
+import com.RitApp.web.entidades.Usuario;
 import com.RitApp.web.enums.Rol;
 import com.RitApp.web.repositorios.PostulanteRepositorio;
+import com.RitApp.web.repositorios.UsuarioRepositorio;
 
 @Service
 public class PostulanteServicio {
 
 	@Autowired
 	private PostulanteRepositorio postulanteRepositorio;
+	@Autowired
+	private UsuarioServicio usuarioServicio;
+	@Autowired
+	private UsuarioRepositorio usuarioRepositorio;
 
 	@Transactional
 	public void crearPostulante(String nombre, String apellido, String email, String contraseña, String contraseña1,
@@ -101,5 +110,43 @@ public class PostulanteServicio {
 
 	public List<Postulante> listar() {
 		return postulanteRepositorio.findAll();
+	}
+	public void sumarlike_postulante(Empresa empresa, Postulante postulante) {
+		List<Empresa> lista_votos_actualizada= new ArrayList<>();
+		lista_votos_actualizada=postulante.getLikeDeEmpresas();
+		lista_votos_actualizada.add(empresa);
+		postulante.setLikeDeEmpresas(lista_votos_actualizada);
+		postulanteRepositorio.save(postulante);
+	}
+	public void sumarlike_trabajo(Postulante postulante, Trabajo trabajo) {
+		List<Trabajo> lista_votos_actualizada= new ArrayList<>();
+		lista_votos_actualizada=postulante.getLikeatrabajos();
+		lista_votos_actualizada.add(trabajo);
+		postulante.setLikeatrabajos(lista_votos_actualizada);
+		postulanteRepositorio.save(postulante);
+	}
+	public void comprobarmatch(Postulante postulante) {
+		ArrayList<String> lista_id_empresa_trabajos= new ArrayList<String>();
+		ArrayList<String> lista_id_empresas= new ArrayList<String>();
+		ArrayList<String> lista_de_Match= new ArrayList<String>();
+		postulante.getLikeDeEmpresas();
+	for(Empresa empresa : postulante.getLikeDeEmpresas() ) {
+		lista_id_empresas.add(empresa.getId());
+	}
+	for(Trabajo trabajo: postulante.getLikeatrabajos()) {
+		lista_id_empresa_trabajos.add(trabajo.getEmpresa().getId());
+	}
+	for (String id:lista_id_empresa_trabajos) {
+		if(lista_id_empresas.contains(id)) {
+			lista_de_Match.add("empresa "+id);
+		}
+	}
+	postulante.setListaMatch(lista_de_Match);		
+	}
+	public Postulante buscaxmail(String email) {
+		Usuario usuario=new Usuario();
+		usuario=usuarioServicio.buscaruserxmail(email);
+		
+		return postulanteRepositorio.getById(usuario.getId());
 	}
 }

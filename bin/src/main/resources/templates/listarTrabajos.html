@@ -60,19 +60,12 @@
                     <tr th:each="trabajo : ${trabajos}">
 
                         <td th:text="${trabajo.puesto}"></td>
-                        <td th:text="${trabajo.modalidad}"></td>
-                        <td th:text="${trabajo.zona}"></td>  
-                        <td th:text="${trabajo.id}"></td>                       
+                        <td th:text="${trabajo.lenguaje}"></td>
+                        <td th:text="${trabajo.tipo}"></td>
+                        <td th:text="${trabajo.tiempo}"></td>
                         <td sec:authorize="hasRole('ROLE_POSTULANTE')">
                             <button href="" text="Registrar" class="step__button step__button--next">Postularse</button>
                         </td>
-                        <td> 
-                        	<form method="POST" th:action="@{/postulante/darlike/__${trabajo.id}__}">
-                        	<input class="form-control" type="hidden" th:value="${trabajo.id}" id="puesto" name="puesto" />
-    						<button type="submit" name="submit" value="value" class="link-button">Like</button>
-							</form>
-         				</td>
-   
                             <!--<td th:text="${trabajo.empresa}"></td>-->
                     </tr>
                 </tbody>

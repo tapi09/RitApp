@@ -32,9 +32,10 @@ public class TrabajoController {
 	}
 
 	@PostMapping("/crearTrabajo")
-	public String crear(Model modelo, @RequestParam String puesto, @RequestParam String modalidad, @RequestParam String zona, @RequestParam String lenguaje, @RequestParam String seniority, @RequestParam String idioma, @RequestParam String estudios, @RequestParam String algoSobreMi) throws Exception {
+	public String crear(Model modelo, @RequestParam String puesto, @RequestParam String tipo,
+			@RequestParam String lenguaje, @RequestParam String tiempo) throws Exception {
 		
-			servicio.crearTrabajo(puesto, modalidad, zona, lenguaje, seniority, idioma, estudios, algoSobreMi);
+			servicio.crearTrabajo(puesto, "NO", "NO", lenguaje, "NO", "NO", "NO", "NO");
 
 		
 		return "redirect:/trabajo/listarTrabajos";

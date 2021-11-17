@@ -1,14 +1,22 @@
 package com.RitApp.web.controllers;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.RitApp.web.entidades.Postulante;
+import com.RitApp.web.entidades.Trabajo;
 import com.RitApp.web.servicios.PostulanteServicio;
+import com.RitApp.web.servicios.TrabajoServicio;
 
 @Controller
 @RequestMapping("/postulante")
@@ -16,7 +24,11 @@ public class PostulanteController {
 
 	@Autowired
 	PostulanteServicio service;
+	@Autowired
+	TrabajoServicio trabajoServicio; 
+	
 	@GetMapping("/listar")
+
 	public String listar(Model model) throws Exception {
 		try {
 
@@ -29,16 +41,19 @@ public class PostulanteController {
 		}
 		return "listarUsuarios.html";
 	}
+
 	@PostMapping("/generico")
 	public String generico() {
-	
+
 		return "/login";
 	}
+
 	@PostMapping("/crear")
-	public String crear(Model modelo, @RequestParam String nombre, @RequestParam String apellido, 
-			@RequestParam String email, @RequestParam String contraseña, @RequestParam String contraseña1, @RequestParam Integer telefono) throws Exception {
+	public String crear(Model modelo, @RequestParam String nombre, @RequestParam String apellido,
+			@RequestParam String email, @RequestParam String contraseña, @RequestParam String contraseña1,
+			@RequestParam Integer telefono) throws Exception {
 		try {
-			service.crearPostulante(nombre, apellido, email, contraseña, contraseña1,telefono);
+			service.crearPostulante(nombre, apellido, email, contraseña, contraseña1, telefono);
 
 		} catch (Exception e) {
 			System.err.println("error " + e.getMessage());
@@ -56,16 +71,16 @@ public class PostulanteController {
 	 * (Exception e) { System.out.println("error " + e.getMessage());
 	 * modelo.addAttribute("error ", e.getMessage()); return "error.html"; } return
 	 * "editarUsuario.html";
-	 * }
+	 * 
 	 */
-	
+
 	@GetMapping("/eliminar")
 	public String eliminar(@RequestParam String id) throws Exception {
 		try {
-			if(id!=null) {
+			if (id != null) {
 				service.eliminar(id);
-			}else {
-			throw new Exception ("id null");
+			} else {
+				throw new Exception("id null");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -73,5 +88,25 @@ public class PostulanteController {
 		return "redirect:/usuario/listar";
 
 	}
-	
+
+	@GetMapping("/darlike")
+	public void darlike() throws Exception {
+		System.out.print("entre");
+
+	}
+
+	@PostMapping("/darlike/{id}")
+	public String darlike(HttpSession session, Authentication usuario, @PathVariable String id,
+			@RequestParam String puesto) throws Exception {
+		System.out.print("entre");
+		System.out.print(id);
+		System.out.println(puesto);		
+		Trabajo trabajo = new Trabajo();
+		trabajo = trabajoServicio.buscarXId(id);
+		Postulante postulante = new Postulante();				
+		postulante = service.buscaxmail(usuario.getName());
+		service.sumarlike_trabajo(postulante, trabajo);
+
+		return "redirect:/";
+	}
 }

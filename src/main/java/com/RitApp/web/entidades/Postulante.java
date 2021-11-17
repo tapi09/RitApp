@@ -1,8 +1,12 @@
 package com.RitApp.web.entidades;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -29,6 +33,13 @@ public class Postulante extends Usuario {
     private String genero;
     private String direccion;
     private String pais;
+    @OneToOne
     private Perfil perfil;
+    @OneToMany
+    private List<Empresa> likeDeEmpresas;
+    @OneToMany
+    private List <Trabajo> likeatrabajos;
+    @ElementCollection
+    private List <String> listaMatch;
     
 }

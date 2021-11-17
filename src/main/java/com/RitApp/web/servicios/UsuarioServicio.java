@@ -56,4 +56,7 @@ public class UsuarioServicio implements UserDetailsService {
 		usuarioRepositorio.save(usuario);
 
 	}
+	public Usuario buscaruserxmail(String email) {
+		return usuarioRepositorio.buscarPorEmail(email);
+	}
 }

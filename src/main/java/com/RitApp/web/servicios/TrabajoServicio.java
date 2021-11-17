@@ -1,12 +1,11 @@
 package com.RitApp.web.servicios;
 
-import com.RitApp.web.entidades.Perfil;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.RitApp.web.entidades.Perfil;
 import com.RitApp.web.entidades.Trabajo;
 import com.RitApp.web.repositorios.TrabajoRepositorio;
 
@@ -14,7 +13,7 @@ import com.RitApp.web.repositorios.TrabajoRepositorio;
 public class TrabajoServicio {
 	@Autowired
 	private TrabajoRepositorio trabajoRepositorio;
-        
+     
         @Autowired
         private PerfilServicio perfilServicio;
         
@@ -24,8 +23,8 @@ public class TrabajoServicio {
 	public void crearTrabajo(String puesto, String zona, String modalidad, String lenguaje, String seniority, String idioma, String estudios, String algoSobreMi) throws Exception {
 		validar(puesto, zona, modalidad);
 		try {
-			Trabajo trabajo = new Trabajo();
-                        
+			
+			Trabajo trabajo = new Trabajo();                     
 			trabajo.setPuesto(puesto);
 			trabajo.setModalidad(modalidad);
 			trabajo.setZona(zona);
@@ -65,14 +64,9 @@ public class TrabajoServicio {
 	}
 
 	public Trabajo buscarXId(String id) throws Exception {
-
-		Optional<Trabajo> respuesta = trabajoRepositorio.findById(id);
-		if (respuesta.isPresent()) {
-			return respuesta.get();
-		} else {
-			throw new Exception("no se encuentra ningun cliente con el id");
-		}
-
+		Trabajo respuesta = trabajoRepositorio.buscarPorid(id);
+		System.out.println("llegue");
+		return respuesta;
 	}
 
 	/*
@@ -133,4 +127,5 @@ public class TrabajoServicio {
 	 * //Mostrar perfil buscado public void listarPerfilBuscado(){ for (Object p:
 	 * perfilBuscado) { System.out.println(p); } }
 	 */
+	//sumar like a la lista
 }

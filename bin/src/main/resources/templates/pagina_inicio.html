@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="UTF-8">
@@ -13,8 +12,8 @@
     <!-- CSS -->
     <link href="css/style.css" rel="stylesheet" type="text/css" />
 
-    <title>Ver Trabajos</title>
-
+    <title>Login</title>
+    
 </head>
 
 <body>
@@ -45,41 +44,34 @@
             </nav>
         </header>
         <main>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
+            <div class="text-right">
+                <p th:if="${logout != null}" th:text="${logout}" style="color:green;"> </p>
+            </div>
 
-                        <th>Puesto</th>
-                        <th>Lenguaje</th>
-                        <th>Tipo</th>
-                        <th>Tiempo</th>
-                        <!-- <th>Empresa</th>-->
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="trabajo : ${trabajos}">
+            <div>
+                <h1 id="titulo">Pagina de inicio<small></small></h1>
+                <p th:if="${mensaje != null}" th:text="${mensaje}" style="color:green;"> </p>
+                <p th:if="${rol != null}" th:text="${rol}" style="color:green;"> </p>
+            </div>
 
-                        <td th:text="${trabajo.puesto}"></td>
-                        <td th:text="${trabajo.modalidad}"></td>
-                        <td th:text="${trabajo.zona}"></td>  
-                        <td th:text="${trabajo.id}"></td>                       
-                        <td sec:authorize="hasRole('ROLE_POSTULANTE')">
-                            <button href="" text="Registrar" class="step__button step__button--next">Postularse</button>
-                        </td>
-                        <td> 
-                        	<form method="POST" th:action="@{/postulante/darlike/__${trabajo.id}__}">
-                        	<input class="form-control" type="hidden" th:value="${trabajo.id}" id="puesto" name="puesto" />
-    						<button type="submit" name="submit" value="value" class="link-button">Like</button>
-							</form>
-         				</td>
-   
-                            <!--<td th:text="${trabajo.empresa}"></td>-->
-                    </tr>
-                </tbody>
-            </table>
+            <div sec:authorize="hasRole('ROLE_POSTULANTE')" class="text-center" id="">
+                <a th:href="@{/trabajo/listarTrabajos}" class="step__button step__button--next">Trabajos</a>
+                <br>
+            </div>
+            <div sec:authorize="hasRole('ROLE_EMPRESA')" class="text-center" id="">
+                <a th:href="@{/trabajo/crearTrabajo}" class="step__button step__button--next">GENERAR PUESTO</a>
+                <br>
+            </div>
+            
         </main>
     </div>
 
+    <!--Scripts de Bootstrap-->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+        crossorigin="anonymous"></script>
 </body>
-
 </html>
