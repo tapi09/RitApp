@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Home - Brand</title>
+    <title>Hire me - Brand</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=ABeeZee">
@@ -62,20 +62,60 @@
                     <li class="nav-item"><a class="nav-link" href="listarTrabajos.html">Ver Trabajos</a></li>
                     <li class="nav-item"><a class="nav-link" href="empresa.html">Soy Empresa</a></li>
                     <li class="nav-item"><a class="nav-link" href="registrarPostulante.html">Crear Cuenta</a></li>
-                    <li class="nav-item"><a class="nav-link active" id="botonIngresar" href="login.html">Ingresar</a></li>
+                    <li class="nav-item"><a class="nav-link" id="botonIngresar" href="login.html">Ingresar</a></li>
                 </ul>
             </div>
         </div>
     </nav>
-    <section class="login-dark">
-        <form method="post">
-            <h2 class="visually-hidden">Login Form</h2>
-            <div class="illustration"><i class="icon ion-monitor"></i></div>
-            <div class="mb-3"><input class="form-control" type="email" name="email" placeholder="Email"></div>
-            <div class="mb-3"><input class="form-control" type="password" name="password" placeholder="Password"></div>
-            <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit" style="background: var(--bs-teal);color: var(--bs-white);">Iniciar Sesión</button></div><a class="forgot" href="#">¿Olvidaste tu email o contraseña?</a>
+    <main class="page hire-me-page"></main>
+    <div class="container profile profile-view" id="profile">
+        <div class="row">
+            <div class="col-md-12 alert-col relative">
+                <div class="alert alert-info alert-dismissible absolue center" role="alert"><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button><span>Profile save with success</span></div>
+            </div>
+        </div>
+        <form>
+            <div class="row profile-row">
+                <div class="col-md-4 relative">
+                    <div class="avatar">
+                        <div class="avatar-bg center"></div>
+                    </div><input class="form-control form-control" type="file" name="avatar-file">
+                </div>
+                <div class="col-md-8">
+                    <h1>Perfil</h1>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group mb-3"><label class="form-label">Nombre de la Empresa</label><input class="form-control" type="text" name="firstname"></div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group mb-3"><label class="form-label">Actividad</label><input class="form-control" type="text" name="lastname"></div>
+                        </div>
+                    </div>
+                    <div class="form-group mb-3"><label class="form-label">Email </label><input class="form-control" type="email" autocomplete="off" required="" name="email"></div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group mb-3"><label class="form-label">País o Países</label><input class="form-control" type="password" name="password" autocomplete="off" required=""></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col"><label class="form-label">Sobre Nosotros</label>
+                            <div class="row">
+                                <div class="col"><textarea class="form-control"></textarea></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col"><label class="form-label">Beneficios de nuestra Empresa</label><textarea class="form-control"></textarea></div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12 content-right"><button class="btn btn-primary form-btn" type="submit">Guardar Cambios</button><button class="btn btn-primary form-btn" type="submit">Cancelar</button><button class="btn btn-danger form-btn" type="reset">Eliminar Cuenta</button></div>
+                    </div>
+                </div>
+            </div>
         </form>
-    </section>
+    </div>
     <footer id="myFooter" style="padding:0px;">
         <div class="container-fluid" id="footer1" style="background: #212529;">
             <div class="row text-center">

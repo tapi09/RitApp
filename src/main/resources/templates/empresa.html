@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Home - Brand</title>
+    <title>RitApp</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=ABeeZee">
@@ -59,23 +59,82 @@
         <div class="container"><a class="navbar-brand logo" href="index.html">&nbsp; &nbsp; &nbsp;iT Match</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navbarNav"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="listarTrabajos.html">Ver Trabajos</a></li>
-                    <li class="nav-item"><a class="nav-link" href="empresa.html">Soy Empresa</a></li>
-                    <li class="nav-item"><a class="nav-link" href="registrarPostulante.html">Crear Cuenta</a></li>
-                    <li class="nav-item"><a class="nav-link active" id="botonIngresar" href="login.html">Ingresar</a></li>
+                    <li class="nav-item"><a class="nav-link" href="listarTrabajos.html">Ver Mis Trabajos</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="trabajoCrear.html">Crear Trabajo</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="perfilEmpresa.html">Ver Mi Perfil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="registrarEmpresa.html">Crear Empresa</a></li>
+                    <li class="nav-item"><a class="nav-link" id="botonIngresar" href="login.html">Ingresar</a></li>
                 </ul>
             </div>
         </div>
     </nav>
-    <section class="login-dark">
-        <form method="post">
-            <h2 class="visually-hidden">Login Form</h2>
-            <div class="illustration"><i class="icon ion-monitor"></i></div>
-            <div class="mb-3"><input class="form-control" type="email" name="email" placeholder="Email"></div>
-            <div class="mb-3"><input class="form-control" type="password" name="password" placeholder="Password"></div>
-            <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit" style="background: var(--bs-teal);color: var(--bs-white);">Iniciar Sesión</button></div><a class="forgot" href="#">¿Olvidaste tu email o contraseña?</a>
-        </form>
+    <section class="portfolio-block skills">
+        <h1 class="text-center">Busca a tu Candidato Ideal</h1>
+        <div></div>
+        <div class="container" id="contenedor1">
+            <div class="heading">
+                <h1 class="text-start text-muted" style="color: var(--bs-blue);text-shadow: 0px 0px 20px var(--bs-gray-900);box-shadow: 0px 0px;">*</h1>
+            </div>
+            <h1 class="display-5 fw-bold"></h1>
+            <div class="row" id="tarjetas">
+                <div class="col-md-4">
+                    <div class="card special-skill-item border-0">
+                        <div class="card-header bg-transparent border-0"><i class="icon ion-person-add" style="filter: brightness(100%) invert(100%) saturate(104%) sepia(100%);"></i></div>
+                        <div class="card-body">
+                            <h3 class="card-title">Candidato Ideal</h3>
+                            <p class="card-text">Aquí podrás cargar todos los datos necesarios para poder hacer match con ese candidato ideal que necesita tu empresa.<br></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card special-skill-item border-0">
+                        <div class="card-header bg-transparent border-0"><i class="icon ion-ios-unlocked" style="filter: invert(100%) saturate(86%) sepia(100%);"></i></div>
+                        <div class="card-body">
+                            <h3 class="card-title"><strong>Sin Sesgos</strong><br></h3>
+                            <p class="card-text">Nuestro algoritmo parte de ser todos iguales , sin distinción de genero , edad y religión.<br></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card special-skill-item border-0">
+                        <div class="card-header bg-transparent border-0"><i class="icon ion-thumbsup" style="filter: brightness(101%) invert(100%) sepia(100%);"></i></div>
+                        <div class="card-body">
+                            <h3 class="card-title">Aviso Simple</h3>
+                            <p class="card-text">Encontrar un trabajo y un candidato nunca fue tan ágil.<br></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
+    <section class="text-center">
+        <h1 class="text-center" style="margin-top: 52px;font-family: Lato, sans-serif;font-weight: 100;">Empresas que Confían en Nosotros</h1>
+        <div class="client-section-2">
+            <div class="container d-flex justify-content-center client-container">
+                <div class="row g-0 d-flex justify-content-center client-row">
+                    <div class="col-6 col-sm-4 col-md-2 col-lg-2 col-xl-2 d-flex justify-content-center align-items-start no-pad-2">
+                        <div><a class="tooltip-top" href="#" data-tooltip="Brand One"><img class="img-fluid client-image-2" src="assets/img/Slice%204.jpg"></a></div>
+                    </div>
+                    <div class="col-6 col-sm-4 col-md-2 col-lg-2 col-xl-2 d-flex justify-content-center align-items-start no-pad-2">
+                        <div><a href="#" data-tooltip="Brand Two"><img class="img-fluid client-image-2" src="assets/img/Slice%2012.jpg"></a></div>
+                    </div>
+                    <div class="col-6 col-sm-4 col-md-2 col-lg-2 col-xl-2 d-flex justify-content-center align-items-start no-pad-2">
+                        <div><a href="#" data-tooltip="Brand Three"><img class="img-fluid client-image-2" src="assets/img/Slice%205.jpg"></a></div>
+                    </div>
+                    <div class="col-6 col-sm-4 col-md-2 col-lg-2 col-xl-2 d-flex justify-content-center align-items-start no-pad-2">
+                        <div><a href="#" data-tooltip="Brand Four"><img class="img-fluid client-image-2" src="assets/img/Slice%2015.jpg"></a></div>
+                    </div>
+                    <div class="col-6 col-sm-4 col-md-2 col-lg-2 col-xl-2 d-flex justify-content-center align-items-start no-pad-2">
+                        <div><a href="#" data-tooltip="Brand Five"><img class="img-fluid client-image-2" src="assets/img/Slice%201.jpg"></a></div>
+                    </div>
+                    <div class="col-6 col-sm-4 col-md-2 col-lg-2 col-xl-2 d-flex justify-content-center align-items-start no-pad-2">
+                        <div><a href="#" data-tooltip="Brand Six"><img class="img-fluid client-image-2" src="assets/img/Slice%2010.jpg"></a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div></div>
     <footer id="myFooter" style="padding:0px;">
         <div class="container-fluid" id="footer1" style="background: #212529;">
             <div class="row text-center">

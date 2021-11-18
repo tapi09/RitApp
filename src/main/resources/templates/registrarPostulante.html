@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="es-ar">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Home - Brand</title>
+    <title>RitApp</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=ABeeZee">
@@ -61,21 +61,45 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="listarTrabajos.html">Ver Trabajos</a></li>
                     <li class="nav-item"><a class="nav-link" href="empresa.html">Soy Empresa</a></li>
-                    <li class="nav-item"><a class="nav-link" href="registrarPostulante.html">Crear Cuenta</a></li>
-                    <li class="nav-item"><a class="nav-link active" id="botonIngresar" href="login.html">Ingresar</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="registrarPostulante.html">Crear Cuenta</a></li>
+                    <li class="nav-item"><a class="nav-link" id="botonIngresar" href="login.html">Ingresar</a></li>
                 </ul>
             </div>
         </div>
     </nav>
-    <section class="login-dark">
-        <form method="post">
-            <h2 class="visually-hidden">Login Form</h2>
-            <div class="illustration"><i class="icon ion-monitor"></i></div>
-            <div class="mb-3"><input class="form-control" type="email" name="email" placeholder="Email"></div>
-            <div class="mb-3"><input class="form-control" type="password" name="password" placeholder="Password"></div>
-            <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit" style="background: var(--bs-teal);color: var(--bs-white);">Iniciar Sesión</button></div><a class="forgot" href="#">¿Olvidaste tu email o contraseña?</a>
-        </form>
-    </section>
+    <div class="row register-form" id="register1">
+        <div class="col-md-8 offset-md-2">
+            <form class="custom-form">
+                <h1>Ingrese los Datos</h1>
+                <div class="row form-group">
+                    <div class="col-sm-4 label-column"><label class="col-form-label d-lg-flex justify-content-lg-center" for="name-input-field">Apellido</label></div>
+                    <div class="col-sm-6 input-column"><input class="form-control" type="text"></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-4 label-column"><label class="col-form-label d-lg-flex justify-content-lg-center" for="name-input-field">Nombre</label></div>
+                    <div class="col-sm-6 input-column"><input class="form-control" type="text"></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-4 d-lg-flex justify-content-lg-center label-column"><label class="col-form-label" for="email-input-field">Email </label></div>
+                    <div class="col-sm-6 input-column"><input class="form-control" type="email"></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-4 d-lg-flex justify-content-lg-center label-column"><label class="col-form-label text-center" for="pawssword-input-field">Password </label></div>
+                    <div class="col-sm-6 input-column"><input class="form-control" type="password"></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-4 label-column"><label class="col-form-label text-center" for="repeat-pawssword-input-field">Repetir Password </label></div>
+                    <div class="col-sm-6 input-column"><input class="form-control" type="password"></div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-4 d-lg-flex justify-content-lg-center label-column"><label class="col-form-label" for="email-input-field">Teléfono</label></div>
+                    <div class="col-sm-6 input-column"><input class="form-control" type="email"></div>
+                </div><button class="btn btn-light submit-button" id="botonCrear" type="button">Registrarse</button>
+            </form>
+        </div>
+    </div>
+    <section></section>
+    <section></section>
     <footer id="myFooter" style="padding:0px;">
         <div class="container-fluid" id="footer1" style="background: #212529;">
             <div class="row text-center">
@@ -86,6 +110,7 @@
             </div>
         </div>
     </footer>
+    <footer id="myFooter-1" style="padding:0px;"></footer>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/bs-init.js"></script>
     <script src="assets/js/Animated-Type-Heading.js"></script>
