@@ -94,19 +94,4 @@ public class PostulanteController {
 		System.out.print("entre");
 
 	}
-
-	@PostMapping("/darlike/{id}")
-	public String darlike(HttpSession session, Authentication usuario, @PathVariable String id,
-			@RequestParam String puesto) throws Exception {
-		System.out.print("entre");
-		System.out.print(id);
-		System.out.println(puesto);		
-		Trabajo trabajo = new Trabajo();
-		trabajo = trabajoServicio.buscarXId(id);
-		Postulante postulante = new Postulante();				
-		postulante = service.buscaxmail(usuario.getName());
-		service.sumarlike_trabajo(postulante, trabajo);
-
-		return "redirect:/";
-	}
 }

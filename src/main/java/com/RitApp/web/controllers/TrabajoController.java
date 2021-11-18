@@ -1,6 +1,7 @@
 package com.RitApp.web.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,24 +33,14 @@ public class TrabajoController {
 	}
 
 	@PostMapping("/crearTrabajo")
-	public String crear(Model modelo, @RequestParam String puesto, @RequestParam String tipo,
+	public String crear(Authentication usuario,Model modelo, @RequestParam String puesto, @RequestParam String tipo,
 			@RequestParam String lenguaje, @RequestParam String tiempo) throws Exception {
 		
-			servicio.crearTrabajo(puesto, "NO", "NO", lenguaje, "NO", "NO", "NO", "NO");
+			servicio.crearTrabajo(usuario,puesto, "NO", "NO", lenguaje, "NO", "NO", "NO", "NO");
 
 		
 		return "redirect:/trabajo/listarTrabajos";
 	}
-
-	/*
-	 * @PostMapping("/modificarTrabajo") public String modificarTrabajo(Model
-	 * modelo, @RequestParam String id) throws Exception { try { Trabajo trabajo =
-	 * new Trabajo(); if(id!=null) { trabajo= servicio.buscarXTipo(id); }
-	 * modelo.addAttribute("trabajo", trabajo); } catch (Exception e) {
-	 * System.out.println("error " + e.getMessage()); modelo.addAttribute("error ",
-	 * e.getMessage()); return "error.html"; } return "modificarTrabajo.html"; }
-	 */
-
 	@GetMapping("/eliminarTrabajo")
 	public String eliminar(@RequestParam String id) throws Exception {
 		try {
@@ -64,6 +55,14 @@ public class TrabajoController {
 		return "redirect:/trabajo/listar";
 
 	}
-	
+
+	/*
+	 * @PostMapping("/modificarTrabajo") public String modificarTrabajo(Model
+	 * modelo, @RequestParam String id) throws Exception { try { Trabajo trabajo =
+	 * new Trabajo(); if(id!=null) { trabajo= servicio.buscarXTipo(id); }
+	 * modelo.addAttribute("trabajo", trabajo); } catch (Exception e) {
+	 * System.out.println("error " + e.getMessage()); modelo.addAttribute("error ",
+	 * e.getMessage()); return "error.html"; } return "modificarTrabajo.html"; }
+	 */
 
 }

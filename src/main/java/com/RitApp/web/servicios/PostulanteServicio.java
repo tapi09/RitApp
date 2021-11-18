@@ -19,6 +19,14 @@ import com.RitApp.web.enums.Rol;
 import com.RitApp.web.repositorios.PostulanteRepositorio;
 import com.RitApp.web.repositorios.UsuarioRepositorio;
 
+/**
+ * @author Emiliano
+ *
+ */
+/**
+ * @author Emiliano
+ *
+ */
 @Service
 public class PostulanteServicio {
 
@@ -46,25 +54,22 @@ public class PostulanteServicio {
 		postulanteRepositorio.save(postulante);
 	}
 
-	/*@Transactional
-	public void modificar(String dni, String email, String contraseña, String nombre, String apellido, Date fechaNac,
-			Integer edad, Integer telefono, String genero, String direccion, String pais) throws Exception {
-		validar(dni, email, contraseña, nombre, apellido, fechaNac, edad, telefono, genero, direccion, pais);
-		Postulante postulante;
-		postulante = buscarXId(dni);
-
-		postulante.setEmail(email);
-		postulante.setNombre(nombre);
-		postulante.setApellido(apellido);
-		postulante.setFechaNacimiento(fechaNac);
-		postulante.setEdad(edad);
-		postulante.setTelefono(telefono);
-		postulante.setGenero(genero);
-		postulante.setDireccion(direccion);
-		postulante.setPais(pais);
-
-		postulanteRepositorio.save(postulante);
-	}*/
+	/*
+	 * @Transactional public void modificar(String dni, String email, String
+	 * contraseña, String nombre, String apellido, Date fechaNac, Integer edad,
+	 * Integer telefono, String genero, String direccion, String pais) throws
+	 * Exception { validar(dni, email, contraseña, nombre, apellido, fechaNac, edad,
+	 * telefono, genero, direccion, pais); Postulante postulante; postulante =
+	 * buscarXId(dni);
+	 * 
+	 * postulante.setEmail(email); postulante.setNombre(nombre);
+	 * postulante.setApellido(apellido); postulante.setFechaNacimiento(fechaNac);
+	 * postulante.setEdad(edad); postulante.setTelefono(telefono);
+	 * postulante.setGenero(genero); postulante.setDireccion(direccion);
+	 * postulante.setPais(pais);
+	 * 
+	 * postulanteRepositorio.save(postulante); }
+	 */
 
 	@Transactional
 	public void eliminar(String id) throws Exception {
@@ -73,18 +78,19 @@ public class PostulanteServicio {
 
 	}
 
-	public void validar(String nombre, String apellido, String email, String contraseña, String contraseña1, Integer telefono) throws Exception {
+	public void validar(String nombre, String apellido, String email, String contraseña, String contraseña1,
+			Integer telefono) throws Exception {
 
 		if (email.isEmpty() || email == null) {
 			throw new Exception("el email no pude ser nulo");
 		}
 		if (contraseña.isEmpty() || contraseña == null) {
 			throw new Exception("la contraseña no pude ser nula");
-			
+
 		}
 		if (!contraseña.equals(contraseña1)) {
 			throw new Exception("las contraseñas deben coincidir");
-			
+
 		}
 		if (nombre.isEmpty() || nombre == null) {
 			throw new Exception("el nombre no pude ser nulo");
@@ -111,42 +117,9 @@ public class PostulanteServicio {
 	public List<Postulante> listar() {
 		return postulanteRepositorio.findAll();
 	}
-	public void sumarlike_postulante(Empresa empresa, Postulante postulante) {
-		List<Empresa> lista_votos_actualizada= new ArrayList<>();
-		lista_votos_actualizada=postulante.getLikeDeEmpresas();
-		lista_votos_actualizada.add(empresa);
-		postulante.setLikeDeEmpresas(lista_votos_actualizada);
-		postulanteRepositorio.save(postulante);
-	}
-	public void sumarlike_trabajo(Postulante postulante, Trabajo trabajo) {
-		List<Trabajo> lista_votos_actualizada= new ArrayList<>();
-		lista_votos_actualizada=postulante.getLikeatrabajos();
-		lista_votos_actualizada.add(trabajo);
-		postulante.setLikeatrabajos(lista_votos_actualizada);
-		postulanteRepositorio.save(postulante);
-	}
-	public void comprobarmatch(Postulante postulante) {
-		ArrayList<String> lista_id_empresa_trabajos= new ArrayList<String>();
-		ArrayList<String> lista_id_empresas= new ArrayList<String>();
-		ArrayList<String> lista_de_Match= new ArrayList<String>();
-		postulante.getLikeDeEmpresas();
-	for(Empresa empresa : postulante.getLikeDeEmpresas() ) {
-		lista_id_empresas.add(empresa.getId());
-	}
-	for(Trabajo trabajo: postulante.getLikeatrabajos()) {
-		lista_id_empresa_trabajos.add(trabajo.getEmpresa().getId());
-	}
-	for (String id:lista_id_empresa_trabajos) {
-		if(lista_id_empresas.contains(id)) {
-			lista_de_Match.add("empresa "+id);
-		}
-	}
-	postulante.setListaMatch(lista_de_Match);		
-	}
 	public Postulante buscaxmail(String email) {
-		Usuario usuario=new Usuario();
-		usuario=usuarioServicio.buscaruserxmail(email);
-		
+		Usuario usuario = new Usuario();
+		usuario = usuarioServicio.buscaruserxmail(email);
 		return postulanteRepositorio.getById(usuario.getId());
 	}
 }

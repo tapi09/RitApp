@@ -50,27 +50,22 @@
                     <tr>
 
                         <th>Puesto</th>
-                        <th>Lenguaje</th>
-                        <th>Tipo</th>
-                        <th>Tiempo</th>
-                        <!-- <th>Empresa</th>-->
+                        <th>Nombre Postulante</th>
+                        <th>Nombre Empresa</th>
+                        
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="trabajo : ${trabajos}">
-
-                        <td th:text="${trabajo.puesto}"></td>
-                        <td th:text="${trabajo.modalidad}"></td>
-                        <td th:text="${trabajo.zona}"></td>  
-                        <td th:text="${trabajo.id}"></td>
-                        <td  sec:authorize="hasRole('ROLE_POSTULANTE')"> 
-                        	<form method="POST" th:action="@{/emparejado/emparejarpostulante/__${trabajo.id}__}">
-                        	<input class="form-control" type="hidden" th:value="${trabajo.id}" id="id_trabajo" name="id_trabajo" />
+                    <tr th:each="emparejado : ${emparejados}">
+                        <td th:text="${emparejado.nombre_puesto}"></td>
+                        <td th:text="${emparejado.nombre_postulante}"></td>
+                        <td th:text="${emparejado.nombre_empresa}"></td>  
+         				<td  sec:authorize="hasRole('ROLE_EMPRESA')"> 
+                        	<form method="POST" th:action="@{/emparejado/emparejarempresa/__${emparejado.id}__}">
+                        	<input class="form-control" type="hidden" th:value="${emparejado.id}" id="id_emparejado" name="id_emparejado" />
     						<button type="submit" name="submit" value="value" class="link-button">Like</button>
 							</form>
-         				</td>
-   
-                            <!--<td th:text="${trabajo.empresa}"></td>-->
+         				</td>                      
                     </tr>
                 </tbody>
             </table>

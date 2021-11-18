@@ -11,14 +11,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.RitApp.web.entidades.Empresa;
+import com.RitApp.web.entidades.Usuario;
 import com.RitApp.web.enums.Rol;
 import com.RitApp.web.repositorios.EmpresaRepositorio;
+import com.RitApp.web.repositorios.UsuarioRepositorio;
 
 @Service
 public class EmpresaServicio {
     
     @Autowired
     private EmpresaRepositorio empresaRepositorio;
+    @Autowired
+    private UsuarioRepositorio usuarioRepositorio;
 
 
     @Transactional
@@ -122,6 +126,12 @@ public class EmpresaServicio {
         }
 
     }
+    public Empresa buscarxmail(String email) {
+    	Usuario usuario=new Usuario();
+    	usuario=usuarioRepositorio.buscarPorEmail(email);
+    	return empresaRepositorio.getById(usuario.getId());
+    }
+    
           
     
 }

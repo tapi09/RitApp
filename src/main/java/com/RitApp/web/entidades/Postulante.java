@@ -35,11 +35,5 @@ public class Postulante extends Usuario {
     private String pais;
     @OneToOne
     private Perfil perfil;
-    @OneToMany
-    private List<Empresa> likeDeEmpresas;
-    @OneToMany
-    private List <Trabajo> likeatrabajos;
-    @ElementCollection
-    private List <String> listaMatch;
-    
+   
 }
