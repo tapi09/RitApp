@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="es-ar">
 
 <head>
-	<base href="/">
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-	<title>Projects - Brand</title>
+	<title>RitApp</title>
 	<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=ABeeZee">
@@ -57,7 +56,7 @@
 
 <body>
 	<nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient">
-		<div class="container"><a class="navbar-brand logo" href="/pagina_inicio">&nbsp; &nbsp; &nbsp;iT Match</a><button
+		<div class="container"><a class="navbar-brand logo" href="index.html">&nbsp; &nbsp; &nbsp;iT Match</a><button
 				data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navbarNav"><span
 					class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
 			<div class="collapse navbar-collapse" id="navbarNav">
@@ -69,45 +68,46 @@
 							href="/registro_postulante">Registrar Postulante</a></li>
 					<li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link"
 							href="perfilPostulante.html">Ver Mi Perfil</a></li>
-					<li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link"
-							href="logout">Logout</a></li>
+					<li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link" href="logout">Logout</a>
+					</li>
 					<li sec:authorize="!isAuthenticated()" class="nav-item"><a class="nav-link" id="botonIngresar"
 							href="/login">Ingresar</a></li>
 				</ul>
 			</div>
 		</div>
 	</nav>
-	<div class="container" id="registro3">
-		<div class="row register-form">
-			<div class="col-md-8 offset-md-2">
-				<form action="/trabajo/crearTrabajo" method="POST" class="custom-form">
-					<h1>Nuevo Trabajo</h1>
-					<div class="row form-group">
-						<div class="col-sm-4 label-column"><label class="col-form-label"
-								for="name-input-field">Puesto</label></div>
-						<div class="col-sm-6 input-column"><input class="form-control" type="text" name="puesto"></div>
-					</div>
-					<div class="row form-group">
-						<div class="col-sm-4 label-column"><label class="col-form-label"
-								for="name-input-field">Modalidad</label></div>
-						<div class="col-sm-6 input-column"><input class="form-control" type="text" name="modalidad"></div>
-					</div>
-					<div class="row form-group">
-						<div class="col-sm-4 label-column"><label class="col-form-label"
-								for="name-input-field">Lenguajes</label></div>
-						<div class="col-sm-6 input-column"><input class="form-control" type="text" name="lenguaje">
-						</div>
-					</div>
-					<div class="row form-group">
-						<div class="col-sm-4 label-column"><label class="col-form-label" 
-								for="name-input-field">País o	Zona</label></div>
-						<div class="col-sm-6 input-column"><input class="form-control" type="text" name="zona"></div>
-					</div><button class="btn btn-light submit-button" id="botonCrear" type="submit">Crear Trabajo</button>
-				</form>
-			</div>
+	<div class="row register-form" id="register2">
+		<div class="col-md-8 offset-md-2">
+			<form action="/empresa/registrar" method="POST" class="custom-form">
+				<h1>Ingrese los Datos</h1>
+				<div class="row form-group">
+					<div class="col-sm-4 text-center label-column"><label class="col-form-label"
+							for="name-input-field">Nombre de la Empresa</label></div>
+					<div class="col-sm-6 input-column"><input class="form-control" name="nombre" type="text"></div>
+				</div>
+				<div class="row form-group">
+					<div class="col-sm-4 text-center label-column"><label class="col-form-label"
+							for="name-input-field">Actividad</label></div>
+					<div class="col-sm-6 input-column"><input class="form-control" name="actividad" type="text"></div>
+				</div>
+				<div class="row form-group">
+					<div class="col-sm-4 text-center label-column"><label class="col-form-label"
+							for="email-input-field">Email </label></div>
+					<div class="col-sm-6 input-column"><input class="form-control" name="email" type="email"></div>
+				</div>
+				<div class="row form-group">
+					<div class="col-sm-4 text-center label-column"><label class="col-form-label"
+							for="pawssword-input-field">Password </label></div>
+					<div class="col-sm-6 input-column"><input class="form-control"name="password" type="password"></div>
+				</div>
+				<div class="row form-group">
+					<div class="col-sm-4 text-center label-column"><label class="col-form-label"
+							for="repeat-pawssword-input-field">Repeat Password </label></div>
+					<div class="col-sm-6 input-column"><input class="form-control" name="password1" type="password"></div>
+				</div><button class="btn btn-light submit-button" id="botonCrear" type="submit">Crear Cuenta</button>
+			</form>
 		</div>
 	</div>
-	<section></section>
 	<footer id="myFooter" style="padding:0px;">
 		<div class="container-fluid" id="footer1" style="background: #212529;">
 			<div class="row text-center">

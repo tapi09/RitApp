@@ -46,6 +46,7 @@ public class PostulanteServicio {
 		postulante = new Postulante();
 		postulante.setEmail(email);
 		postulante.setNombre(nombre);
+		postulante.setNombre_usuario(nombre);
 		postulante.setApellido(apellido);
 		postulante.setTelefono(telefono);
 		postulante.setClave(encoder.encode(contraseña));

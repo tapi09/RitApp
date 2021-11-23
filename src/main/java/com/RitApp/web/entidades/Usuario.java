@@ -31,6 +31,7 @@ public class Usuario {
     protected String id;
     protected String email;
     protected String clave;
+    private String nombre_usuario;
     @Enumerated(EnumType.STRING)
     protected Rol rol;
 }

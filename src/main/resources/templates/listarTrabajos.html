@@ -1,179 +1,154 @@
 <!DOCTYPE html>
-<html lang="es-ar">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>RitApp</title>
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=ABeeZee">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cookie">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Muli">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
-    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
-    <link rel="stylesheet" href="assets/fonts/simple-line-icons.min.css">
-    <link rel="stylesheet" href="assets/fonts/fontawesome5-overrides.min.css">
-    <link rel="stylesheet" href="assets/css/Animated-Type-Heading.css">
-    <link rel="stylesheet" href="assets/css/Articale-List-With-Image-Zoom.css">
-    <link rel="stylesheet" href="assets/css/best-carousel-slide-1.css">
-    <link rel="stylesheet" href="assets/css/best-carousel-slide.css">
-    <link rel="stylesheet" href="assets/css/Bold-BS4-Footer-Simple.css">
-    <link rel="stylesheet" href="assets/css/BS5-Jumbotron-with-background-Image.css">
-    <link rel="stylesheet" href="assets/css/Carousel_Image_Slider-1.css">
-    <link rel="stylesheet" href="assets/css/Carousel_Image_Slider.css">
-    <link rel="stylesheet" href="assets/css/Footer-with-social-media-icons-1.css">
-    <link rel="stylesheet" href="assets/css/Footer-with-social-media-icons.css">
-    <link rel="stylesheet" href="assets/css/Form-Select---Full-Date---Month-Day-Year.css">
-    <link rel="stylesheet" href="assets/css/header-1.css">
-    <link rel="stylesheet" href="assets/css/header-2.css">
-    <link rel="stylesheet" href="assets/css/header.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/css/pikaday.min.css">
-    <link rel="stylesheet" href="assets/css/LinkedIn-like-Profile-Box.css">
-    <link rel="stylesheet" href="assets/css/Login-Form-Dark.css">
-    <link rel="stylesheet" href="assets/css/Ludens-Users---3-Profile.css">
-    <link rel="stylesheet" href="assets/css/Multi-step-form.css">
-    <link rel="stylesheet" href="assets/css/Pretty-Header.css">
-    <link rel="stylesheet" href="assets/css/Pretty-Registration-Form.css">
-    <link rel="stylesheet" href="assets/css/Profile-Card-Slider---Slick-Slider.css">
-    <link rel="stylesheet" href="assets/css/Profile-Edit-Form-1.css">
-    <link rel="stylesheet" href="assets/css/Profile-Edit-Form.css">
-    <link rel="stylesheet" href="assets/css/Projects-Horizontal.css">
-    <link rel="stylesheet" href="assets/css/Responsive-Client-Two.css">
-    <link rel="stylesheet" href="assets/css/Separator-with-icon.css">
-    <link rel="stylesheet" href="assets/css/Single-Advisor-Profile.css">
-    <link rel="stylesheet" href="assets/css/Swiper-Slider-Card-For-Blog-Or-Product-1.css">
-    <link rel="stylesheet" href="assets/css/Swiper-Slider-Card-For-Blog-Or-Product.css">
-    <link rel="stylesheet" href="assets/css/Team-Boxed.css">
-    <link rel="stylesheet" href="assets/css/untitled-1.css">
-    <link rel="stylesheet" href="assets/css/untitled.css">
+	<base href="/">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+	<title>RitApp</title>
+	<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=ABeeZee">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cookie">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Muli">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+	<link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+	<link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+	<link rel="stylesheet" href="assets/fonts/ionicons.min.css">
+	<link rel="stylesheet" href="assets/fonts/simple-line-icons.min.css">
+	<link rel="stylesheet" href="assets/fonts/fontawesome5-overrides.min.css">
+	<link rel="stylesheet" href="assets/css/Animated-Type-Heading.css">
+	<link rel="stylesheet" href="assets/css/Articale-List-With-Image-Zoom.css">
+	<link rel="stylesheet" href="assets/css/best-carousel-slide-1.css">
+	<link rel="stylesheet" href="assets/css/best-carousel-slide.css">
+	<link rel="stylesheet" href="assets/css/Bold-BS4-Footer-Simple.css">
+	<link rel="stylesheet" href="assets/css/BS5-Jumbotron-with-background-Image.css">
+	<link rel="stylesheet" href="assets/css/Carousel_Image_Slider-1.css">
+	<link rel="stylesheet" href="assets/css/Carousel_Image_Slider.css">
+	<link rel="stylesheet" href="assets/css/Footer-with-social-media-icons-1.css">
+	<link rel="stylesheet" href="assets/css/Footer-with-social-media-icons.css">
+	<link rel="stylesheet" href="assets/css/Form-Select---Full-Date---Month-Day-Year.css">
+	<link rel="stylesheet" href="assets/css/header-1.css">
+	<link rel="stylesheet" href="assets/css/header-2.css">
+	<link rel="stylesheet" href="assets/css/header.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/css/pikaday.min.css">
+	<link rel="stylesheet" href="assets/css/LinkedIn-like-Profile-Box.css">
+	<link rel="stylesheet" href="assets/css/Login-Form-Dark.css">
+	<link rel="stylesheet" href="assets/css/Ludens-Users---3-Profile.css">
+	<link rel="stylesheet" href="assets/css/Multi-step-form.css">
+	<link rel="stylesheet" href="assets/css/Pretty-Header.css">
+	<link rel="stylesheet" href="assets/css/Pretty-Registration-Form.css">
+	<link rel="stylesheet" href="assets/css/Profile-Card-Slider---Slick-Slider.css">
+	<link rel="stylesheet" href="assets/css/Profile-Edit-Form-1.css">
+	<link rel="stylesheet" href="assets/css/Profile-Edit-Form.css">
+	<link rel="stylesheet" href="assets/css/Projects-Horizontal.css">
+	<link rel="stylesheet" href="assets/css/Responsive-Client-Two.css">
+	<link rel="stylesheet" href="assets/css/Separator-with-icon.css">
+	<link rel="stylesheet" href="assets/css/Single-Advisor-Profile.css">
+	<link rel="stylesheet" href="assets/css/Swiper-Slider-Card-For-Blog-Or-Product-1.css">
+	<link rel="stylesheet" href="assets/css/Swiper-Slider-Card-For-Blog-Or-Product.css">
+	<link rel="stylesheet" href="assets/css/Team-Boxed.css">
+	<link rel="stylesheet" href="assets/css/untitled-1.css">
+	<link rel="stylesheet" href="assets/css/untitled.css">
 </head>
 
 <body>
-    <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient">
-        <div class="container"><a class="navbar-brand logo" href="index.html">&nbsp; &nbsp; &nbsp;iT Match</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navbarNav"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="listarTrabajos.html">Ver Trabajos</a></li>
-                    <li class="nav-item"><a class="nav-link" href="perfilPostulante.html">Ver Mi Perfil</a></li>
-                    <li class="nav-item"><a class="nav-link" href="registrarPostulante.html">Crear Cuenta</a></li>
-                    <li class="nav-item"><a class="nav-link" id="botonIngresar" href="login.html">Ingresar</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <section>
-        <section class="team-boxed">
-            <div class="container">
-                <div class="intro">
-                    <p class="text-center">Nunc luctus in metus eget fringilla. Aliquam sed justo ligula. Vestibulum nibh erat, pellentesque ut laoreet vitae.</p>
-                </div>
-                <div class="row people">
-                    <div class="col-md-6 col-lg-4 item">
-                        <div class="box"><img class="rounded-circle" src="assets/img/1.jpg">
-                            <h3 class="name">Ben Johnson</h3>
-                            <p class="title">Musician</p>
-                            <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, et interdum justo suscipit id. Etiam dictum feugiat tellus, a semper massa. </p>
-                            <div class="social"><a href="#"><i class="fa fa-facebook-official"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-instagram"></i></a></div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 item">
-                        <div class="box"><img class="rounded-circle" src="assets/img/logogoogle.png">
-                            <h3 class="name">Google</h3>
-                            <p class="title">Puesto: lider de proyecto</p>
-                            <p class="title">Lenguajes Requeridos: c++, c#</p>
-                            <p class="title">idiomas: ingles avanzado</p>
-                            <p class="title">modalidad: full time</p>
-                            <p class="title">españa - madrid</p>
-                            <p class="description"></p>
-                            <div class="social"><a href="#"></a><a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-globe2">
-                                        <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm7.5-6.923c-.67.204-1.335.82-1.887 1.855-.143.268-.276.56-.395.872.705.157 1.472.257 2.282.287V1.077zM4.249 3.539c.142-.384.304-.744.481-1.078a6.7 6.7 0 0 1 .597-.933A7.01 7.01 0 0 0 3.051 3.05c.362.184.763.349 1.198.49zM3.509 7.5c.036-1.07.188-2.087.436-3.008a9.124 9.124 0 0 1-1.565-.667A6.964 6.964 0 0 0 1.018 7.5h2.49zm1.4-2.741a12.344 12.344 0 0 0-.4 2.741H7.5V5.091c-.91-.03-1.783-.145-2.591-.332zM8.5 5.09V7.5h2.99a12.342 12.342 0 0 0-.399-2.741c-.808.187-1.681.301-2.591.332zM4.51 8.5c.035.987.176 1.914.399 2.741A13.612 13.612 0 0 1 7.5 10.91V8.5H4.51zm3.99 0v2.409c.91.03 1.783.145 2.591.332.223-.827.364-1.754.4-2.741H8.5zm-3.282 3.696c.12.312.252.604.395.872.552 1.035 1.218 1.65 1.887 1.855V11.91c-.81.03-1.577.13-2.282.287zm.11 2.276a6.696 6.696 0 0 1-.598-.933 8.853 8.853 0 0 1-.481-1.079 8.38 8.38 0 0 0-1.198.49 7.01 7.01 0 0 0 2.276 1.522zm-1.383-2.964A13.36 13.36 0 0 1 3.508 8.5h-2.49a6.963 6.963 0 0 0 1.362 3.675c.47-.258.995-.482 1.565-.667zm6.728 2.964a7.009 7.009 0 0 0 2.275-1.521 8.376 8.376 0 0 0-1.197-.49 8.853 8.853 0 0 1-.481 1.078 6.688 6.688 0 0 1-.597.933zM8.5 11.909v3.014c.67-.204 1.335-.82 1.887-1.855.143-.268.276-.56.395-.872A12.63 12.63 0 0 0 8.5 11.91zm3.555-.401c.57.185 1.095.409 1.565.667A6.963 6.963 0 0 0 14.982 8.5h-2.49a13.36 13.36 0 0 1-.437 3.008zM14.982 7.5a6.963 6.963 0 0 0-1.362-3.675c-.47.258-.995.482-1.565.667.248.92.4 1.938.437 3.008h2.49zM11.27 2.461c.177.334.339.694.482 1.078a8.368 8.368 0 0 0 1.196-.49 7.01 7.01 0 0 0-2.275-1.52c.218.283.418.597.597.932zm-.488 1.343a7.765 7.765 0 0 0-.395-.872C9.835 1.897 9.17 1.282 8.5 1.077V4.09c.81-.03 1.577-.13 2.282-.287z"></path>
-                                    </svg></a><a href="#"></a></div>
-                            <div class="social">
-                                <div><a class="btn btn-primary btn-lg" role="button" href="#myModal" data-bs-toggle="modal">Postularse</a>
-                                    <div class="modal fade" role="dialog" tabindex="-1" id="myModal">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h4>Modal Title</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <p class="text-center text-muted">Description </p>
-                                                </div>
-                                                <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Save</button></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div><a href="#"></a><a href="#"></a><a href="#"></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 item">
-                        <div class="box"><img class="rounded-circle" src="assets/img/3.jpg">
-                            <h3 class="name">Carl Kent</h3>
-                            <p class="title">Stylist</p>
-                            <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, et interdum justo suscipit id. Etiam dictum feugiat tellus, a semper massa. </p>
-                            <div class="social"><a href="#"><i class="fa fa-facebook-official"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-instagram"></i></a></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row people">
-                    <div class="col-md-6 col-lg-4 item">
-                        <div class="box"><img class="rounded-circle" src="assets/img/1.jpg">
-                            <h3 class="name">Ben Johnson</h3>
-                            <p class="title">Musician</p>
-                            <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, et interdum justo suscipit id. Etiam dictum feugiat tellus, a semper massa. </p>
-                            <div class="social"><a href="#"><i class="fa fa-facebook-official"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-instagram"></i></a></div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 item">
-                        <div class="box"><img class="rounded-circle" src="assets/img/2.jpg">
-                            <h3 class="name">Emily Clark</h3>
-                            <p class="title">Artist</p>
-                            <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, et interdum justo suscipit id. Etiam dictum feugiat tellus, a semper massa. </p>
-                            <div class="social"><a href="#"><i class="fa fa-facebook-official"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-instagram"></i></a></div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 item">
-                        <div class="box"><img class="rounded-circle" src="assets/img/3.jpg">
-                            <h3 class="name">Carl Kent</h3>
-                            <p class="title">Stylist</p>
-                            <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, et interdum justo suscipit id. Etiam dictum feugiat tellus, a semper massa. </p>
-                            <div class="social"><a href="#"><i class="fa fa-facebook-official"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-instagram"></i></a></div>
-                        </div>
-                    </div>
-                </div>
-                <section>
-                    <div><a class="btn btn-outline-primary" role="button" href="#">← Back</a><a class="btn btn-outline-primary float-end" role="button" href="#">Next →</a></div>
-                </section>
-            </div>
-        </section>
-    </section>
-    <footer id="myFooter" style="padding:0px;">
-        <div class="container-fluid" id="footer1" style="background: #212529;">
-            <div class="row text-center">
-                <div class="col footer-social" style="background: #212529;"><a class="social-icons" href="#"><i class="fa fa-facebook" id="iconfacebookfooter"></i></a><a class="social-icons" href="#"><i class="fa fa-google-plus"></i></a><a class="social-icons" href="#"><i class="fa fa-twitter"></i></a><a class="social-icons" href="#"><i class="fa fa-linkedin"></i></a></div>
-                <div class="col-12" style="background: #212529;">
-                    <p class="footer-copyright" style="color: rgb(144,146,146);">© 2021 iT Match ~ Egg Education&nbsp;&nbsp;<a href="#"></a></p>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/bs-init.js"></script>
-    <script src="assets/js/Animated-Type-Heading.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/pikaday.min.js"></script>
-    <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
-    <script src="assets/js/Multi-step-form.js"></script>
-    <script src="assets/js/Profile-Card-Slider---Slick-Slider.js"></script>
-    <script src="assets/js/Profile-Edit-Form.js"></script>
-    <script src="assets/js/Swiper-Slider-Card-For-Blog-Or-Product.js"></script>
-    <script src="assets/js/theme.js"></script>
+	<nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient">
+		<div class="container"><a class="navbar-brand logo" href="/pagina_inicio">&nbsp; &nbsp; &nbsp;iT
+				Match</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navbarNav"><span
+					class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav ms-auto">
+					<li class="nav-item"><a class="nav-link" href="/trabajo/listarTrabajos">Ver Trabajos</a></li>
+					<li sec:authorize="!isAuthenticated()" class="nav-item"><a class="nav-link"
+							href="/registro_empresa">Registrar Empresa</a></li>
+					<li sec:authorize="!isAuthenticated()" class="nav-item"><a class="nav-link"
+							href="/registro_postulante">Registrar Postulante</a></li>
+					<li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link"
+							href="perfilPostulante.html">Ver Mi Perfil</a></li>
+					<li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link" href="logout">Logout</a>
+					</li>
+					<li sec:authorize="!isAuthenticated()" class="nav-item"><a class="nav-link" id="botonIngresar"
+							href="/login">Ingresar</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<section>
+		<section class="team-boxed">
+			<div class="container">
+				<div class="intro">
+					<p class="text-center">Nunc luctus in metus eget fringilla. Aliquam sed justo ligula. Vestibulum
+						nibh erat, pellentesque ut laoreet vitae.</p>
+				</div>
+				<div class="row people">
+					<div th:each="trabajo : ${trabajos}" class="col-md-6 col-lg-4 item">
+						<div class="box"><img class="rounded-circle" src="assets/img/logogoogle.png">
+							<h3 class="name" th:text="${trabajo.nombre_empresa}"></h3>
+							<p  class="name">Empresa:</p>
+							<p th:text="${trabajo.nombre_empresa}" class="title"></p>
+							<p  class="name">Puesto:</p>
+							<p th:text="${trabajo.puesto}" class="title"></p>
+							<p  class="name">Lenguaje:</p>
+							<p th:text="${trabajo.lenguajes}" class="title"></p>
+							<p  class="name">Modalidad:</p>
+							<p th:text="${trabajo.modalidad}" class="title"></p>
+							<p  class="name">Zona:</p>
+							<p th:text="${trabajo.zona}" class="title"></p>
+							<div><a sec:authorize="hasRole('ROLE_POSTULANTE')" class="btn btn-primary btn-lg"
+									role="button" href="#myModal" data-bs-toggle="modal">Postularse</a>
+								<div class="modal fade" role="dialog" tabindex="-1" id="myModal">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h4>Modal Title</h4><button type="button" class="btn-close"
+													data-bs-dismiss="modal" aria-label="Close"></button>
+											</div>
+											<div class="modal-body">
+												<p class="text-center text-muted">Description </p>
+											</div>
+											<div class="modal-footer"><button class="btn btn-light" type="button"
+													data-bs-dismiss="modal">Close</button><button
+													class="btn btn-primary" type="button">Save</button></div>
+										</div>
+									</div>
+								</div>
+							</div><a href="#"></a><a href="#"></a><a href="#"></a>
+						</div>
+					</div>
+				</div>
+		</section>
+		</div>
+	</section>
+	</section>
+	<footer id="myFooter" style="padding:0px;">
+		<div class="container-fluid" id="footer1" style="background: #212529;">
+			<div class="row text-center">
+				<div class="col footer-social" style="background: #212529;"><a class="social-icons" href="#"><i
+							class="fa fa-facebook" id="iconfacebookfooter"></i></a><a class="social-icons" href="#"><i
+							class="fa fa-google-plus"></i></a><a class="social-icons" href="#"><i
+							class="fa fa-twitter"></i></a><a class="social-icons" href="#"><i
+							class="fa fa-linkedin"></i></a></div>
+				<div class="col-12" style="background: #212529;">
+					<p class="footer-copyright" style="color: rgb(144,146,146);">© 2021 iT Match ~ Egg
+						Education&nbsp;&nbsp;<a href="#"></a></p>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+	<script src="assets/js/bs-init.js"></script>
+	<script src="assets/js/Animated-Type-Heading.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/pikaday.min.js"></script>
+	<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+	<script src="assets/js/Multi-step-form.js"></script>
+	<script src="assets/js/Profile-Card-Slider---Slick-Slider.js"></script>
+	<script src="assets/js/Profile-Edit-Form.js"></script>
+	<script src="assets/js/Swiper-Slider-Card-For-Blog-Or-Product.js"></script>
+	<script src="assets/js/theme.js"></script>
 </body>
 
 </html>

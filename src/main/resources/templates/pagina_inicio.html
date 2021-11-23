@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="es-ar">
 
 <head>
 	<base href="/">
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-	<title>Projects - Brand</title>
+	<title>RitApp</title>
 	<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=ABeeZee">
@@ -57,9 +57,10 @@
 
 <body>
 	<nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient">
-		<div class="container"><a class="navbar-brand logo" href="/pagina_inicio">&nbsp; &nbsp; &nbsp;iT Match</a><button
+		<div class="container"><a class="navbar-brand logo" href="index.html">&nbsp; &nbsp; &nbsp;iT Match</a><button
 				data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navbarNav"><span
 					class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+			<p th:if="${mensaje != null}" th:text="${mensaje}" class="nav-item"></p>
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav ms-auto">
 					<li class="nav-item"><a class="nav-link" href="/trabajo/listarTrabajos">Ver Trabajos</a></li>
@@ -69,45 +70,80 @@
 							href="/registro_postulante">Registrar Postulante</a></li>
 					<li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link"
 							href="perfilPostulante.html">Ver Mi Perfil</a></li>
-					<li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link"
-							href="logout">Logout</a></li>
+					<li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link" href="logout">Logout</a>
+					</li>
 					<li sec:authorize="!isAuthenticated()" class="nav-item"><a class="nav-link" id="botonIngresar"
 							href="/login">Ingresar</a></li>
 				</ul>
 			</div>
 		</div>
 	</nav>
-	<div class="container" id="registro3">
-		<div class="row register-form">
-			<div class="col-md-8 offset-md-2">
-				<form action="/trabajo/crearTrabajo" method="POST" class="custom-form">
-					<h1>Nuevo Trabajo</h1>
-					<div class="row form-group">
-						<div class="col-sm-4 label-column"><label class="col-form-label"
-								for="name-input-field">Puesto</label></div>
-						<div class="col-sm-6 input-column"><input class="form-control" type="text" name="puesto"></div>
-					</div>
-					<div class="row form-group">
-						<div class="col-sm-4 label-column"><label class="col-form-label"
-								for="name-input-field">Modalidad</label></div>
-						<div class="col-sm-6 input-column"><input class="form-control" type="text" name="modalidad"></div>
-					</div>
-					<div class="row form-group">
-						<div class="col-sm-4 label-column"><label class="col-form-label"
-								for="name-input-field">Lenguajes</label></div>
-						<div class="col-sm-6 input-column"><input class="form-control" type="text" name="lenguaje">
-						</div>
-					</div>
-					<div class="row form-group">
-						<div class="col-sm-4 label-column"><label class="col-form-label" 
-								for="name-input-field">País o	Zona</label></div>
-						<div class="col-sm-6 input-column"><input class="form-control" type="text" name="zona"></div>
-					</div><button class="btn btn-light submit-button" id="botonCrear" type="submit">Crear Trabajo</button>
-				</form>
+	<h1 class="display-4">Heading</h1>
+	<div class="pagina">
+<!--		<main>
+			<div class="text-right">
+				<p th:if="${logout != null}" th:text="${logout}" style="color:green;"> </p>
 			</div>
-		</div>
+
+			<div>
+				<h1 id="titulo">Pagina de inicio<small></small></h1>
+				<p th:if="${mensaje != null}" th:text="${mensaje}" style="color:green;"> </p>
+				<p th:if="${rol != null}" th:text="${rol}" style="color:green;"> </p>
+			</div>
+
+			<div sec:authorize="hasRole('ROLE_POSTULANTE')" class="text-center" id="">
+				<a th:href="@{/trabajo/listarTrabajos}" class="step__button step__button--next">Trabajos</a>
+				<br>
+			</div>
+			<div sec:authorize="hasRole('ROLE_EMPRESA')" class="text-center" id="">
+				<a th:href="@{/trabajo/crearTrabajo}" class="step__button step__button--next">GENERAR PUESTO</a>
+				<br>
+			</div>
+			<div class="text-center" id="">
+				<a th:href="@{/emparejado/listar}" class="step__button step__button--next">Ver likes</a>
+				<br>
+			</div>
+
+		</main>-->
+		<section id="portfolio" class="portfolio">
+    <div class="container">
+        <h2 class="text-uppercase text-center text-secondary">Portfolio</h2>
+        <hr class="star-dark mb-5" />
+        <div class="row">
+            <div class="col-md-6 col-lg-4"><a class="d-block mx-auto portfolio-item" href="#portfolio-modal-1" data-bs-toggle="modal">
+                    <div class="d-flex portfolio-item-caption position-absolute h-100 w-100">
+                        <div class="text-center text-white my-auto portfolio-item-caption-content w-100"><i class="fa fa-search-plus fa-3x"></i></div>
+                    </div><img class="img-fluid" src="portfolio/cabin.png" />
+                </a></div>
+            <div class="col-md-6 col-lg-4"><a class="d-block mx-auto portfolio-item" href="#portfolio-modal-2" data-bs-toggle="modal">
+                    <div class="d-flex portfolio-item-caption position-absolute h-100 w-100">
+                        <div class="text-center text-white my-auto portfolio-item-caption-content w-100"><i class="fa fa-search-plus fa-3x"></i></div>
+                    </div><img class="img-fluid" src="portfolio/cake.png" />
+                </a></div>
+            <div class="col-md-6 col-lg-4"><a class="d-block mx-auto portfolio-item" href="#portfolio-modal-3" data-bs-toggle="modal">
+                    <div class="d-flex portfolio-item-caption position-absolute h-100 w-100">
+                        <div class="text-center text-white my-auto portfolio-item-caption-content w-100"><i class="fa fa-search-plus fa-3x"></i></div>
+                    </div><img class="img-fluid" src="portfolio/circus.png" />
+                </a></div>
+            <div class="col-md-6 col-lg-4"><a class="d-block mx-auto portfolio-item" href="#portfolio-modal-4" data-bs-toggle="modal">
+                    <div class="d-flex portfolio-item-caption position-absolute h-100 w-100">
+                        <div class="text-center text-white my-auto portfolio-item-caption-content w-100"><i class="fa fa-search-plus fa-3x"></i></div>
+                    </div><img class="img-fluid" src="portfolio/game.png" />
+                </a></div>
+            <div class="col-md-6 col-lg-4"><a class="d-block mx-auto portfolio-item" href="#portfolio-modal-5" data-bs-toggle="modal">
+                    <div class="d-flex portfolio-item-caption position-absolute h-100 w-100">
+                        <div class="text-center text-white my-auto portfolio-item-caption-content w-100"><i class="fa fa-search-plus fa-3x"></i></div>
+                    </div><img class="img-fluid" src="portfolio/safe.png" />
+                </a></div>
+            <div class="col-md-6 col-lg-4"><a class="d-block mx-auto portfolio-item" href="#portfolio-modal-6" data-bs-toggle="modal">
+                    <div class="d-flex portfolio-item-caption position-absolute h-100 w-100">
+                        <div class="text-center text-white my-auto portfolio-item-caption-content w-100"><i class="fa fa-search-plus fa-3x"></i></div>
+                    </div><img class="img-fluid" src="portfolio/submarine.png" />
+                </a></div>
+        </div>
+    </div>
+</section>
 	</div>
-	<section></section>
 	<footer id="myFooter" style="padding:0px;">
 		<div class="container-fluid" id="footer1" style="background: #212529;">
 			<div class="row text-center">

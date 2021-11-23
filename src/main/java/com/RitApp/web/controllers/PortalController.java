@@ -31,7 +31,7 @@ public class PortalController {
 
 	@GetMapping ("/pagina_inicio")
 	public String paginainicio(HttpSession session, Authentication usuario,Model modelo) {
-		modelo.addAttribute("mensaje", "Bienvenido "+usuario.getName());
+		modelo.addAttribute("mensaje", "Hola "+usuarioServicio.obtenernombre(usuario));
 		modelo.addAttribute("rol", "Su rol es "+usuario.getAuthorities());
 		return"/pagina_inicio";
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -25,6 +26,10 @@ import com.RitApp.web.repositorios.UsuarioRepositorio;
 public class UsuarioServicio implements UserDetailsService {
 	@Autowired
 	private UsuarioRepositorio usuarioRepositorio;
+	@Autowired
+	private EmpresaServicio empresaServicio;
+	@Autowired
+	private PostulanteServicio postulanteServicio;
 
 	@Override
 
@@ -58,5 +63,11 @@ public class UsuarioServicio implements UserDetailsService {
 	}
 	public Usuario buscaruserxmail(String email) {
 		return usuarioRepositorio.buscarPorEmail(email);
+	}
+	public String obtenernombre(Authentication usuario) {
+		Usuario usuario1=new Usuario();
+		usuario1=usuarioRepositorio.buscarPorEmail(usuario.getName());
+		return usuario1.getNombre_usuario();
+		
 	}
 }

@@ -31,10 +31,10 @@ public class EmpresaServicio {
             validarContraseña(contraseña1, contraseña2);
             BCryptPasswordEncoder encoder= new BCryptPasswordEncoder();
             Empresa empresa = new Empresa();
-            
             empresa.setEmail(email);
             empresa.setClave(encoder.encode(contraseña1));
             empresa.setNombre(nombre);
+            empresa.setNombre_usuario(nombre);
             empresa.setActividad(actividad);
             empresa.setRol(Rol.EMPRESA);
 

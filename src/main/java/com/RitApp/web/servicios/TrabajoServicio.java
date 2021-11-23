@@ -21,8 +21,8 @@ public class TrabajoServicio {
 	EmpresaServicio empresaServicio;
 
 	// Crear trabajo (Empresa)
-	public void crearTrabajo(Authentication usuario,String puesto, String zona, String modalidad, String lenguaje, String seniority,
-			String idioma, String estudios, String algoSobreMi) throws Exception {
+	public void crearTrabajo(Authentication usuario, String puesto, String zona, String modalidad, String lenguaje)
+			throws Exception {
 		validar(puesto, zona, modalidad);
 		try {
 
@@ -30,9 +30,9 @@ public class TrabajoServicio {
 			trabajo.setPuesto(puesto);
 			trabajo.setModalidad(modalidad);
 			trabajo.setZona(zona);
-			Perfil perfil = perfilServicio.crearPerfil(lenguaje, seniority, idioma, estudios, algoSobreMi);
-			trabajo.setPerfil(perfil);
+			trabajo.setLenguajes(lenguaje);
 			setearEmpresa(usuario, trabajo);
+			trabajo.setNombre_empresa(trabajo.getEmpresa().getNombre());
 			trabajoRepositorio.save(trabajo);
 
 		} catch (Exception e) {
@@ -94,7 +94,8 @@ public class TrabajoServicio {
 	public List<Trabajo> listarTrabajos() {
 		return trabajoRepositorio.findAll();
 	}
-	public void setearEmpresa(Authentication usuario,Trabajo trabajo) {
+
+	public void setearEmpresa(Authentication usuario, Trabajo trabajo) {
 		trabajo.setEmpresa(empresaServicio.buscarxmail(usuario.getName()));
 	}
 

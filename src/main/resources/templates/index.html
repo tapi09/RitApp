@@ -2,6 +2,7 @@
 <html lang="es-ar">
 
 <head>
+	<base href="/">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>RitApp</title>
@@ -55,19 +56,27 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient">
-        <div class="container"><a class="navbar-brand logo" href="index.html">&nbsp; &nbsp; &nbsp;iT Match</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navbarNav"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="listarTrabajos.html">Ver Trabajos</a></li>
-                    <li class="nav-item"><a class="nav-link" href="empresa.html">Soy Empresa</a></li>
-                    <li class="nav-item"><a class="nav-link" href="perfilPostulante.html">Ver Mi Perfil</a></li>
-                    <li class="nav-item"><a class="nav-link" href="registrarPostulante.html">Crear Cuenta</a></li>
-                    <li class="nav-item"><a class="nav-link" id="botonIngresar" href="login.html">Ingresar</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+	<nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient">
+		<div class="container"><a class="navbar-brand logo" href="/">&nbsp; &nbsp; &nbsp;iT Match</a><button
+				data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navbarNav"><span
+					class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav ms-auto">
+					<li class="nav-item"><a class="nav-link" href="/trabajo/listarTrabajos">Ver Trabajos</a></li>
+					<li sec:authorize="!isAuthenticated()" class="nav-item"><a class="nav-link"
+							href="/registro_empresa">Registrar Empresa</a></li>
+					<li sec:authorize="!isAuthenticated()" class="nav-item"><a class="nav-link"
+							href="/registro_postulante">Registrar Postulante</a></li>
+					<li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link"
+							href="perfilPostulante.html">Ver Mi Perfil</a></li>
+					<li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link"
+							href="logout">Logout</a></li>
+					<li sec:authorize="!isAuthenticated()" class="nav-item"><a class="nav-link" id="botonIngresar"
+							href="/login">Ingresar</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
     <h1 class="display-4">Heading</h1>
     <section id="carousel">
         <div class="carousel slide" data-bs-ride="carousel" id="carousel-1">

@@ -21,22 +21,24 @@ public class TrabajoController {
 	@GetMapping("/listarTrabajos")
 	public String listar(Model model) throws Exception {
 		
-			System.out.println("xxx");
-			model.addAttribute("trabajos", servicio.listarTrabajos());
+		
+		  System.out.println("xxx"); model.addAttribute("trabajos",
+		  servicio.listarTrabajos());
+		 
 	
 		return "listarTrabajos.html";
 	}
 
 	@GetMapping("/crearTrabajo")
 	public String creando() {
-		return "crearTrabajo.html";
+		return "trabajoCrear.html";
 	}
 
 	@PostMapping("/crearTrabajo")
-	public String crear(Authentication usuario,Model modelo, @RequestParam String puesto, @RequestParam String tipo,
-			@RequestParam String lenguaje, @RequestParam String tiempo) throws Exception {
+	public String crear(Authentication usuario,Model modelo, @RequestParam String puesto, @RequestParam String zona,
+			@RequestParam String lenguaje, @RequestParam String modalidad) throws Exception {
 		
-			servicio.crearTrabajo(usuario,puesto, "NO", "NO", lenguaje, "NO", "NO", "NO", "NO");
+			servicio.crearTrabajo(usuario, puesto, zona, modalidad, lenguaje);
 
 		
 		return "redirect:/trabajo/listarTrabajos";
