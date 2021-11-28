@@ -66,7 +66,9 @@
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav ms-auto">
 					<li class="nav-item"><a class="nav-link" href="/trabajo/listarTrabajos">Ver Trabajos</a></li>
-					<li sec:authorize="!isAuthenticated()" class="nav-item"><a class="nav-link"
+					<li sec:authorize="hasRole('ROLE_EMPRESA')" class="nav-item"><a class="nav-link"
+							href="/trabajo/crearTrabajo">Crear Trabajo</a></li>
+                                        <li sec:authorize="!isAuthenticated()" class="nav-item"><a class="nav-link"
 							href="/registro_empresa">Registrar Empresa</a></li>
 					<li sec:authorize="!isAuthenticated()" class="nav-item"><a class="nav-link"
 							href="/registro_postulante">Registrar Postulante</a></li>
@@ -76,8 +78,10 @@
 							href="/emparejado/listar">Ver Likes Nuevos</a></li>
 					<li sec:authorize="hasRole('ROLE_POSTULANTE')" class="nav-item"><a class="nav-link"
 							href="/emparejado/listar">Ver Likes dados</a></li>
-					<li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link"
-							href="perfilPostulante.html">Ver Mi Perfil</a></li>
+					<li sec:authorize="hasRole('ROLE_POSTULANTE')" class="nav-item"><a class="nav-link"
+							th:href="@{/postulante/modificarPerfil}">Ver Mi Perfil</a></li>
+                                        <li sec:authorize="hasRole('ROLE_EMPRESA')" class="nav-item"><a class="nav-link"
+							th:href="@{/empresa/modificarEmpresa}">Ver Mi Perfil</a></li>
 					<li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link" href="logout">Logout</a>
 					</li>
 					<li sec:authorize="!isAuthenticated()" class="nav-item"><a class="nav-link" id="botonIngresar"
@@ -96,7 +100,8 @@
 						<h th:if="${mensaje != null}" th:text="${mensaje}"></h>
 					</div>
 					<div th:each="trabajo,status : ${trabajos}" class="col-md-6 col-lg-4 item">
-						<div class="box"><img class="rounded-circle" src="assets/img/logogoogle.png">
+						<div class="box"><img class="rounded-circle" th:if="${trabajo.empresa.foto == null}" src="assets/img/logogoogle.png">
+                                                    <img class="rounded-circle" th:if="${trabajo.empresa.foto != null}" th:src="${'/imagen/usuario/' + trabajo.empresa.id}">
 							<p class="name">Puesto:</p>
 							<p th:text="${trabajo.puesto}" class="title"></p>
 							<p class="name">Lenguaje:</p>

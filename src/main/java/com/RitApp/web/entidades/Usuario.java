@@ -34,4 +34,5 @@ public class Usuario {
     private String nombre_usuario;
     @Enumerated(EnumType.STRING)
     protected Rol rol;
+    protected byte[] foto;
 }

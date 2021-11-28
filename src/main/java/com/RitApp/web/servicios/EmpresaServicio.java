@@ -15,6 +15,7 @@ import com.RitApp.web.entidades.Usuario;
 import com.RitApp.web.enums.Rol;
 import com.RitApp.web.repositorios.EmpresaRepositorio;
 import com.RitApp.web.repositorios.UsuarioRepositorio;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class EmpresaServicio {
@@ -46,21 +47,28 @@ public class EmpresaServicio {
         }
     }
     
-	/*
-	 * @Transactional public void modificarEmpresa(String id, String email, String
-	 * contraseña, String nombre, String actividad, String sitioWeb, String
-	 * beneficios, String sobreNostros, String pais) throws Exception { try {
-	 * Empresa empresa = empresaRepositorio.getById(id); empresa.setEmail(email);
-	 * empresa.setClave(contraseña); empresa.setNombre(nombre);
-	 * empresa.setActividad(actividad); empresa.setSitioWeb(sitioWeb);
-	 * empresa.setBeneficios(beneficios); empresa.setSobreNosotros(sobreNostros);
-	 * empresa.setPais(pais);
-	 * 
-	 * empresaRepositorio.saveAndFlush(empresa);
-	 * 
-	 * } catch (Exception e) { throw new
-	 * Exception("Error al Modificar Empresa en EmpresaServicio"); } }
-	 */
+    @Transactional
+    public void modificarEmpresa(String id, String email, String nombre, String actividad, String sitioWeb, String beneficios, String sobreNostros, String pais, MultipartFile logo) throws Exception {
+        try {
+            Empresa empresa = empresaRepositorio.getById(id);
+            empresa.setEmail(email);
+            empresa.setNombre(nombre);
+            empresa.setActividad(actividad);
+            empresa.setSitioWeb(sitioWeb);
+            empresa.setBeneficios(beneficios);
+            empresa.setSobreNosotros(sobreNostros);
+            empresa.setPais(pais);
+            
+            if (logo != null) {
+                empresa.setFoto(logo.getBytes());
+            }
+
+            empresaRepositorio.saveAndFlush(empresa);
+
+        } catch (Exception e) {
+            throw new Exception("Error al Modificar Empresa en EmpresaServicio");
+        }
+    }
     
     @Transactional
     public void eliminarEmpresa(String id) throws Exception {
@@ -132,6 +140,10 @@ public class EmpresaServicio {
     	return empresaRepositorio.getById(usuario.getId());
     }
     
-          
+    public Empresa buscarxid(String id) {
+        Empresa empresa = new Empresa();
+        empresa = empresaRepositorio.getById(id);
+        return empresa;
+    }      
     
 }

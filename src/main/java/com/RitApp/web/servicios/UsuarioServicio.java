@@ -70,4 +70,7 @@ public class UsuarioServicio implements UserDetailsService {
 		return usuario1.getNombre_usuario();
 		
 	}
+        public Usuario buscaruserxid(String id) {
+		return usuarioRepositorio.getById(id);
+	}
 }

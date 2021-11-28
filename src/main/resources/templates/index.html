@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es-ar">
+<html lang="es-ar" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 	<base href="/">
@@ -67,8 +67,10 @@
 							href="/registro_empresa">Registrar Empresa</a></li>
 					<li sec:authorize="!isAuthenticated()" class="nav-item"><a class="nav-link"
 							href="/registro_postulante">Registrar Postulante</a></li>
-					<li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link"
-							href="perfilPostulante.html">Ver Mi Perfil</a></li>
+					<li sec:authorize="hasRole('ROLE_POSTULANTE')" class="nav-item"><a class="nav-link"
+							th:href="@{/postulante/modificarPerfil}">Ver Mi Perfil</a></li>
+                                        <li sec:authorize="hasRole('ROLE_EMPRESA')" class="nav-item"><a class="nav-link"
+							th:href="@{/empresa/modificarEmpresa}">Ver Mi Perfil</a></li>
 					<li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link"
 							href="logout">Logout</a></li>
 					<li sec:authorize="!isAuthenticated()" class="nav-item"><a class="nav-link" id="botonIngresar"
