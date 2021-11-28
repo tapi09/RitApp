@@ -1,8 +1,6 @@
 package com.RitApp.web.entidades;
 
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
@@ -10,8 +8,6 @@ import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.GenericGenerator;
-
-import com.RitApp.web.enums.Rol;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -38,11 +34,13 @@ public class Emparejado {
     private String nombre_empresa;
     @OneToOne
     private Postulante postulante;
+    
     private String nombre_postulante;
     
     private Boolean estado_postulante;
     
     private Boolean estado_empresa;
     
-    private Boolean estado_bloqueado;
+    private Boolean estado_activo;
+
 }

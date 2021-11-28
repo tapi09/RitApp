@@ -1,5 +1,8 @@
 package com.RitApp.web.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.RitApp.web.entidades.Trabajo;
 import com.RitApp.web.servicios.TrabajoServicio;
 
 @Controller
@@ -19,13 +23,16 @@ public class TrabajoController {
 	TrabajoServicio servicio;
 
 	@GetMapping("/listarTrabajos")
-	public String listar(Model model) throws Exception {
-		
-		
-		  System.out.println("xxx"); model.addAttribute("trabajos",
-		  servicio.listarTrabajos());
-		 
-	
+	public String listar(Model model, Authentication usuario) throws Exception {
+		List<Trabajo> lista_trabajo = new ArrayList<Trabajo>();
+		lista_trabajo=servicio.listarTrabajos(usuario.getName());
+		System.out.println("xxx");
+		if (lista_trabajo.isEmpty()) {
+			model.addAttribute("mensaje", "NO HAY TRABAJOS NUEVOS");
+		}
+		model.addAttribute("trabajos", lista_trabajo);
+
+
 		return "listarTrabajos.html";
 	}
 
@@ -35,14 +42,14 @@ public class TrabajoController {
 	}
 
 	@PostMapping("/crearTrabajo")
-	public String crear(Authentication usuario,Model modelo, @RequestParam String puesto, @RequestParam String zona,
+	public String crear(Authentication usuario, Model modelo, @RequestParam String puesto, @RequestParam String zona,
 			@RequestParam String lenguaje, @RequestParam String modalidad) throws Exception {
-		
-			servicio.crearTrabajo(usuario, puesto, zona, modalidad, lenguaje);
 
-		
+		servicio.crearTrabajo(usuario, puesto, zona, modalidad, lenguaje);
+
 		return "redirect:/trabajo/listarTrabajos";
 	}
+
 	@GetMapping("/eliminarTrabajo")
 	public String eliminar(@RequestParam String id) throws Exception {
 		try {

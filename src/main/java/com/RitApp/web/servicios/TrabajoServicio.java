@@ -1,13 +1,18 @@
 package com.RitApp.web.servicios;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import com.RitApp.web.entidades.Emparejado;
 import com.RitApp.web.entidades.Perfil;
 import com.RitApp.web.entidades.Trabajo;
+import com.RitApp.web.entidades.Usuario;
+import com.RitApp.web.enums.Rol;
+import com.RitApp.web.repositorios.EmparejadoRepositorio;
 import com.RitApp.web.repositorios.TrabajoRepositorio;
 
 @Service
@@ -19,6 +24,10 @@ public class TrabajoServicio {
 	private PerfilServicio perfilServicio;
 	@Autowired
 	EmpresaServicio empresaServicio;
+	@Autowired
+	EmparejadoService emparejadoService;
+	@Autowired
+	UsuarioServicio usuarioServicio;
 
 	// Crear trabajo (Empresa)
 	public void crearTrabajo(Authentication usuario, String puesto, String zona, String modalidad, String lenguaje)
@@ -39,24 +48,6 @@ public class TrabajoServicio {
 			throw new Exception("Error al crear trabajo");
 		}
 	}
-
-	/*
-	 * //Modificar trabajo (Empresa) public void modificarTrabajo(String id, String
-	 * puesto, String lenguaje, String tipo, String tiempo) throws Exception{
-	 * validar( puesto, tipo, tiempo, sueldo, lugar); try { Trabajo trabajo = new
-	 * Trabajo();
-	 * 
-	 * trabajo.setId(id); trabajo.setPuesto(puesto); trabajo.setTipo(tipo);
-	 * trabajo.setTiempo(tiempo); trabajo.setSueldo(sueldo);
-	 * trabajo.setLugar(lugar);
-	 * 
-	 * trabajoRepositorio.save(trabajo);
-	 * 
-	 * } catch (Exception e) { throw new Exception("Error al modificar el trabajo");
-	 * }
-	 * 
-	 * }
-	 */
 
 	// Eliminar trabajo (Empresa)
 	public void eliminar(String id) throws Exception {
@@ -91,8 +82,24 @@ public class TrabajoServicio {
 	}
 
 	// Mostrar-Listar trabajos
-	public List<Trabajo> listarTrabajos() {
-		return trabajoRepositorio.findAll();
+	public List<Trabajo> listarTrabajos(String email) {
+		List<Trabajo> lista_finalList = new ArrayList<Trabajo>();
+		lista_finalList = trabajoRepositorio.findAll();
+		System.out.println("entro1");
+		Usuario usuario= new Usuario();
+		usuario=usuarioServicio.buscaruserxmail(email);				
+		if (usuario.getRol().equals(Rol.POSTULANTE)) {
+			List<Emparejado> lista_like_postulante = new ArrayList<Emparejado>();
+			lista_like_postulante = emparejadoService.mostrarlikes(usuario.getEmail());
+			System.out.println("entro");
+			for (Emparejado emparejado : lista_like_postulante) {
+				if (lista_finalList.contains(emparejado.getTrabajo())) {
+					System.out.println("entro"+emparejado.getNombre_puesto());
+					lista_finalList.remove(emparejado.getTrabajo());
+				}				
+			}
+		}
+		return lista_finalList;
 	}
 
 	public void setearEmpresa(Authentication usuario, Trabajo trabajo) {

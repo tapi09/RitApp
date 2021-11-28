@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es-ar">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 	<base href="/">
@@ -55,7 +55,7 @@
 	<link rel="stylesheet" href="assets/css/untitled.css">
 </head>
 
-<body>
+<body style="padding-top:70px">
 	<nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient">
 		<div class="container"><a class="navbar-brand logo" href="/pagina_inicio">&nbsp; &nbsp; &nbsp;iT
 				Match</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navbarNav"><span
@@ -84,98 +84,29 @@
 			</div>
 		</div>
 	</nav>
-	<h1 class="display-4">Heading</h1>
-	<div class="pagina">
-		<!--		<main>
-			<div class="text-right">
-				<p th:if="${logout != null}" th:text="${logout}" style="color:green;"> </p>
+	<div class="container">
+		<div class="d-flex flex-row justify-content-center alig-items-center">
+			<div class="list-group w-50 p-3">
+				<a th:each="mensaje,status : ${mensajes}" href="#" class="list-group-item list-group-item-action  "
+					aria-current="true">
+					<div class="d-flex w-100 justify-content-between">
+						<p th:text="${mensaje}" class="mb-1"></p>
+					</div>
+					<small></small>
+				</a>
+				<form method="POST" th:action="@{/chat/enviarmensaje}">
+					<div class="form-group">
+						<label for="mensajeenviado">Nuevo mensaje</label>
+						<textarea class="form-control" id="mensajeenviado"name="mensajeenviado" rows="3"></textarea>
+					</div>
+					<input class="form-control" type="hidden" th:value="${id_emparejado}" id="id_emparejado"
+						name="id_emparejado" />
+					<button type="submit" name="submit" value="value" class="btn btn-primary">Enviar</button>
+				</form>
 			</div>
 
-			<div>
-				<h1 id="titulo">Pagina de inicio<small></small></h1>
-				<p th:if="${mensaje != null}" th:text="${mensaje}" style="color:green;"> </p>
-				<p th:if="${rol != null}" th:text="${rol}" style="color:green;"> </p>
-			</div>
-
-			<div sec:authorize="hasRole('ROLE_POSTULANTE')" class="text-center" id="">
-				<a th:href="@{/trabajo/listarTrabajos}" class="step__button step__button--next">Trabajos</a>
-				<br>
-			</div>
-			<div sec:authorize="hasRole('ROLE_EMPRESA')" class="text-center" id="">
-				<a th:href="@{/trabajo/crearTrabajo}" class="step__button step__button--next">GENERAR PUESTO</a>
-				<br>
-			</div>
-			<div class="text-center" id="">
-				<a th:href="@{/emparejado/listar}" class="step__button step__button--next">Ver likes</a>
-				<br>
-			</div>
-
-		</main>-->
-		<section id="portfolio" class="portfolio">
-			<div class="container">
-				<h2 class="text-uppercase text-center text-secondary">Portfolio</h2>
-				<hr class="star-dark mb-5" />
-				<div class="row">
-					<div class="col-md-6 col-lg-4"><a class="d-block mx-auto portfolio-item" href="#portfolio-modal-1"
-							data-bs-toggle="modal">
-							<div class="d-flex portfolio-item-caption position-absolute h-100 w-100">
-								<div class="text-center text-white my-auto portfolio-item-caption-content w-100"><i
-										class="fa fa-search-plus fa-3x"></i></div>
-							</div><img class="img-fluid" src="portfolio/cabin.png" />
-						</a></div>
-					<div class="col-md-6 col-lg-4"><a class="d-block mx-auto portfolio-item" href="#portfolio-modal-2"
-							data-bs-toggle="modal">
-							<div class="d-flex portfolio-item-caption position-absolute h-100 w-100">
-								<div class="text-center text-white my-auto portfolio-item-caption-content w-100"><i
-										class="fa fa-search-plus fa-3x"></i></div>
-							</div><img class="img-fluid" src="portfolio/cake.png" />
-						</a></div>
-					<div class="col-md-6 col-lg-4"><a class="d-block mx-auto portfolio-item" href="#portfolio-modal-3"
-							data-bs-toggle="modal">
-							<div class="d-flex portfolio-item-caption position-absolute h-100 w-100">
-								<div class="text-center text-white my-auto portfolio-item-caption-content w-100"><i
-										class="fa fa-search-plus fa-3x"></i></div>
-							</div><img class="img-fluid" src="portfolio/circus.png" />
-						</a></div>
-					<div class="col-md-6 col-lg-4"><a class="d-block mx-auto portfolio-item" href="#portfolio-modal-4"
-							data-bs-toggle="modal">
-							<div class="d-flex portfolio-item-caption position-absolute h-100 w-100">
-								<div class="text-center text-white my-auto portfolio-item-caption-content w-100"><i
-										class="fa fa-search-plus fa-3x"></i></div>
-							</div><img class="img-fluid" src="portfolio/game.png" />
-						</a></div>
-					<div class="col-md-6 col-lg-4"><a class="d-block mx-auto portfolio-item" href="#portfolio-modal-5"
-							data-bs-toggle="modal">
-							<div class="d-flex portfolio-item-caption position-absolute h-100 w-100">
-								<div class="text-center text-white my-auto portfolio-item-caption-content w-100"><i
-										class="fa fa-search-plus fa-3x"></i></div>
-							</div><img class="img-fluid" src="portfolio/safe.png" />
-						</a></div>
-					<div class="col-md-6 col-lg-4"><a class="d-block mx-auto portfolio-item" href="#portfolio-modal-6"
-							data-bs-toggle="modal">
-							<div class="d-flex portfolio-item-caption position-absolute h-100 w-100">
-								<div class="text-center text-white my-auto portfolio-item-caption-content w-100"><i
-										class="fa fa-search-plus fa-3x"></i></div>
-							</div><img class="img-fluid" src="portfolio/submarine.png" />
-						</a></div>
-				</div>
-			</div>
-		</section>
-	</div>
-	<footer id="myFooter" style="padding:0px;">
-		<div class="container-fluid" id="footer1" style="background: #212529;">
-			<div class="row text-center">
-				<div class="col footer-social" style="background: #212529;"><a class="social-icons" href="#"><i
-							class="fa fa-facebook" id="iconfacebookfooter"></i></a><a class="social-icons" href="#"><i
-							class="fa fa-google-plus"></i></a><a class="social-icons" href="#"><i
-							class="fa fa-twitter"></i></a><a class="social-icons" href="#"><i
-							class="fa fa-linkedin"></i></a></div>
-				<div class="col-12" style="background: #212529;">
-					<p class="footer-copyright" style="color: rgb(144,146,146);">© 2021 iT Match ~ Egg
-						Education&nbsp;&nbsp;<a href="#"></a></p>
-				</div>
-			</div>
 		</div>
+	</div>
 	</footer>
 	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
 	<script src="assets/js/bs-init.js"></script>

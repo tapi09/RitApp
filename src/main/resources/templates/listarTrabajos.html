@@ -56,10 +56,13 @@
 </head>
 
 <body>
+
+	<body>
 	<nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient">
 		<div class="container"><a class="navbar-brand logo" href="/pagina_inicio">&nbsp; &nbsp; &nbsp;iT
 				Match</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navbarNav"><span
 					class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+			<p th:if="${mensaje != null}" th:text="${mensaje}" class="nav-item"></p>
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav ms-auto">
 					<li class="nav-item"><a class="nav-link" href="/trabajo/listarTrabajos">Ver Trabajos</a></li>
@@ -67,6 +70,12 @@
 							href="/registro_empresa">Registrar Empresa</a></li>
 					<li sec:authorize="!isAuthenticated()" class="nav-item"><a class="nav-link"
 							href="/registro_postulante">Registrar Postulante</a></li>
+					<li sec:authorize="hasRole('ROLE_EMPRESA')" class="nav-item"><a class="nav-link"
+							href="/emparejado/listaractivos">Ver Matchs Activos</a></li>
+					<li sec:authorize="hasRole('ROLE_EMPRESA')" class="nav-item"><a class="nav-link"
+							href="/emparejado/listar">Ver Likes Nuevos</a></li>
+					<li sec:authorize="hasRole('ROLE_POSTULANTE')" class="nav-item"><a class="nav-link"
+							href="/emparejado/listar">Ver Likes dados</a></li>
 					<li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link"
 							href="perfilPostulante.html">Ver Mi Perfil</a></li>
 					<li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link" href="logout">Logout</a>
@@ -77,42 +86,53 @@
 			</div>
 		</div>
 	</nav>
-	<section>
-		<section class="team-boxed">
-			<div class="container">
-				<div class="intro">
-					<p class="text-center">Nunc luctus in metus eget fringilla. Aliquam sed justo ligula. Vestibulum
-						nibh erat, pellentesque ut laoreet vitae.</p>
+		<section>
+			<section class="team-boxed">
+				<div class="container">
+
 				</div>
 				<div class="row people">
-					<div th:each="trabajo : ${trabajos}" class="col-md-6 col-lg-4 item">
+					<div class="row people">
+						<h th:if="${mensaje != null}" th:text="${mensaje}"></h>
+					</div>
+					<div th:each="trabajo,status : ${trabajos}" class="col-md-6 col-lg-4 item">
 						<div class="box"><img class="rounded-circle" src="assets/img/logogoogle.png">
-							<h3 class="name" th:text="${trabajo.nombre_empresa}"></h3>
-							<p  class="name">Empresa:</p>
-							<p th:text="${trabajo.nombre_empresa}" class="title"></p>
-							<p  class="name">Puesto:</p>
+							<p class="name">Puesto:</p>
 							<p th:text="${trabajo.puesto}" class="title"></p>
-							<p  class="name">Lenguaje:</p>
+							<p class="name">Lenguaje:</p>
 							<p th:text="${trabajo.lenguajes}" class="title"></p>
-							<p  class="name">Modalidad:</p>
-							<p th:text="${trabajo.modalidad}" class="title"></p>
-							<p  class="name">Zona:</p>
-							<p th:text="${trabajo.zona}" class="title"></p>
 							<div><a sec:authorize="hasRole('ROLE_POSTULANTE')" class="btn btn-primary btn-lg"
-									role="button" href="#myModal" data-bs-toggle="modal">Postularse</a>
-								<div class="modal fade" role="dialog" tabindex="-1" id="myModal">
+									role="button" th:href="|#userModal${status.index}|" data-bs-toggle="modal">+
+									info</a>
+								<div class="modal fade" th:id="'userModal'+${status.index}" tabindex="-1"
+									aria-labelledby="exampleModalLabel" aria-hidden="true">
 									<div class="modal-dialog" role="document">
 										<div class="modal-content">
 											<div class="modal-header">
-												<h4>Modal Title</h4><button type="button" class="btn-close"
-													data-bs-dismiss="modal" aria-label="Close"></button>
+												<h4 th:text="${trabajo.puesto}"></h4>
 											</div>
 											<div class="modal-body">
-												<p class="text-center text-muted">Description </p>
+												<p class="name">Empresa:</p>
+												<p th:text="${trabajo.nombre_empresa}" class="title"></p>
+												<p class="name">Puesto:</p>
+												<p th:text="${trabajo.puesto}" class="title"></p>
+												<p class="name">Lenguaje:</p>
+												<p th:text="${trabajo.lenguajes}" class="title"></p>
+												<p class="name">Modalidad:</p>
+												<p th:text="${trabajo.modalidad}" class="title"></p>
+												<p class="name">Zona:</p>
+												<p th:text="${trabajo.zona}" class="title"></p>
 											</div>
-											<div class="modal-footer"><button class="btn btn-light" type="button"
-													data-bs-dismiss="modal">Close</button><button
-													class="btn btn-primary" type="button">Save</button></div>
+											<div class="modal-footer">
+												<button class="btn btn-light" type="button"
+													data-bs-dismiss="modal">Close</button>
+												<form method="POST" th:action="@{/emparejado/emparejarpostulante}">
+													<input class="form-control" type="hidden" th:value="${trabajo.id}"
+														id="id_trabajo" name="id_trabajo" />
+													<button type="submit" name="submit" value="value"
+														class="btn btn-primary">Like</button>
+												</form>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -120,35 +140,35 @@
 						</div>
 					</div>
 				</div>
+			</section>
+			</div>
 		</section>
-		</div>
-	</section>
-	</section>
-	<footer id="myFooter" style="padding:0px;">
-		<div class="container-fluid" id="footer1" style="background: #212529;">
-			<div class="row text-center">
-				<div class="col footer-social" style="background: #212529;"><a class="social-icons" href="#"><i
-							class="fa fa-facebook" id="iconfacebookfooter"></i></a><a class="social-icons" href="#"><i
-							class="fa fa-google-plus"></i></a><a class="social-icons" href="#"><i
-							class="fa fa-twitter"></i></a><a class="social-icons" href="#"><i
-							class="fa fa-linkedin"></i></a></div>
-				<div class="col-12" style="background: #212529;">
-					<p class="footer-copyright" style="color: rgb(144,146,146);">© 2021 iT Match ~ Egg
-						Education&nbsp;&nbsp;<a href="#"></a></p>
+		</section>
+		<footer id="myFooter" style="padding:0px;">
+			<div class="container-fluid" id="footer1" style="background: #212529;">
+				<div class="row text-center">
+					<div class="col footer-social" style="background: #212529;"><a class="social-icons" href="#"><i
+								class="fa fa-facebook" id="iconfacebookfooter"></i></a><a class="social-icons"
+							href="#"><i class="fa fa-google-plus"></i></a><a class="social-icons" href="#"><i
+								class="fa fa-twitter"></i></a><a class="social-icons" href="#"><i
+								class="fa fa-linkedin"></i></a></div>
+					<div class="col-12" style="background: #212529;">
+						<p class="footer-copyright" style="color: rgb(144,146,146);">© 2021 iT Match ~ Egg
+							Education&nbsp;&nbsp;<a href="#"></a></p>
+					</div>
 				</div>
 			</div>
-		</div>
-	</footer>
-	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
-	<script src="assets/js/bs-init.js"></script>
-	<script src="assets/js/Animated-Type-Heading.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/pikaday.min.js"></script>
-	<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
-	<script src="assets/js/Multi-step-form.js"></script>
-	<script src="assets/js/Profile-Card-Slider---Slick-Slider.js"></script>
-	<script src="assets/js/Profile-Edit-Form.js"></script>
-	<script src="assets/js/Swiper-Slider-Card-For-Blog-Or-Product.js"></script>
-	<script src="assets/js/theme.js"></script>
-</body>
+		</footer>
+		<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+		<script src="assets/js/bs-init.js"></script>
+		<script src="assets/js/Animated-Type-Heading.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/pikaday.min.js"></script>
+		<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+		<script src="assets/js/Multi-step-form.js"></script>
+		<script src="assets/js/Profile-Card-Slider---Slick-Slider.js"></script>
+		<script src="assets/js/Profile-Edit-Form.js"></script>
+		<script src="assets/js/Swiper-Slider-Card-For-Blog-Or-Product.js"></script>
+		<script src="assets/js/theme.js"></script>
+	</body>
 
 </html>
