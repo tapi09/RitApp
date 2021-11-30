@@ -1,7 +1,9 @@
 
 package com.RitApp.web.entidades;
 
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,4 +24,6 @@ public class Empresa extends Usuario {
     private String beneficios;
     private String sobreNosotros;
     private String pais;
+    @OneToMany
+    private List<Trabajo> listaTrabajos;
 }

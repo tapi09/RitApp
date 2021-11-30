@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -25,45 +26,51 @@ import com.RitApp.web.repositorios.UsuarioRepositorio;
 public class UsuarioServicio implements UserDetailsService {
 	@Autowired
 	private UsuarioRepositorio usuarioRepositorio;
+	@Autowired
+	private EmpresaServicio empresaServicio;
+	@Autowired
+	private PostulanteServicio postulanteServicio;
+
 	@Override
 
-	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {			
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		try {
-			Usuario usuario = usuarioRepositorio.buscarPorEmail(email);			
+			Usuario usuario = usuarioRepositorio.buscarPorEmail(email);
 			if (usuario != null) {
 				List<GrantedAuthority> authorities = new ArrayList<>();
-				GrantedAuthority p = new SimpleGrantedAuthority(usuario.getRol().toString());
+				GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().toString());
 				authorities.add(p);
-				ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+				ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder
+						.currentRequestAttributes();
 				HttpSession session = attr.getRequest().getSession(true);
-				
-			return new User(usuario.getEmail(), usuario.getClave(),
-					authorities);
-			}				
+
+				return new User(usuario.getEmail(), usuario.getClave(), authorities);
+			}
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 		return null;
 	}
-	public void guardarUser(String email,String password) {
-		BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
-		Usuario usuario= new Usuario();
-		usuario.setEmail(email);	
+
+	public void guardarUser(String email, String password) {
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		Usuario usuario = new Usuario();
+		usuario.setEmail(email);
 		usuario.setClave(encoder.encode(password));
 		usuario.setRol(Rol.POSTULANTE);
-		usuarioRepositorio.save(usuario);	
+		usuarioRepositorio.save(usuario);
+
+	}
+	public Usuario buscaruserxmail(String email) {
+		return usuarioRepositorio.buscarPorEmail(email);
+	}
+	public String obtenernombre(Authentication usuario) {
+		Usuario usuario1=new Usuario();
+		usuario1=usuarioRepositorio.buscarPorEmail(usuario.getName());
+		return usuario1.getNombre_usuario();
 		
 	}
-	public boolean estado(String email) {
-		Usuario nuevoUsuario=new Usuario();
-		nuevoUsuario=usuarioRepositorio.buscarPorEmail(email);	
-    	if (nuevoUsuario!=null) {
-		return true;
-    	}else {
-			return false;
-		}
+        public Usuario buscaruserxid(String id) {
+		return usuarioRepositorio.getById(id);
 	}
-	
-	}
-	
-
+}

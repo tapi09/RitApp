@@ -1,4 +1,5 @@
 
+
 package com.RitApp.web.servicios;
 
 import java.util.ArrayList;
@@ -8,20 +9,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.RitApp.web.entidades.Empresa;
+import com.RitApp.web.entidades.Usuario;
+import com.RitApp.web.enums.Rol;
 import com.RitApp.web.repositorios.EmpresaRepositorio;
+import com.RitApp.web.repositorios.UsuarioRepositorio;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class EmpresaServicio {
     
     @Autowired
     private EmpresaRepositorio empresaRepositorio;
+    @Autowired
+    private UsuarioRepositorio usuarioRepositorio;
 
 
     @Transactional
-    public void crearEmpresa(String email, String contraseña1, String contraseña2, String nombre, String actividad, String sitioWeb, String beneficios, String sobreNostros, String pais, MultipartFile archivo) throws Exception {
+    public void crearEmpresa(String email, String contraseña1, String contraseña2, String nombre, String actividad) throws Exception {
         try {
             validarContraseña(contraseña1, contraseña2);
             BCryptPasswordEncoder encoder= new BCryptPasswordEncoder();
@@ -29,11 +35,10 @@ public class EmpresaServicio {
             empresa.setEmail(email);
             empresa.setClave(encoder.encode(contraseña1));
             empresa.setNombre(nombre);
+            empresa.setNombre_usuario(nombre);
             empresa.setActividad(actividad);
-            empresa.setSitioWeb(sitioWeb);
-            empresa.setBeneficios(beneficios);
-            empresa.setSobreNosotros(sobreNostros);
-            empresa.setPais(pais);
+            empresa.setRol(Rol.EMPRESA);
+
             
             empresaRepositorio.save(empresa);
             
@@ -43,11 +48,10 @@ public class EmpresaServicio {
     }
     
     @Transactional
-    public void modificarEmpresa(String id, String email, String contraseña, String nombre, String actividad, String sitioWeb, String beneficios, String sobreNostros, String pais) throws Exception {
+    public void modificarEmpresa(String id, String email, String nombre, String actividad, String sitioWeb, String beneficios, String sobreNostros, String pais, MultipartFile logo) throws Exception {
         try {
             Empresa empresa = empresaRepositorio.getById(id);
             empresa.setEmail(email);
-            empresa.setClave(contraseña);
             empresa.setNombre(nombre);
             empresa.setActividad(actividad);
             empresa.setSitioWeb(sitioWeb);
@@ -55,8 +59,12 @@ public class EmpresaServicio {
             empresa.setSobreNosotros(sobreNostros);
             empresa.setPais(pais);
             
+            if (logo != null) {
+                empresa.setFoto(logo.getBytes());
+            }
+
             empresaRepositorio.saveAndFlush(empresa);
-            
+
         } catch (Exception e) {
             throw new Exception("Error al Modificar Empresa en EmpresaServicio");
         }
@@ -126,6 +134,16 @@ public class EmpresaServicio {
         }
 
     }
-          
+    public Empresa buscarxmail(String email) {
+    	Usuario usuario=new Usuario();
+    	usuario=usuarioRepositorio.buscarPorEmail(email);
+    	return empresaRepositorio.getById(usuario.getId());
+    }
+    
+    public Empresa buscarxid(String id) {
+        Empresa empresa = new Empresa();
+        empresa = empresaRepositorio.getById(id);
+        return empresa;
+    }      
     
 }

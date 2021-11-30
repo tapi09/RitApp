@@ -1,10 +1,10 @@
-
 package com.RitApp.web.entidades;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -13,26 +13,28 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * @author Emiliano
+ *
+ */
 @Entity
 @Data
 @AllArgsConstructor
 @Builder
 @NoArgsConstructor
 public class Trabajo {
-	@Id
-	@GeneratedValue(generator = "uuid")
-	@GenericGenerator(name = "uuid", strategy = "uuid2")
-	private String id;
-	private String puesto;
-	private String lenguaje;
-	private String tipo;
-	private String tiempo;
-	@ManyToOne
-	private Empresa empresa;
-	/*
-	 * @OneToMany private List<Postulante> listaPostulantes;
-	 * 
-	 * @OneToMany private List<Postulante> listaMatch;
-	 */
 
+    @Id
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    private String id;
+    private String modalidad;
+    private String puesto;
+    private String zona;
+    private String nombre_empresa;
+    private String lenguajes;
+    @OneToOne
+    private Perfil perfil;
+    @ManyToOne
+    private Empresa empresa;
 }

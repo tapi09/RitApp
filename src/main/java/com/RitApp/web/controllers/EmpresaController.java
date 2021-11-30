@@ -1,81 +1,71 @@
 package com.RitApp.web.controllers;
 
+import com.RitApp.web.entidades.Empresa;
+import com.RitApp.web.entidades.Usuario;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.RitApp.web.servicios.EmpresaServicio;
+import com.RitApp.web.servicios.UsuarioServicio;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 @RequestMapping("/empresa")
 public class EmpresaController {
 
-    /// Registrar Empresa
+    @Autowired
+    UsuarioServicio usuarioServicio;
+    @Autowired
+    EmpresaServicio empresaServicio;
+
     @GetMapping("/registrar")
-    public ModelAndView FormularioCrear(ModelMap model, @ModelAttribute("msj_error") String msj_error,
-            @ModelAttribute("email") String email, @ModelAttribute("contrasea_1") String contrasea_1,
-            @ModelAttribute("contrasea_2") String contrasea_2, @ModelAttribute("nombre") String nombre,
-            @ModelAttribute("actividad") String actividad, @ModelAttribute("sitioWeb") String sitioWeb,
-            @ModelAttribute("beneficios") String beneficios, @ModelAttribute("pais") String pais,
-            @ModelAttribute("sobreNosotros") String sobreNosotros) {
+    public String crear() {
 
-        model.put("error", msj_error);
-        model.put("email", email);
-        model.put("contrasea_1", contrasea_1);
-        model.put("contrasea_2", contrasea_2);
-        model.put("nombre", nombre);
-        model.put("actividad", actividad);
-        model.put("sitioWeb", sitioWeb);
-        model.put("beneficios", beneficios);
-        model.put("pais", pais);
-        model.put("sobreNosotros", sobreNosotros);
-
-        return new ModelAndView("Registros/Registrar_Empresa.html", model); // Devuelve al usuario el HTML + El
-        // modelo(variables dinamicas)
+        return "registro_empresa";
     }
 
     @PostMapping("/registrar")
-    public RedirectView crear(RedirectAttributes attributes, @RequestParam String email,
-            @RequestParam String contrasea_1, @RequestParam String contrasea_2, @RequestParam String nombre,
-            @RequestParam String actividad, @RequestParam String sitioWeb, @RequestParam String beneficios,
-            @RequestParam String pais, @RequestParam String sobreNosotros) throws Exception {
+    public String crear(@RequestParam String nombre, @RequestParam String actividad, @RequestParam String email, @RequestParam String password, @RequestParam String password1) throws Exception {
+        empresaServicio.crearEmpresa(email, password, password1, nombre, actividad);
+        return "redirect:/";
+    }
 
+    @GetMapping("/verPerfil")
+    public String verPerfil() {
+        return "perfilEmpresa.html";
+    }
+
+    @GetMapping("/modificarEmpresa")
+    public ModelAndView modificarDatosEmpresa(Authentication usuario) throws Exception {
         try {
-
-            throw new Exception("Error en Registrar Empresa");
-//			System.out.println(email);
-//			System.out.println(contrasea_1);
-//			System.out.println(contrasea_2);
-//			System.out.println(nombre);
-//			System.out.println(actividad);
-//			System.out.println(sitioWeb);
-//			System.out.println(beneficios);
-//			System.out.println(pais);
-//			System.out.println(sobreNosotros);
-            // return new RedirectView("/");
-
-        } catch (Exception ex) {
-            attributes.addFlashAttribute("email", email);
-            attributes.addFlashAttribute("contrasea_1", contrasea_1);
-            attributes.addFlashAttribute("contrasea_2", contrasea_2);
-            attributes.addFlashAttribute("nombre", nombre);
-            attributes.addFlashAttribute("actividad", actividad);
-            attributes.addFlashAttribute("sitioWeb", sitioWeb);
-            attributes.addFlashAttribute("beneficios", beneficios);
-            attributes.addFlashAttribute("pais", pais);
-            attributes.addFlashAttribute("sobreNosotros", sobreNosotros);
-            attributes.addFlashAttribute("msj_error", ex.getMessage());
-            System.err.println(ex.getMessage());
-
-            return new RedirectView("/empresa/registrar");
+            ModelAndView mav = new ModelAndView("/perfilEmpresa");
+            Usuario user = usuarioServicio.buscaruserxmail(usuario.getName());
+            Empresa empresa = empresaServicio.buscarxid(user.getId());
+            mav.addObject("empresa", empresa);
+            return mav;
+        } catch (Exception e) {
+            throw new Exception("Error en Empresa Controlador - modificar Empresa");
         }
 
     }
 
+    @PostMapping("/modificandoEmpresa")
+    public RedirectView modificandoEmpresa(Authentication usuario, @RequestParam String email, @RequestParam String nombre, @RequestParam String actividad, @RequestParam String sitioWeb, @RequestParam String beneficios, @RequestParam String sobreNosotros, @RequestParam String pais, MultipartFile logo) throws Exception {
+        try {
+            Empresa empresa = empresaServicio.buscarxmail(usuario.getName());
+            empresaServicio.modificarEmpresa(empresa.getId(), email, nombre, actividad, sitioWeb, beneficios, sobreNosotros, pais, logo);
+            return new RedirectView("/pagina_inicio");
+        } catch (Exception e) {
+            throw new Exception("Error en EmpresaController - modificandoEmpresa");
+        }
+
+    }
 
 }
