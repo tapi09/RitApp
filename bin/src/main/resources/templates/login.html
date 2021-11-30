@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+    <div class="root">
+        <form  th:action="@{/logincheck}" method="POST" class="form-register-login">
+        	
+        	<div class="step__header">
+            	<h2 class="step__title">Login<small></small></h2>
+       		</div>
+       		<br>
+            <p th:if="${error != null}" th:text="${error}" style="color:red;"> </p>
+
+            <input type="text" Placeholder="email" name="email" class="step__input" />
+            
+            <input type="password" Placeholder="password" name="password" class="step__input" />
+            
+            <div class="step__footer">
+           	 <button type="submit" class="step__button step__button--next">Ingresar</button>
+           	</div>
+        </form>
+    </div>
+</body>
+
+</html>
