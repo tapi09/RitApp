@@ -87,7 +87,7 @@ public class PostulanteServicio {
             perfil = perfilServicio.crearPerfil(lenguaje, seniority, idioma, estudios, algoSobreMi);
             postulante.setPerfil(perfil);
         }
-        
+            
         if (foto != null) {
                 postulante.setFoto(foto.getBytes());
             }

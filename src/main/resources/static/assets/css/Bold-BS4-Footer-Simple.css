@@ -58,8 +58,8 @@
 }
 
 #myFooter .fa-google-plus:hover {
-  color: red;
-  background-color: #343a40;
+  color: #ffffff;
+  background-color: red;
 }
 
 #myFooter .fa-google-plus:focus {

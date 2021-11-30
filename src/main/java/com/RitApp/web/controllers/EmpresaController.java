@@ -60,7 +60,11 @@ public class EmpresaController {
     public RedirectView modificandoEmpresa(Authentication usuario, @RequestParam String email, @RequestParam String nombre, @RequestParam String actividad, @RequestParam String sitioWeb, @RequestParam String beneficios, @RequestParam String sobreNosotros, @RequestParam String pais, MultipartFile logo) throws Exception {
         try {
             Empresa empresa = empresaServicio.buscarxmail(usuario.getName());
-            empresaServicio.modificarEmpresa(empresa.getId(), email, nombre, actividad, sitioWeb, beneficios, sobreNosotros, pais, logo);
+            if(logo.getSize() == 0) {
+            empresaServicio.modificarEmpresa(empresa.getId(), email, nombre, actividad, sitioWeb, beneficios, sobreNosotros, pais, null);
+            } else {
+            empresaServicio.modificarEmpresa(empresa.getId(), email, nombre, actividad, sitioWeb, beneficios, sobreNosotros, pais, logo);    
+            }
             return new RedirectView("/pagina_inicio");
         } catch (Exception e) {
             throw new Exception("Error en EmpresaController - modificandoEmpresa");

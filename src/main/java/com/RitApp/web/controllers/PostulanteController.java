@@ -122,9 +122,12 @@ public class PostulanteController {
     @PostMapping("/modificandoPerfil")
     public RedirectView modificandoPostulantePerfil(Authentication usuario, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String email, @RequestParam Integer telefono, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaNacimiento, @RequestParam Integer edad, @RequestParam String dni, @RequestParam String genero, @RequestParam String pais, @RequestParam String direccion, @RequestParam String lenguaje, @RequestParam String seniority, @RequestParam String idioma, @RequestParam String estudios, @RequestParam String algoSobreMi, MultipartFile foto) throws Exception {
         try {
-            System.out.println(nombre + apellido + email + dni + telefono + idioma + algoSobreMi + lenguaje + estudios + seniority + fechaNacimiento + edad + direccion + pais + genero);
             Postulante postu = service.buscaxmail(usuario.getName());
-            service.modificar(postu.getId(), nombre, apellido, email, telefono, fechaNacimiento, edad, dni, genero, pais, direccion, lenguaje, seniority, idioma, estudios, algoSobreMi, foto);
+            if (foto.getSize() == 0) {
+            service.modificar(postu.getId(), nombre, apellido, email, telefono, fechaNacimiento, edad, dni, genero, pais, direccion, lenguaje, seniority, idioma, estudios, algoSobreMi, null);
+            } else {
+                service.modificar(postu.getId(), nombre, apellido, email, telefono, fechaNacimiento, edad, dni, genero, pais, direccion, lenguaje, seniority, idioma, estudios, algoSobreMi, foto);
+            }
             return new RedirectView("/pagina_inicio");
         } catch (Exception e) {
             throw new Exception("Error en PostulanteController - modificandoPostulante");
