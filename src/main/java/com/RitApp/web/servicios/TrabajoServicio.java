@@ -8,11 +8,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import com.RitApp.web.entidades.Emparejado;
-import com.RitApp.web.entidades.Perfil;
 import com.RitApp.web.entidades.Trabajo;
 import com.RitApp.web.entidades.Usuario;
 import com.RitApp.web.enums.Rol;
-import com.RitApp.web.repositorios.EmparejadoRepositorio;
+import com.RitApp.web.error.MyException;
 import com.RitApp.web.repositorios.TrabajoRepositorio;
 
 @Service
@@ -32,8 +31,9 @@ public class TrabajoServicio {
 	// Crear trabajo (Empresa)
 	public void crearTrabajo(Authentication usuario, String puesto, String zona, String modalidad, String lenguaje)
 			throws Exception {
-		validar(puesto, zona, modalidad);
 		try {
+		validar(puesto, zona, modalidad);
+		
 
 			Trabajo trabajo = new Trabajo();
 			trabajo.setPuesto(puesto);
@@ -45,44 +45,49 @@ public class TrabajoServicio {
 			trabajoRepositorio.save(trabajo);
 
 		} catch (Exception e) {
-			throw new Exception("Error al crear trabajo");
+			throw new MyException(e.getMessage());
 		}
 	}
 
 	// Eliminar trabajo (Empresa)
 	public void eliminar(String id) throws Exception {
+		try {
 		Trabajo trabajo = buscarXId(id);
 		trabajoRepositorio.delete(trabajo);
-
-	}
-
-	public Trabajo buscarXId(String id) throws Exception {
-		Trabajo respuesta = trabajoRepositorio.buscarPorid(id);
-		System.out.println("llegue");
-		return respuesta;
-	}
-
-	public void validar(String puesto, String modalidad, String zona) throws Exception {
-		try {
-
-			if (puesto.isEmpty() || puesto == null) {
-				throw new Exception("El campo 'puesto' no puede quedar en blanco!");
-			}
-			if (modalidad.isEmpty() || modalidad == null) {
-				throw new Exception("El campo 'modalidad' no puede quedar en blanco!");
-			}
-			if (zona.isEmpty() || zona == null) {
-				throw new Exception("El campo 'zona' no puede quedar en blanco!");
-			}
-
-		} catch (Exception e) {
-			throw new Exception("Error en la validación de datos del trabajo");
+		}catch(Exception e ) {
+			throw new MyException("error al eliminar trabajo");
 		}
 
 	}
 
+	public Trabajo buscarXId(String id) throws Exception {
+		try {
+		Trabajo respuesta = trabajoRepositorio.buscarPorid(id);
+		System.out.println("llegue");
+		return respuesta;
+		} catch(Exception e) {
+			throw new MyException("error al buscar trabajho x id");
+		}
+	}
+
+	public void validar(String puesto, String modalidad, String zona) throws MyException {
+	
+			if (puesto.isEmpty() || puesto == null) {
+				throw new MyException("El campo 'puesto' no puede quedar en blanco!");
+			}
+			if (modalidad.isEmpty() || modalidad == null) {
+				throw new MyException("El campo 'modalidad' no puede quedar en blanco!");
+			}
+			if (zona.isEmpty() || zona == null) {
+				throw new MyException("El campo 'zona' no puede quedar en blanco!");
+			}
+
+		
+	}
+
 	// Mostrar-Listar trabajos
-	public List<Trabajo> listarTrabajos(String email) {
+	public List<Trabajo> listarTrabajos(String email) throws MyException{
+		try {
 		List<Trabajo> lista_finalList = new ArrayList<Trabajo>();
 		lista_finalList = trabajoRepositorio.findAll();
 		System.out.println("entro1");
@@ -100,10 +105,16 @@ public class TrabajoServicio {
 			}
 		}
 		return lista_finalList;
+	}catch(Exception e) {
+		throw new MyException("error al listar trabajos");
+	}
 	}
 
-	public void setearEmpresa(Authentication usuario, Trabajo trabajo) {
+	public void setearEmpresa(Authentication usuario, Trabajo trabajo) throws MyException {
 		trabajo.setEmpresa(empresaServicio.buscarxmail(usuario.getName()));
+	}
+	public List<Trabajo> trabajos(){
+		return trabajoRepositorio.findAll();
 	}
 
 }

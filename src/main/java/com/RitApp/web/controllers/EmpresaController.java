@@ -1,20 +1,22 @@
 package com.RitApp.web.controllers;
 
-import com.RitApp.web.entidades.Empresa;
-import com.RitApp.web.entidades.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import com.RitApp.web.servicios.EmpresaServicio;
-import com.RitApp.web.servicios.UsuarioServicio;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
+
+import com.RitApp.web.entidades.Empresa;
+import com.RitApp.web.entidades.Usuario;
+import com.RitApp.web.error.MyException;
+import com.RitApp.web.servicios.EmpresaServicio;
+import com.RitApp.web.servicios.UsuarioServicio;
 
 @Controller
 @RequestMapping("/empresa")
@@ -32,8 +34,14 @@ public class EmpresaController {
     }
 
     @PostMapping("/registrar")
-    public String crear(@RequestParam String nombre, @RequestParam String actividad, @RequestParam String email, @RequestParam String password, @RequestParam String password1) throws Exception {
-        empresaServicio.crearEmpresa(email, password, password1, nombre, actividad);
+    public String crear(Model model, @RequestParam String nombre, @RequestParam String actividad, @RequestParam String email, @RequestParam String password, @RequestParam String password1) throws Exception {
+        try {
+    	empresaServicio.crearEmpresa(email, password, password1, nombre, actividad);
+        }catch(MyException e){
+        	System.out.println(e.getMessage());
+        	model.addAttribute("error", e.getMessage());
+        	return "registro_empresa";
+        }
         return "redirect:/";
     }
 
@@ -51,7 +59,7 @@ public class EmpresaController {
             mav.addObject("empresa", empresa);
             return mav;
         } catch (Exception e) {
-            throw new Exception("Error en Empresa Controlador - modificar Empresa");
+            throw new MyException(e.getMessage());
         }
 
     }
@@ -67,7 +75,7 @@ public class EmpresaController {
             }
             return new RedirectView("/pagina_inicio");
         } catch (Exception e) {
-            throw new Exception("Error en EmpresaController - modificandoEmpresa");
+            throw new MyException(e.getMessage());
         }
 
     }

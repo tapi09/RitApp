@@ -1,6 +1,7 @@
 package com.RitApp.web.servicios;
 
 import com.RitApp.web.entidades.Perfil;
+import com.RitApp.web.error.MyException;
 import com.RitApp.web.repositorios.PerfilRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,7 @@ public class PerfilServicio {
     private PerfilRepositorio perfilRepositorio;
     
     @Transactional
-    public Perfil crearPerfil(String lenguaje, String seniority, String idioma, String estudios, String algoSobreMi) throws Exception {
+    public Perfil crearPerfil(String lenguaje, String seniority, String idioma, String estudios, String algoSobreMi) throws MyException {
         try {
             Perfil perfil = new Perfil();
             perfil.setLenguaje(lenguaje);
@@ -25,13 +26,13 @@ public class PerfilServicio {
 
             return perfil;
         } catch (Exception e) {
-            throw new Exception("Error al crear Perfil");
+            throw new MyException(e.getMessage());
         }
 
     }
     
     @Transactional
-    public Perfil crearPerfilVacio() throws Exception {
+    public Perfil crearPerfilVacio() throws MyException {
         try {
             Perfil perfil = new Perfil();
             
@@ -39,7 +40,8 @@ public class PerfilServicio {
 
             return perfil;
         } catch (Exception e) {
-            throw new Exception("Error al crear Perfil");
+            throw new MyException("Error al crear Perfil vacio");
+            
         }
 
     }
@@ -51,7 +53,7 @@ public class PerfilServicio {
             
             return perfil;
         } catch (Exception e) {
-            throw new Exception("Error al crear Perfil");
+            throw new Exception("Error al buscar perfil x id");
         }
 
     }
@@ -69,7 +71,7 @@ public class PerfilServicio {
 
             return perfil;
         } catch (Exception e) {
-            throw new Exception("Error al modificar Perfil");
+            throw new Exception(e.getMessage());
         }
 
     }

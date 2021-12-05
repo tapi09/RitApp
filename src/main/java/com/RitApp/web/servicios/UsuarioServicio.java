@@ -20,6 +20,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.RitApp.web.entidades.Usuario;
 import com.RitApp.web.enums.Rol;
+import com.RitApp.web.error.MyException;
 import com.RitApp.web.repositorios.UsuarioRepositorio;
 
 @Service
@@ -46,8 +47,9 @@ public class UsuarioServicio implements UserDetailsService {
 
 				return new User(usuario.getEmail(), usuario.getClave(), authorities);
 			}
-		} catch (Exception e) {
-			// TODO: handle exception
+		} catch (UsernameNotFoundException e) {
+			throw new UsernameNotFoundException(e.getMessage());
+
 		}
 		return null;
 	}
@@ -61,16 +63,28 @@ public class UsuarioServicio implements UserDetailsService {
 		usuarioRepositorio.save(usuario);
 
 	}
-	public Usuario buscaruserxmail(String email) {
+	public Usuario buscaruserxmail(String email) throws MyException {
+		try {
 		return usuarioRepositorio.buscarPorEmail(email);
+		}catch(Exception e) {
+			throw new MyException("error al buscaruserxmail");
+		}
 	}
-	public String obtenernombre(Authentication usuario) {
+	public String obtenernombre(Authentication usuario)throws MyException{
+		try {
 		Usuario usuario1=new Usuario();
 		usuario1=usuarioRepositorio.buscarPorEmail(usuario.getName());
 		return usuario1.getNombre_usuario();
+		}catch(Exception e) {
+			throw new MyException("error interno, al obtener nombre de usuario en UsuarioService");
+		}
 		
 	}
-        public Usuario buscaruserxid(String id) {
+        public Usuario buscaruserxid(String id)throws MyException {
+        	try {
 		return usuarioRepositorio.getById(id);
+        	}catch(Exception e) {
+        		throw new MyException("error interno, error al busacaruserxid");
+        	}
 	}
 }

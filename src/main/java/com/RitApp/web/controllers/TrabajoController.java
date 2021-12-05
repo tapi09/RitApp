@@ -24,17 +24,32 @@ public class TrabajoController {
 
 	@GetMapping("/listarTrabajos")
 	public String listar(Model model, Authentication usuario) throws Exception {
-		List<Trabajo> lista_trabajo = new ArrayList<Trabajo>();
-		lista_trabajo=servicio.listarTrabajos(usuario.getName());
-		System.out.println("xxx");
-		if (lista_trabajo.isEmpty()) {
-			model.addAttribute("mensaje", "NO HAY TRABAJOS NUEVOS");
+		try {
+			List<Trabajo> lista_trabajo = new ArrayList<Trabajo>();
+			lista_trabajo = servicio.listarTrabajos(usuario.getName());
+			System.out.println("xxx");
+			if (lista_trabajo.isEmpty()) {
+				model.addAttribute("mensaje", "NO HAY TRABAJOS NUEVOS");
+			}
+			model.addAttribute("trabajos", lista_trabajo);
+
+			return "listarTrabajos.html";
+		} catch (Exception e) {
+			model.addAttribute("error", e.getMessage());
+			return "/error";
 		}
-		model.addAttribute("trabajos", lista_trabajo);
-
-
-		return "listarTrabajos.html";
 	}
+// para mostrar trabajos en caso de no estar logueado
+	/*
+	 * @GetMapping("/listarTrabajos2") public String listar(Model model) throws
+	 * Exception { try { System.out.println("xxx"); if
+	 * (servicio.trabajos().isEmpty()) { model.addAttribute("mensaje",
+	 * "NO HAY TRABAJOS NUEVOS"); } model.addAttribute("trabajos",
+	 * servicio.trabajos());
+	 * 
+	 * return "listarTrabajos.html"; } catch (Exception e) {
+	 * model.addAttribute("error", e.getMessage()); return "/error"; } }
+	 */
 
 	@GetMapping("/crearTrabajo")
 	public String creando() {
@@ -44,22 +59,27 @@ public class TrabajoController {
 	@PostMapping("/crearTrabajo")
 	public String crear(Authentication usuario, Model modelo, @RequestParam String puesto, @RequestParam String zona,
 			@RequestParam String lenguaje, @RequestParam String modalidad) throws Exception {
+		try {
+			servicio.crearTrabajo(usuario, puesto, zona, modalidad, lenguaje);
 
-		servicio.crearTrabajo(usuario, puesto, zona, modalidad, lenguaje);
-
-		return "redirect:/trabajo/listarTrabajos";
+			return "redirect:/trabajo/listarTrabajos";
+		} catch (Exception e) {
+			modelo.addAttribute("error", e.getMessage());
+			return "/error";
+		}
 	}
 
 	@GetMapping("/eliminarTrabajo")
-	public String eliminar(@RequestParam String id) throws Exception {
+	public String eliminar(@RequestParam String id, Model model) throws Exception {
 		try {
 			if (id != null) {
 				servicio.eliminar(id);
 			} else {
 				System.out.println("tipo null");
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		}catch(Exception e) {
+			model.addAttribute("error", e.getMessage());
+		return "/error";
 		}
 		return "redirect:/trabajo/listar";
 

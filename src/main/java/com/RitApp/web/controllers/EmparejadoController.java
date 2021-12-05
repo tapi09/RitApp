@@ -21,30 +21,53 @@ public class EmparejadoController {
 
 	@GetMapping("/listar")
 	public String listar(Authentication usuario, Model modelo) {
+		try {
+			modelo.addAttribute("emparejados", emparejadoService.mostrarlikes(usuario.getName()));
+		} catch (Exception e) {
+			System.err.println("Ocurrió un error al listar emparejados");
+			modelo.addAttribute("error", e.getMessage());
+			return "/error";
+		}
 
-			modelo.addAttribute("emparejados", emparejadoService.mostrarlikes(usuario.getName()));			
-	
-		
 		return "listarlikes.html";
 	}
+
 	@GetMapping("/listaractivos")
 	public String listaractivos(Authentication usuario, Model modelo) {
-		modelo.addAttribute("emparejados", emparejadoService.mostrarlikeactivos(usuario.getName()));
-		
+		try {
+			modelo.addAttribute("emparejados", emparejadoService.mostrarlikeactivos(usuario.getName()));
+		} catch (Exception e) {
+			System.err.println("Ocurrió un error al listar activos emparejado controller");
+			modelo.addAttribute("error", e.getMessage());
+			return "/error";
+		}
 		return "listarlikes.html";
 	}
 
 	@PostMapping("/emparejarpostulante")
-	public String emparejar(Authentication usuario, @RequestParam String id_trabajo) throws Exception {
+	public String emparejar(Authentication usuario, Model modelo, @RequestParam String id_trabajo) {
 		System.out.print("entre");
-		emparejadoService.emparejarPostulante(usuario.getName(), id_trabajo);
+		try {
+			emparejadoService.emparejarPostulante(usuario.getName(), id_trabajo);
+		} catch (Exception e) {
+			System.err.println("Ocurrió un error" + "no se pudo emparejar");
+			modelo.addAttribute("error", e.getMessage());
+			return "/error";
+		}
 		return "redirect:/emparejado/listar";
 	}
 
 	@PostMapping("/emparejarempresa")
-	public String emparejarempresa(Authentication usuario, @RequestParam String id_emparejado) throws Exception {
+	public String emparejarempresa(Authentication usuario, @RequestParam String id_emparejado, Model modelo) {
 		System.out.print("entre");
-		emparejadoService.emparejarEmpresa(id_emparejado);
-		return "redirect:/emparejado/listar";
+		try {
+			emparejadoService.emparejarEmpresa(id_emparejado);
+			return "redirect:/emparejado/listar";
+		} catch (Exception e) {
+			System.err.println("Ocurrió un error" + e.getMessage());
+			modelo.addAttribute("error", e.getMessage());
+			return "/error";
+		}
+
 	}
 }

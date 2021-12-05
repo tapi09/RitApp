@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.RitApp.web.entidades.Chat;
 import com.RitApp.web.entidades.Emparejado;
+import com.RitApp.web.error.MyException;
 import com.RitApp.web.repositorios.ChatRepositorio;
 import com.RitApp.web.repositorios.EmparejadoRepositorio;
 
@@ -21,19 +22,29 @@ public class ChatServicio {
 	public void guardar_chat(Chat chat) {
 		chatRepositorio.save(chat);
 	}
-	public Chat buscarchatxEmparejado(String id_emparejado) {
+	public Chat buscarchatxEmparejado(String id_emparejado) throws MyException, Exception {
+		try {
 		Emparejado emparejado = emparejadoRepositorio.buscarPorid(id_emparejado);
 		List<Chat> listchat = chatRepositorio.findByEmparejado(emparejado);
 		Chat chat = new Chat();
 		for (Chat chat1 : listchat) {
 			chat = chat1;
 		}
-		return chat;		
+		return chat;
+		}catch(Exception e) {
+			throw new MyException("error al buscar chat");
+			
+		}
 	}
-	public Chat buscarchatxid(String id) {
+	public Chat buscarchatxid(String id) throws MyException{
+		try {
 		return chatRepositorio.buscarPorid(id);
+		}catch(Exception e) {
+			throw new MyException("error interno 'buscar chat por id'");
+		}
 	}
-	public List<String> mostrar_mensajes(Chat chat) {
+	public List<String> mostrar_mensajes(Chat chat)throws MyException {
+		try {
 		if (chat.getMensajes().isEmpty() || chat.getMensajes() == null) {
 			List<String> lista_mensajeStrings = new ArrayList<String>();
 			lista_mensajeStrings.add("Tienes un nuevo match");
@@ -43,6 +54,9 @@ public class ChatServicio {
 			return lista_mensajeStrings;
 		} else {
 			return chat.getMensajes();
+		}
+		}catch(Exception e) {
+			throw new MyException("error al mostrar chat");
 		}
 	}
 

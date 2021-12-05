@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es-ar" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 	<base href="/">
@@ -56,8 +56,6 @@
 </head>
 
 <body>
-
-	<body>
 	<nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient">
 		<div class="container"><a class="navbar-brand logo" href="/pagina_inicio">&nbsp; &nbsp; &nbsp;iT
 				Match</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navbarNav"><span
@@ -65,10 +63,10 @@
 			<p th:if="${mensaje != null}" th:text="${mensaje}" class="nav-item"></p>
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav ms-auto">
-					<li class="nav-item"><a sec:authorize="!isAuthenticated()" class="nav-link" href="/trabajo/listarTrabajos">Ver Trabajos</a></li>
+					<li class="nav-item"><a sec:authorize="isAuthenticated()" class="nav-link" href="/trabajo/listarTrabajos">Ver Trabajos</a></li>
 					<li sec:authorize="hasRole('ROLE_EMPRESA')" class="nav-item"><a class="nav-link"
 							href="/trabajo/crearTrabajo">Crear Trabajo</a></li>
-                                        <li sec:authorize="!isAuthenticated()" class="nav-item"><a class="nav-link"
+					<li sec:authorize="!isAuthenticated()" class="nav-item"><a class="nav-link"
 							href="/registro_empresa">Registrar Empresa</a></li>
 					<li sec:authorize="!isAuthenticated()" class="nav-item"><a class="nav-link"
 							href="/registro_postulante">Registrar Postulante</a></li>
@@ -80,7 +78,7 @@
 							href="/emparejado/listar">Ver Likes dados</a></li>
 					<li sec:authorize="hasRole('ROLE_POSTULANTE')" class="nav-item"><a class="nav-link"
 							th:href="@{/postulante/modificarPerfil}">Ver Mi Perfil</a></li>
-                                        <li sec:authorize="hasRole('ROLE_EMPRESA')" class="nav-item"><a class="nav-link"
+					<li sec:authorize="hasRole('ROLE_EMPRESA')" class="nav-item"><a class="nav-link"
 							th:href="@{/empresa/modificarEmpresa}">Ver Mi Perfil</a></li>
 					<li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link" href="logout">Logout</a>
 					</li>
@@ -90,90 +88,51 @@
 			</div>
 		</div>
 	</nav>
-		<section>
-			<section class="team-boxed">
-				<div class="container">
+	<h1 class="display-4">Heading</h1>
+	<div class="pagina">
+		<main class="container">
+			<div class="row m-5">
+				<div class="col">
+					<div class="display-1 text-center m-5" th:text="${codigo}"></div>
+				</div>
+			</div>
+			<div class="row m-5">
+				<div class="col">
+					<div class="display-1 text-center m-5" th:text="${error}"></div>
+				</div>
+			</div>
 
-				</div>
-				<div class="row people">
-					<div class="row people">
-						<h th:if="${mensaje != null}" th:text="${mensaje}"></h>
-					</div>
-					<div th:each="trabajo,status : ${trabajos}" class="col-md-6 col-lg-4 item">
-						<div class="box"><img class="rounded-circle" th:if="${trabajo.empresa.foto == null}" src="assets/img/logogoogle.png">
-                                                    <img class="rounded-circle" th:if="${trabajo.empresa.foto != null}" th:src="${'/imagen/usuario/' + trabajo.empresa.id}">
-							<p class="name">Puesto:</p>
-							<p th:text="${trabajo.puesto}" class="title"></p>
-							<p class="name">Lenguaje:</p>
-							<p th:text="${trabajo.lenguajes}" class="title"></p>
-							<div><a sec:authorize="hasRole('ROLE_POSTULANTE')" class="btn btn-primary btn-lg"
-									role="button" th:href="|#userModal${status.index}|" data-bs-toggle="modal">+
-									info</a>
-								<div class="modal fade" th:id="'userModal'+${status.index}" tabindex="-1"
-									aria-labelledby="exampleModalLabel" aria-hidden="true">
-									<div class="modal-dialog" role="document">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h4 th:text="${trabajo.puesto}"></h4>
-											</div>
-											<div class="modal-body">
-												<p class="name">Empresa:</p>
-												<p th:text="${trabajo.nombre_empresa}" class="title"></p>
-												<p class="name">Puesto:</p>
-												<p th:text="${trabajo.puesto}" class="title"></p>
-												<p class="name">Lenguaje:</p>
-												<p th:text="${trabajo.lenguajes}" class="title"></p>
-												<p class="name">Modalidad:</p>
-												<p th:text="${trabajo.modalidad}" class="title"></p>
-												<p class="name">Zona:</p>
-												<p th:text="${trabajo.zona}" class="title"></p>
-											</div>
-											<div class="modal-footer">
-												<button class="btn btn-light" type="button"
-													data-bs-dismiss="modal">Close</button>
-												<form method="POST" th:action="@{/emparejado/emparejarpostulante}">
-													<input class="form-control" type="hidden" th:value="${trabajo.id}"
-														id="id_trabajo" name="id_trabajo" />
-													<button type="submit" name="submit" value="value"
-														class="btn btn-primary">Like</button>
-												</form>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div><a href="#"></a><a href="#"></a><a href="#"></a>
-						</div>
-					</div>
-				</div>
-			</section>
-			</div>
-		</section>
-		</section>
-		<footer id="myFooter" style="padding:0px;">
-			<div class="container-fluid" id="footer1" style="background: #212529;">
-				<div class="row text-center">
-					<div class="col footer-social" style="background: #212529;"><a class="social-icons" href="#"><i
-								class="fa fa-facebook" id="iconfacebookfooter"></i></a><a class="social-icons"
-							href="#"><i class="fa fa-google-plus"></i></a><a class="social-icons" href="#"><i
-								class="fa fa-twitter"></i></a><a class="social-icons" href="#"><i
-								class="fa fa-linkedin"></i></a></div>
-					<div class="col-12" style="background: #212529;">
-						<p class="footer-copyright" style="color: rgb(144,146,146);">© 2021 iT Match ~ Egg
-							Education&nbsp;&nbsp;<a href="#"></a></p>
-					</div>
+		</main>
+
+	</div>
+	</div>
+	</section>
+	</div>
+	<footer id="myFooter" style="padding:0px;">
+		<div class="container-fluid" id="footer1" style="background: #212529;">
+			<div class="row text-center">
+				<div class="col footer-social" style="background: #212529;"><a class="social-icons" href="#"><i
+							class="fa fa-facebook" id="iconfacebookfooter"></i></a><a class="social-icons" href="#"><i
+							class="fa fa-google-plus"></i></a><a class="social-icons" href="#"><i
+							class="fa fa-twitter"></i></a><a class="social-icons" href="#"><i
+							class="fa fa-linkedin"></i></a></div>
+				<div class="col-12" style="background: #212529;">
+					<p class="footer-copyright" style="color: rgb(144,146,146);">© 2021 iT Match ~ Egg
+						Education&nbsp;&nbsp;<a href="#"></a></p>
 				</div>
 			</div>
-		</footer>
-		<script src="assets/bootstrap/js/bootstrap.min.js"></script>
-		<script src="assets/js/bs-init.js"></script>
-		<script src="assets/js/Animated-Type-Heading.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/pikaday.min.js"></script>
-		<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
-		<script src="assets/js/Multi-step-form.js"></script>
-		<script src="assets/js/Profile-Card-Slider---Slick-Slider.js"></script>
-		<script src="assets/js/Profile-Edit-Form.js"></script>
-		<script src="assets/js/Swiper-Slider-Card-For-Blog-Or-Product.js"></script>
-		<script src="assets/js/theme.js"></script>
-	</body>
+		</div>
+	</footer>
+	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+	<script src="assets/js/bs-init.js"></script>
+	<script src="assets/js/Animated-Type-Heading.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/pikaday.min.js"></script>
+	<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+	<script src="assets/js/Multi-step-form.js"></script>
+	<script src="assets/js/Profile-Card-Slider---Slick-Slider.js"></script>
+	<script src="assets/js/Profile-Edit-Form.js"></script>
+	<script src="assets/js/Swiper-Slider-Card-For-Blog-Or-Product.js"></script>
+	<script src="assets/js/theme.js"></script>
+</body>
 
 </html>

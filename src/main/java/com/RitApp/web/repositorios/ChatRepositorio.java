@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import com.RitApp.web.entidades.Chat;
 import com.RitApp.web.entidades.Emparejado;
-import com.RitApp.web.entidades.Usuario;
 
 @Repository
 public interface ChatRepositorio extends JpaRepository<Chat, String> {
