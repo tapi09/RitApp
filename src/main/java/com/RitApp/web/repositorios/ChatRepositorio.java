@@ -14,5 +14,6 @@ import com.RitApp.web.entidades.Emparejado;
 public interface ChatRepositorio extends JpaRepository<Chat, String> {
 	@Query("SELECT a from Chat a WHERE a.id LIKE :id")
 	public Chat buscarPorid(@Param("id") String id);
+
 	List<Chat> findByEmparejado(Emparejado emparejado);
 }

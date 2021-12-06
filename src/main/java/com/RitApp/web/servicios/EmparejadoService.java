@@ -61,7 +61,7 @@ public class EmparejadoService {
 		}
 	}
 
-	public void emparejarEmpresa(String emparejado_id)throws MyException{
+	public void emparejarEmpresa(String emparejado_id) throws MyException {
 		try {
 			Emparejado emparejado = new Emparejado();
 			emparejado = emparejadoRepositorio.getById(emparejado_id);
@@ -76,56 +76,56 @@ public class EmparejadoService {
 		}
 	}
 
-	public List<Emparejado> mostrarlikesnuevos(String email) throws MyException{
+	public List<Emparejado> mostrarlikesnuevos(String email) throws MyException {
 		try {
-		List<Emparejado> listaEmparejados = new ArrayList<Emparejado>();
-		List<Emparejado> listaEmparejadosanteriores = new ArrayList<Emparejado>();
-		listaEmparejados = mostraremparejadosxempresa(email);
-		for (Emparejado emparejado : listaEmparejados) {
-			if (emparejado.getEstado_empresa()) {
-				listaEmparejadosanteriores.add(emparejado);
-				System.out.println(emparejado.getEstado_empresa());
+			List<Emparejado> listaEmparejados = new ArrayList<Emparejado>();
+			List<Emparejado> listaEmparejadosanteriores = new ArrayList<Emparejado>();
+			listaEmparejados = mostraremparejadosxempresa(email);
+			for (Emparejado emparejado : listaEmparejados) {
+				if (emparejado.getEstado_empresa()) {
+					listaEmparejadosanteriores.add(emparejado);
+					System.out.println(emparejado.getEstado_empresa());
+				}
 			}
-		}
-		listaEmparejados.removeAll(listaEmparejadosanteriores);
-		return listaEmparejados;
-		}catch(Exception e) {
+			listaEmparejados.removeAll(listaEmparejadosanteriores);
+			return listaEmparejados;
+		} catch (Exception e) {
 			throw new MyException(e.getMessage());
 		}
 	}
 
 	public List<Emparejado> mostrarlikes(String email) throws MyException {
 		try {
-		Usuario usuario = new Usuario();
-		usuario = usuarioServicio.buscaruserxmail(email);
-		if (usuario.getRol().equals(Rol.POSTULANTE)) {
-			return mostraremparejadosxpostulante(email);
-		} else {
-			return mostrarlikesnuevos(email);
-		}
-		}catch(Exception e) {
+			Usuario usuario = new Usuario();
+			usuario = usuarioServicio.buscaruserxmail(email);
+			if (usuario.getRol().equals(Rol.POSTULANTE)) {
+				return mostraremparejadosxpostulante(email);
+			} else {
+				return mostrarlikesnuevos(email);
+			}
+		} catch (Exception e) {
 			throw new MyException(e.getMessage());
 		}
 	}
 
-	public List<Emparejado> mostraremparejadosxempresa(String email) throws MyException{
+	public List<Emparejado> mostraremparejadosxempresa(String email) throws MyException {
 		try {
-		Empresa empresa = new Empresa();
-		empresa = empresaServicio.buscarxmail(email);
-		return emparejadoRepositorio.findByEmpresa(empresa);
-		}catch(Exception e) {
+			Empresa empresa = new Empresa();
+			empresa = empresaServicio.buscarxmail(email);
+			return emparejadoRepositorio.findByEmpresa(empresa);
+		} catch (Exception e) {
 			throw new MyException(e.getMessage());
-			
+
 		}
 	}
 
 	public List<Emparejado> mostraremparejadosxpostulante(String email) throws MyException {
 		try {
-		Postulante postulante = new Postulante();
-		postulante = postulanteServicio.buscaxmail(email);
-		return emparejadoRepositorio.findByPostulante(postulante);
-		}catch(Exception e) {
-			throw new MyException(e.getMessage()); 
+			Postulante postulante = new Postulante();
+			postulante = postulanteServicio.buscaxmail(email);
+			return emparejadoRepositorio.findByPostulante(postulante);
+		} catch (Exception e) {
+			throw new MyException(e.getMessage());
 		}
 	}
 
@@ -141,20 +141,20 @@ public class EmparejadoService {
 		}
 	}
 
-	public List<Emparejado> mostrarlikeactivos(String email) throws MyException{
+	public List<Emparejado> mostrarlikeactivos(String email) throws MyException {
 		try {
-		List<Emparejado> listaEmparejados = new ArrayList<Emparejado>();
-		List<Emparejado> listaEmparejadosactivos = new ArrayList<Emparejado>();
-		listaEmparejados = mostraremparejadosxempresa(email);
-		for (Emparejado emparejado : listaEmparejados) {
-			if (emparejado.getEstado_activo()) {
-				listaEmparejadosactivos.add(emparejado);
-				System.out.println(emparejado.getEstado_empresa());
+			List<Emparejado> listaEmparejados = new ArrayList<Emparejado>();
+			List<Emparejado> listaEmparejadosactivos = new ArrayList<Emparejado>();
+			listaEmparejados = mostraremparejadosxempresa(email);
+			for (Emparejado emparejado : listaEmparejados) {
+				if (emparejado.getEstado_activo()) {
+					listaEmparejadosactivos.add(emparejado);
+					System.out.println(emparejado.getEstado_empresa());
+				}
 			}
-		}
-		return listaEmparejadosactivos;
-		}catch(Exception e) {
-			throw new MyException(e.getMessage()); 
+			return listaEmparejadosactivos;
+		} catch (Exception e) {
+			throw new MyException(e.getMessage());
 		}
 	}
 

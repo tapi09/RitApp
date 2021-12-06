@@ -22,62 +22,69 @@ import com.RitApp.web.servicios.UsuarioServicio;
 @RequestMapping("/empresa")
 public class EmpresaController {
 
-    @Autowired
-    UsuarioServicio usuarioServicio;
-    @Autowired
-    EmpresaServicio empresaServicio;
+	@Autowired
+	UsuarioServicio usuarioServicio;
+	@Autowired
+	EmpresaServicio empresaServicio;
 
-    @GetMapping("/registrar")
-    public String crear() {
+	@GetMapping("/registrar")
+	public String crear() {
 
-        return "registro_empresa";
-    }
+		return "registro_empresa";
+	}
 
-    @PostMapping("/registrar")
-    public String crear(Model model, @RequestParam String nombre, @RequestParam String actividad, @RequestParam String email, @RequestParam String password, @RequestParam String password1) throws Exception {
-        try {
-    	empresaServicio.crearEmpresa(email, password, password1, nombre, actividad);
-        }catch(MyException e){
-        	System.out.println(e.getMessage());
-        	model.addAttribute("error", e.getMessage());
-        	return "registro_empresa";
-        }
-        return "redirect:/";
-    }
+	@PostMapping("/registrar")
+	public String crear(Model model, @RequestParam String nombre, @RequestParam String actividad,
+			@RequestParam String email, @RequestParam String password, @RequestParam String password1)
+			throws Exception {
+		try {
+			empresaServicio.crearEmpresa(email, password, password1, nombre, actividad);
+		} catch (MyException e) {
+			System.out.println(e.getMessage());
+			model.addAttribute("error", e.getMessage());
+			return "registro_empresa";
+		}
+		return "redirect:/";
+	}
 
-    @GetMapping("/verPerfil")
-    public String verPerfil() {
-        return "perfilEmpresa.html";
-    }
+	@GetMapping("/verPerfil")
+	public String verPerfil() {
+		return "perfilEmpresa.html";
+	}
 
-    @GetMapping("/modificarEmpresa")
-    public ModelAndView modificarDatosEmpresa(Authentication usuario) throws Exception {
-        try {
-            ModelAndView mav = new ModelAndView("/perfilEmpresa");
-            Usuario user = usuarioServicio.buscaruserxmail(usuario.getName());
-            Empresa empresa = empresaServicio.buscarxid(user.getId());
-            mav.addObject("empresa", empresa);
-            return mav;
-        } catch (Exception e) {
-            throw new MyException(e.getMessage());
-        }
+	@GetMapping("/modificarEmpresa")
+	public ModelAndView modificarDatosEmpresa(Authentication usuario) throws Exception {
+		try {
+			ModelAndView mav = new ModelAndView("/perfilEmpresa");
+			Usuario user = usuarioServicio.buscaruserxmail(usuario.getName());
+			Empresa empresa = empresaServicio.buscarxid(user.getId());
+			mav.addObject("empresa", empresa);
+			return mav;
+		} catch (Exception e) {
+			throw new MyException(e.getMessage());
+		}
 
-    }
+	}
 
-    @PostMapping("/modificandoEmpresa")
-    public RedirectView modificandoEmpresa(Authentication usuario, @RequestParam String email, @RequestParam String nombre, @RequestParam String actividad, @RequestParam String sitioWeb, @RequestParam String beneficios, @RequestParam String sobreNosotros, @RequestParam String pais, MultipartFile logo) throws Exception {
-        try {
-            Empresa empresa = empresaServicio.buscarxmail(usuario.getName());
-            if(logo.getSize() == 0) {
-            empresaServicio.modificarEmpresa(empresa.getId(), email, nombre, actividad, sitioWeb, beneficios, sobreNosotros, pais, null);
-            } else {
-            empresaServicio.modificarEmpresa(empresa.getId(), email, nombre, actividad, sitioWeb, beneficios, sobreNosotros, pais, logo);    
-            }
-            return new RedirectView("/pagina_inicio");
-        } catch (Exception e) {
-            throw new MyException(e.getMessage());
-        }
+	@PostMapping("/modificandoEmpresa")
+	public RedirectView modificandoEmpresa(Authentication usuario, @RequestParam String email,
+			@RequestParam String nombre, @RequestParam String actividad, @RequestParam String sitioWeb,
+			@RequestParam String beneficios, @RequestParam String sobreNosotros, @RequestParam String pais,
+			MultipartFile logo) throws Exception {
+		try {
+			Empresa empresa = empresaServicio.buscarxmail(usuario.getName());
+			if (logo.getSize() == 0) {
+				empresaServicio.modificarEmpresa(empresa.getId(), email, nombre, actividad, sitioWeb, beneficios,
+						sobreNosotros, pais, null);
+			} else {
+				empresaServicio.modificarEmpresa(empresa.getId(), email, nombre, actividad, sitioWeb, beneficios,
+						sobreNosotros, pais, logo);
+			}
+			return new RedirectView("/pagina_inicio");
+		} catch (Exception e) {
+			throw new MyException(e.getMessage());
+		}
 
-    }
+	}
 
 }

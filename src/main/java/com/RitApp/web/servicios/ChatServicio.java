@@ -22,45 +22,48 @@ public class ChatServicio {
 	public void guardar_chat(Chat chat) {
 		chatRepositorio.save(chat);
 	}
+
 	public Chat buscarchatxEmparejado(String id_emparejado) throws MyException, Exception {
 		try {
-		Emparejado emparejado = emparejadoRepositorio.buscarPorid(id_emparejado);
-		List<Chat> listchat = chatRepositorio.findByEmparejado(emparejado);
-		Chat chat = new Chat();
-		for (Chat chat1 : listchat) {
-			chat = chat1;
-		}
-		return chat;
-		}catch(Exception e) {
+			Emparejado emparejado = emparejadoRepositorio.buscarPorid(id_emparejado);
+			List<Chat> listchat = chatRepositorio.findByEmparejado(emparejado);
+			Chat chat = new Chat();
+			for (Chat chat1 : listchat) {
+				chat = chat1;
+			}
+			return chat;
+		} catch (Exception e) {
 			throw new MyException("error al buscar chat");
-			
+
 		}
 	}
-	public Chat buscarchatxid(String id) throws MyException{
+
+	public Chat buscarchatxid(String id) throws MyException {
 		try {
-		return chatRepositorio.buscarPorid(id);
-		}catch(Exception e) {
+			return chatRepositorio.buscarPorid(id);
+		} catch (Exception e) {
 			throw new MyException("error interno 'buscar chat por id'");
 		}
 	}
-	public List<String> mostrar_mensajes(Chat chat)throws MyException {
+
+	public List<String> mostrar_mensajes(Chat chat) throws MyException {
 		try {
-		if (chat.getMensajes().isEmpty() || chat.getMensajes() == null) {
-			List<String> lista_mensajeStrings = new ArrayList<String>();
-			lista_mensajeStrings.add("Tienes un nuevo match");
-			lista_mensajeStrings.add("Puesto: " + chat.getEmparejado().getNombre_puesto());
-			chat.setMensajes(lista_mensajeStrings);
-			guardar_chat(chat);
-			return lista_mensajeStrings;
-		} else {
-			return chat.getMensajes();
-		}
-		}catch(Exception e) {
+			if (chat.getMensajes().isEmpty() || chat.getMensajes() == null) {
+				List<String> lista_mensajeStrings = new ArrayList<String>();
+				lista_mensajeStrings.add("Tienes un nuevo match");
+				lista_mensajeStrings.add("Puesto: " + chat.getEmparejado().getNombre_puesto());
+				chat.setMensajes(lista_mensajeStrings);
+				guardar_chat(chat);
+				return lista_mensajeStrings;
+			} else {
+				return chat.getMensajes();
+			}
+		} catch (Exception e) {
 			throw new MyException("error al mostrar chat");
 		}
 	}
 
-	public void guardar_mensaje(String usuario, String mensaje) {		
+	public void guardar_mensaje(String usuario, String mensaje) {
 		List<String> lista_mensajeStrings = new ArrayList<String>();
 	}
 

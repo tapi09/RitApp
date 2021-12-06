@@ -34,8 +34,8 @@ public class Chat {
 	@OneToOne
 	Emparejado emparejado;
 	@ElementCollection
-	 @CollectionTable(name="mensajes", joinColumns= {@JoinColumn(name="id")})
-	private List<String> mensajes=new ArrayList<String>();
+	@CollectionTable(name = "mensajes", joinColumns = { @JoinColumn(name = "id") })
+	private List<String> mensajes = new ArrayList<String>();
 	@Temporal(TemporalType.DATE)
 	private Date fecha_creacion;
 }

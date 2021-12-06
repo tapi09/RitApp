@@ -34,7 +34,7 @@ public class PostulanteController {
 	UsuarioServicio usuarioServicio;
 	@Autowired
 	PerfilServicio perfilServicio;
-	@Autowired 
+	@Autowired
 	ErrorsController errorC;
 
 	@GetMapping("/listar")
@@ -70,7 +70,7 @@ public class PostulanteController {
 			modelo.addAttribute("error", e.getMessage());
 			return "registro_postulante";
 		}
-		
+
 	}
 
 	@GetMapping("/eliminar")
@@ -143,7 +143,7 @@ public class PostulanteController {
 		} catch (Exception e) {
 			System.err.println("error " + "Controller POST modificandoDatosPostulantePerfil");
 			model.addAttribute("error ", e.getMessage());
-			return new RedirectView ("/error");
+			return new RedirectView("/error");
 
 		}
 

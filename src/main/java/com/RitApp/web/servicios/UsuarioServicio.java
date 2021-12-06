@@ -63,28 +63,31 @@ public class UsuarioServicio implements UserDetailsService {
 		usuarioRepositorio.save(usuario);
 
 	}
+
 	public Usuario buscaruserxmail(String email) throws MyException {
 		try {
-		return usuarioRepositorio.buscarPorEmail(email);
-		}catch(Exception e) {
+			return usuarioRepositorio.buscarPorEmail(email);
+		} catch (Exception e) {
 			throw new MyException("error al buscaruserxmail");
 		}
 	}
-	public String obtenernombre(Authentication usuario)throws MyException{
+
+	public String obtenernombre(Authentication usuario) throws MyException {
 		try {
-		Usuario usuario1=new Usuario();
-		usuario1=usuarioRepositorio.buscarPorEmail(usuario.getName());
-		return usuario1.getNombre_usuario();
-		}catch(Exception e) {
+			Usuario usuario1 = new Usuario();
+			usuario1 = usuarioRepositorio.buscarPorEmail(usuario.getName());
+			return usuario1.getNombre_usuario();
+		} catch (Exception e) {
 			throw new MyException("error interno, al obtener nombre de usuario en UsuarioService");
 		}
-		
+
 	}
-        public Usuario buscaruserxid(String id)throws MyException {
-        	try {
-		return usuarioRepositorio.getById(id);
-        	}catch(Exception e) {
-        		throw new MyException("error interno, error al busacaruserxid");
-        	}
+
+	public Usuario buscaruserxid(String id) throws MyException {
+		try {
+			return usuarioRepositorio.getById(id);
+		} catch (Exception e) {
+			throw new MyException("error interno, error al busacaruserxid");
+		}
 	}
 }

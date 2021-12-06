@@ -77,9 +77,9 @@ public class TrabajoController {
 			} else {
 				System.out.println("tipo null");
 			}
-		}catch(Exception e) {
+		} catch (Exception e) {
 			model.addAttribute("error", e.getMessage());
-		return "/error";
+			return "/error";
 		}
 		return "redirect:/trabajo/listar";
 

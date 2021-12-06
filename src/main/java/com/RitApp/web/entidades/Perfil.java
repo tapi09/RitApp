@@ -16,15 +16,14 @@ import org.hibernate.annotations.GenericGenerator;
 @NoArgsConstructor
 public class Perfil {
 
-    @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    private String id;
-    private String lenguaje;
-    private String seniority;
-    private String idioma;
-    private String estudios;
-    private String algoSobreMi;
-    
+	@Id
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid2")
+	private String id;
+	private String lenguaje;
+	private String seniority;
+	private String idioma;
+	private String estudios;
+	private String algoSobreMi;
 
 }

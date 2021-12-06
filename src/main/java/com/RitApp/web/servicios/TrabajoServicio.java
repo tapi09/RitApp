@@ -32,8 +32,7 @@ public class TrabajoServicio {
 	public void crearTrabajo(Authentication usuario, String puesto, String zona, String modalidad, String lenguaje)
 			throws Exception {
 		try {
-		validar(puesto, zona, modalidad);
-		
+			validar(puesto, zona, modalidad);
 
 			Trabajo trabajo = new Trabajo();
 			trabajo.setPuesto(puesto);
@@ -52,9 +51,9 @@ public class TrabajoServicio {
 	// Eliminar trabajo (Empresa)
 	public void eliminar(String id) throws Exception {
 		try {
-		Trabajo trabajo = buscarXId(id);
-		trabajoRepositorio.delete(trabajo);
-		}catch(Exception e ) {
+			Trabajo trabajo = buscarXId(id);
+			trabajoRepositorio.delete(trabajo);
+		} catch (Exception e) {
 			throw new MyException("error al eliminar trabajo");
 		}
 
@@ -62,58 +61,58 @@ public class TrabajoServicio {
 
 	public Trabajo buscarXId(String id) throws Exception {
 		try {
-		Trabajo respuesta = trabajoRepositorio.buscarPorid(id);
-		System.out.println("llegue");
-		return respuesta;
-		} catch(Exception e) {
+			Trabajo respuesta = trabajoRepositorio.buscarPorid(id);
+			System.out.println("llegue");
+			return respuesta;
+		} catch (Exception e) {
 			throw new MyException("error al buscar trabajho x id");
 		}
 	}
 
 	public void validar(String puesto, String modalidad, String zona) throws MyException {
-	
-			if (puesto.isEmpty() || puesto == null) {
-				throw new MyException("El campo 'puesto' no puede quedar en blanco!");
-			}
-			if (modalidad.isEmpty() || modalidad == null) {
-				throw new MyException("El campo 'modalidad' no puede quedar en blanco!");
-			}
-			if (zona.isEmpty() || zona == null) {
-				throw new MyException("El campo 'zona' no puede quedar en blanco!");
-			}
 
-		
+		if (puesto.isEmpty() || puesto == null) {
+			throw new MyException("El campo 'puesto' no puede quedar en blanco!");
+		}
+		if (modalidad.isEmpty() || modalidad == null) {
+			throw new MyException("El campo 'modalidad' no puede quedar en blanco!");
+		}
+		if (zona.isEmpty() || zona == null) {
+			throw new MyException("El campo 'zona' no puede quedar en blanco!");
+		}
+
 	}
 
 	// Mostrar-Listar trabajos
-	public List<Trabajo> listarTrabajos(String email) throws MyException{
+	public List<Trabajo> listarTrabajos(String email) throws MyException {
 		try {
-		List<Trabajo> lista_finalList = new ArrayList<Trabajo>();
-		lista_finalList = trabajoRepositorio.findAll();
-		System.out.println("entro1");
-		Usuario usuario= new Usuario();
-		usuario=usuarioServicio.buscaruserxmail(email);				
-		if (usuario.getRol().equals(Rol.POSTULANTE)) {
-			List<Emparejado> lista_like_postulante = new ArrayList<Emparejado>();
-			lista_like_postulante = emparejadoService.mostrarlikes(usuario.getEmail());
-			System.out.println("entro");
-			for (Emparejado emparejado : lista_like_postulante) {
-				if (lista_finalList.contains(emparejado.getTrabajo())) {
-					System.out.println("entro"+emparejado.getNombre_puesto());
-					lista_finalList.remove(emparejado.getTrabajo());
-				}				
+			List<Trabajo> lista_finalList = new ArrayList<Trabajo>();
+			lista_finalList = trabajoRepositorio.findAll();
+			System.out.println("entro1");
+			Usuario usuario = new Usuario();
+			usuario = usuarioServicio.buscaruserxmail(email);
+			if (usuario.getRol().equals(Rol.POSTULANTE)) {
+				List<Emparejado> lista_like_postulante = new ArrayList<Emparejado>();
+				lista_like_postulante = emparejadoService.mostrarlikes(usuario.getEmail());
+				System.out.println("entro");
+				for (Emparejado emparejado : lista_like_postulante) {
+					if (lista_finalList.contains(emparejado.getTrabajo())) {
+						System.out.println("entro" + emparejado.getNombre_puesto());
+						lista_finalList.remove(emparejado.getTrabajo());
+					}
+				}
 			}
+			return lista_finalList;
+		} catch (Exception e) {
+			throw new MyException("error al listar trabajos");
 		}
-		return lista_finalList;
-	}catch(Exception e) {
-		throw new MyException("error al listar trabajos");
-	}
 	}
 
 	public void setearEmpresa(Authentication usuario, Trabajo trabajo) throws MyException {
 		trabajo.setEmpresa(empresaServicio.buscarxmail(usuario.getName()));
 	}
-	public List<Trabajo> trabajos(){
+
+	public List<Trabajo> trabajos() {
 		return trabajoRepositorio.findAll();
 	}
 
