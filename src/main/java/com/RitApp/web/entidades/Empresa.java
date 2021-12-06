@@ -2,6 +2,7 @@
 package com.RitApp.web.entidades;
 
 import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 

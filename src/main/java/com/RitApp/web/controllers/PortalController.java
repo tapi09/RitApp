@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.RitApp.web.entidades.Perfil;
 import com.RitApp.web.enums.Rol;
 import com.RitApp.web.servicios.UsuarioServicio;
 

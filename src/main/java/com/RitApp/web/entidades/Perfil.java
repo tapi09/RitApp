@@ -3,11 +3,13 @@ package com.RitApp.web.entidades;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+
+import org.hibernate.annotations.GenericGenerator;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Data
