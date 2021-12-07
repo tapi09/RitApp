@@ -68,6 +68,7 @@ public class EmparejadoService {
 			emparejado.setEstado_activo(true);
 			Chat chat = new Chat();
 			chat.setEmparejado(emparejado);
+			chat = chatServicio.primer_mensaje(chat);
 			chatServicio.guardar_chat(chat);
 			emparejadoRepositorio.save(emparejado);
 		} catch (Exception e) {

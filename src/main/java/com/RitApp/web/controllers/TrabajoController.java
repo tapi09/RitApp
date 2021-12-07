@@ -40,16 +40,16 @@ public class TrabajoController {
 		}
 	}
 // para mostrar trabajos en caso de no estar logueado
-	/*
-	 * @GetMapping("/listarTrabajos2") public String listar(Model model) throws
-	 * Exception { try { System.out.println("xxx"); if
-	 * (servicio.trabajos().isEmpty()) { model.addAttribute("mensaje",
-	 * "NO HAY TRABAJOS NUEVOS"); } model.addAttribute("trabajos",
-	 * servicio.trabajos());
-	 * 
-	 * return "listarTrabajos.html"; } catch (Exception e) {
-	 * model.addAttribute("error", e.getMessage()); return "/error"; } }
-	 */
+	
+	  @GetMapping("/listarTrabajos2") public String listar(Model model) throws
+	  Exception { try { System.out.println("xxx"); if
+	  (servicio.trabajos().isEmpty()) { model.addAttribute("mensaje",
+	  "NO HAY TRABAJOS NUEVOS"); } model.addAttribute("trabajos",
+	  servicio.trabajos());
+	  
+	  return "listarTrabajos.html"; } catch (Exception e) {
+	  model.addAttribute("error", e.getMessage()); return "/error"; } }
+	 
 
 	@GetMapping("/crearTrabajo")
 	public String creando() {
