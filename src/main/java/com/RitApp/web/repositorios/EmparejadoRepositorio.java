@@ -1,4 +1,3 @@
-
 package com.RitApp.web.repositorios;
 
 import java.util.List;

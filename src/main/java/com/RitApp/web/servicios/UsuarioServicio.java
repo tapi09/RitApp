@@ -1,11 +1,13 @@
 package com.RitApp.web.servicios;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -14,10 +16,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import com.RitApp.web.entidades.Emparejado;
+import com.RitApp.web.entidades.Empresa;
+import com.RitApp.web.entidades.Postulante;
+import com.RitApp.web.entidades.Trabajo;
 import com.RitApp.web.entidades.Usuario;
 import com.RitApp.web.enums.Rol;
 import com.RitApp.web.error.MyException;

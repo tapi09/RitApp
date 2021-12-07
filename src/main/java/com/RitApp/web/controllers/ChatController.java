@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,11 +26,17 @@ public class ChatController {
 			throws Exception {
 		System.out.println("mostrarchat");
 		try {
-			List<String> lista_a_mostrar = new ArrayList<String>();
+			String tipologeado = chatServicio.Tipologeado(usuario);
+			System.out.println(tipologeado);
 			Chat chat = new Chat();
 			chat = chatServicio.buscarchatxEmparejado(id_emparejado);
-			lista_a_mostrar = chatServicio.mostrar_mensajes(chat);
-			modelo.addAttribute("mensajes", lista_a_mostrar);
+			if (tipologeado.equals("POSTULANTE")) {
+				modelo.addAttribute("destinatario", chat.getEmparejado().getEmpresa());
+			} else {
+				modelo.addAttribute("destinatario", chat.getEmparejado().getPostulante());
+			}
+			modelo.addAttribute("tipologeado", tipologeado);
+			modelo.addAttribute("mensajes", chatServicio.listadeMensajes(chat.getId()));
 			modelo.addAttribute("id_emparejado", chat.getEmparejado().getId());
 			modelo.addAttribute("id_chat", chat.getId());
 		} catch (Exception e) {
@@ -45,15 +52,18 @@ public class ChatController {
 			@RequestParam String mensajeenviado) throws Exception {
 		System.out.println("entro");
 		try {
-			List<String> lista_nueva = new ArrayList<String>();
+			String mensaje_correjido = mensajeenviado.replaceAll("\n", "<br/>");
+			String tipologeado = chatServicio.Tipologeado(usuario);
 			Chat chat = new Chat();
-			System.out.println(mensajeenviado);
 			chat = chatServicio.buscarchatxEmparejado(id_emparejado);
-			lista_nueva = chatServicio.mostrar_mensajes(chat);
-			lista_nueva.add(mensajeenviado);
-			chat.setMensajes(lista_nueva);
-			chatServicio.guardar_chat(chat);
-			modelo.addAttribute("mensajes", lista_nueva);
+			chatServicio.enviar_mensaje(chat, usuario, mensaje_correjido);
+			if (tipologeado.equals("POSTULANTE")) {
+				modelo.addAttribute("destinatario", chat.getEmparejado().getEmpresa());
+			} else {
+				modelo.addAttribute("destinatario", chat.getEmparejado().getPostulante());
+			}
+			modelo.addAttribute("tipologeado", tipologeado);
+			modelo.addAttribute("mensajes", chatServicio.listadeMensajes(chat.getId()));
 			modelo.addAttribute("id_emparejado", chat.getEmparejado().getId());
 			modelo.addAttribute("id_chat", chat.getId());
 		} catch (Exception e) {
@@ -62,6 +72,18 @@ public class ChatController {
 			return "error.html";
 		}
 		return "listarchat.html";
+	}
+
+	@GetMapping("/actualizar")
+	public String actualizar(Authentication usuario, Model modelo, @RequestParam String id_emparejado) {
+		String tipologeado = chatServicio.Tipologeado(usuario);
+		Chat chat = new Chat();
+		chat = chatServicio.buscarchatxEmparejado(id_emparejado);
+		modelo.addAttribute("tipologeado", tipologeado);
+		modelo.addAttribute("mensajes", chatServicio.listadeMensajes(chat.getId()));
+		modelo.addAttribute("id_emparejado", chat.getEmparejado().getId());
+		modelo.addAttribute("id_chat", chat.getId());
+		return "listarchat.html :: #chat";
 	}
 
 }
