@@ -41,7 +41,7 @@ public class PostulanteServicio {
 
 	@Transactional
 	public void crearPostulante(String nombre, String apellido, String email, String contraseña, String contraseña1,
-			String telefono) throws MyException, Exception {
+			String telefono) throws MyException {
 		try {
 			validar(nombre, apellido, email, contraseña, contraseña1, telefono);
 			Postulante postulante;
@@ -58,7 +58,7 @@ public class PostulanteServicio {
 			postulante.setPerfil(perfil);
 
 			postulanteRepositorio.save(postulante);
-		} catch (Exception e) {
+		} catch (MyException e) {
 			System.out.println(e.getMessage());
 			throw new MyException(e.getMessage());
 		}
@@ -68,9 +68,8 @@ public class PostulanteServicio {
 	public void modificar(String id, String nombre, String apellido, String email, String telefono,
 			Date fechaNacimiento, Integer edad, String dni, String genero, String pais, String direccion,
 			String lenguaje, String seniority, String idioma, String estudios, String algoSobreMi, MultipartFile foto)
-			throws Exception, MyException {
+			throws MyException {
 		try {
-			System.out.println("Entro a modificar postulante");
 
 			Postulante postulante = postulanteRepositorio.getById(id);
 
@@ -102,12 +101,12 @@ public class PostulanteServicio {
 
 			postulanteRepositorio.saveAndFlush(postulante);
 		} catch (Exception e) {
-			throw new MyException(e.getMessage());
+			throw new MyException("error modificar perfil servicio");
 		}
 	}
 
 	@Transactional
-	public void eliminar(String id) throws Exception {
+	public void eliminar(String id) throws MyException {
 		try {
 			Postulante postulante = buscarXId(id);
 			postulanteRepositorio.delete(postulante);
@@ -149,7 +148,7 @@ public class PostulanteServicio {
 		}
 	}
 
-	public Postulante buscarXId(String id) throws Exception, MyException {
+	public Postulante buscarXId(String id) throws MyException {
 		Optional<Postulante> respuesta = postulanteRepositorio.findById(id);
 		if (respuesta.isPresent()) {
 			return respuesta.get();
@@ -173,7 +172,7 @@ public class PostulanteServicio {
 			usuario = usuarioServicio.buscaruserxmail(email);
 			return postulanteRepositorio.getById(usuario.getId());
 		} catch (Exception e) {
-			throw new MyException(e.getMessage());
+			throw new MyException("error al buscar por mail");
 		}
 	}
 
@@ -181,7 +180,7 @@ public class PostulanteServicio {
 		try {
 			return usuarioServicio.buscaruserxmail(email);
 		} catch (Exception e) {
-			throw new MyException(e.getMessage());
+			throw new MyException("error al buscar usuario");
 		}
 	}
 }

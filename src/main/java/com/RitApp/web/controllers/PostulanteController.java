@@ -39,11 +39,11 @@ public class PostulanteController {
 
 	@GetMapping("/listar")
 
-	public String listar(Model model) throws Exception {
+	public String listar(Model model) {
 		try {
 
 			model.addAttribute("usuarios", service.listar());
-		} catch (Exception e) {
+		} catch (MyException e) {
 			System.err.println("error " + "error al listar Postulante");
 			model.addAttribute("error ", e.getMessage());
 			return "error";
@@ -61,11 +61,11 @@ public class PostulanteController {
 	@PostMapping("/crear")
 	public String crear(Model modelo, @RequestParam String nombre, @RequestParam String apellido,
 			@RequestParam String email, @RequestParam String contraseña, @RequestParam String contraseña1,
-			@RequestParam String telefono, @RequestParam(required = false) String error) throws MyException {
+			@RequestParam String telefono, @RequestParam(required = false) String error) {
 		try {
 			service.crearPostulante(nombre, apellido, email, contraseña, contraseña1, telefono);
 			return "index.html";
-		} catch (Exception e) {
+		} catch (MyException e) {
 			System.err.println(e.getMessage());
 			modelo.addAttribute("error", e.getMessage());
 			return "registro_postulante";
@@ -74,14 +74,14 @@ public class PostulanteController {
 	}
 
 	@GetMapping("/eliminar")
-	public String eliminar(Model model, @RequestParam String id) throws Exception {
+	public String eliminar(Model model, @RequestParam String id) {
 		try {
 			if (id != null) {
 				service.eliminar(id);
 			} else {
-				throw new Exception("id null");
+				throw new MyException("id null");
 			}
-		} catch (Exception e) {
+		} catch (MyException e) {
 			System.err.println("error " + " eliminar Postulante");
 			model.addAttribute("error ", e.getMessage());
 			return "error.html";
@@ -91,18 +91,17 @@ public class PostulanteController {
 	}
 
 	@GetMapping("/darlike")
-	public void darlike() throws Exception {
-		System.out.print("entre");
+	public void darlike() {
 
 	}
 
 	@GetMapping("/verPerfil")
-	public String verPerfil() throws Exception {
+	public String verPerfil() {
 		return "perfilPostulante.html";
 	}
 
 	@GetMapping("/modificarPerfil")
-	public String modificarDatosPostulante(Model model, Authentication usuario) throws Exception {
+	public String modificarDatosPostulante(Model model, Authentication usuario) {
 		try {
 
 			Usuario user = usuarioServicio.buscaruserxmail(usuario.getName());
@@ -112,7 +111,7 @@ public class PostulanteController {
 			model.addAttribute("postulante", postulante);
 
 			return "perfilPostulante";
-		} catch (Exception e) {
+		} catch (MyException e) {
 
 			System.err.println("error " + "Controller get modificarDatosPostulante");
 			model.addAttribute("error ", e.getMessage());
@@ -140,7 +139,7 @@ public class PostulanteController {
 						pais, direccion, lenguaje, seniority, idioma, estudios, algoSobreMi, foto);
 			}
 			return new RedirectView("/pagina_inicio");
-		} catch (Exception e) {
+		} catch (MyException e) {
 			System.err.println("error " + "Controller POST modificandoDatosPostulantePerfil");
 			model.addAttribute("error ", e.getMessage());
 			return new RedirectView("/error");

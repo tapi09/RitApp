@@ -35,8 +35,7 @@ public class EmpresaController {
 
 	@PostMapping("/registrar")
 	public String crear(Model model, @RequestParam String nombre, @RequestParam String actividad,
-			@RequestParam String email, @RequestParam String password, @RequestParam String password1)
-			throws Exception {
+			@RequestParam String email, @RequestParam String password, @RequestParam String password1) {
 		try {
 			empresaServicio.crearEmpresa(email, password, password1, nombre, actividad);
 		} catch (MyException e) {
@@ -53,24 +52,26 @@ public class EmpresaController {
 	}
 
 	@GetMapping("/modificarEmpresa")
-	public ModelAndView modificarDatosEmpresa(Authentication usuario) throws Exception {
+	public ModelAndView modificarDatosEmpresa(Authentication usuario) {
 		try {
 			ModelAndView mav = new ModelAndView("/perfilEmpresa");
 			Usuario user = usuarioServicio.buscaruserxmail(usuario.getName());
 			Empresa empresa = empresaServicio.buscarxid(user.getId());
 			mav.addObject("empresa", empresa);
 			return mav;
-		} catch (Exception e) {
-			throw new MyException(e.getMessage());
+		} catch (MyException e) {
+			ModelAndView mav = new ModelAndView("/perfilEmpresa");
+			mav.addObject("error", e.getMessage());
+			return mav;
 		}
 
 	}
 
 	@PostMapping("/modificandoEmpresa")
-	public RedirectView modificandoEmpresa(Authentication usuario, @RequestParam String email,
+	public RedirectView modificandoEmpresa(Model model, Authentication usuario, @RequestParam String email,
 			@RequestParam String nombre, @RequestParam String actividad, @RequestParam String sitioWeb,
 			@RequestParam String beneficios, @RequestParam String sobreNosotros, @RequestParam String pais,
-			MultipartFile logo) throws Exception {
+			MultipartFile logo) {
 		try {
 			Empresa empresa = empresaServicio.buscarxmail(usuario.getName());
 			if (logo.getSize() == 0) {
@@ -81,10 +82,10 @@ public class EmpresaController {
 						sobreNosotros, pais, logo);
 			}
 			return new RedirectView("/pagina_inicio");
-		} catch (Exception e) {
-			throw new MyException(e.getMessage());
+		} catch (MyException e) {
+			model.addAttribute("error", e.getMessage());
+			return new RedirectView("/error");
 		}
-
 	}
 
 }

@@ -90,7 +90,7 @@ public class EmparejadoService {
 			listaEmparejados.removeAll(listaEmparejadosanteriores);
 			return listaEmparejados;
 		} catch (Exception e) {
-			throw new MyException(e.getMessage());
+			throw new MyException("error al mostrar emparejados por empresa");
 		}
 	}
 
@@ -104,7 +104,7 @@ public class EmparejadoService {
 				return mostrarlikesnuevos(email);
 			}
 		} catch (Exception e) {
-			throw new MyException(e.getMessage());
+			throw new MyException("error al mostrar likes");
 		}
 	}
 
@@ -114,7 +114,7 @@ public class EmparejadoService {
 			empresa = empresaServicio.buscarxmail(email);
 			return emparejadoRepositorio.findByEmpresa(empresa);
 		} catch (Exception e) {
-			throw new MyException(e.getMessage());
+			throw new MyException("error al mostrar emparejados por empresa");
 
 		}
 	}
@@ -125,7 +125,7 @@ public class EmparejadoService {
 			postulante = postulanteServicio.buscaxmail(email);
 			return emparejadoRepositorio.findByPostulante(postulante);
 		} catch (Exception e) {
-			throw new MyException(e.getMessage());
+			throw new MyException("error al mostrar emparejados por postulante");
 		}
 	}
 
@@ -154,7 +154,7 @@ public class EmparejadoService {
 			}
 			return listaEmparejadosactivos;
 		} catch (Exception e) {
-			throw new MyException(e.getMessage());
+			throw new MyException("error al mostrar likes activos");
 		}
 	}
 

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.RitApp.web.entidades.Trabajo;
+import com.RitApp.web.error.MyException;
 import com.RitApp.web.servicios.TrabajoServicio;
 
 @Controller
@@ -23,7 +24,7 @@ public class TrabajoController {
 	TrabajoServicio servicio;
 
 	@GetMapping("/listarTrabajos")
-	public String listar(Model model, Authentication usuario) throws Exception {
+	public String listar(Model model, Authentication usuario) {
 		try {
 			List<Trabajo> lista_trabajo = new ArrayList<Trabajo>();
 			lista_trabajo = servicio.listarTrabajos(usuario.getName());
@@ -34,22 +35,24 @@ public class TrabajoController {
 			model.addAttribute("trabajos", lista_trabajo);
 
 			return "listarTrabajos.html";
-		} catch (Exception e) {
+		} catch (MyException e) {
 			model.addAttribute("error", e.getMessage());
 			return "/error";
 		}
 	}
 // para mostrar trabajos en caso de no estar logueado
+
+	@GetMapping("/listarTrabajos2")
+	public String listar(Model model) {
+		
+			if (servicio.trabajos().isEmpty()) {
+				model.addAttribute("mensaje", "NO HAY TRABAJOS NUEVOS");
+			}
+			model.addAttribute("trabajos", servicio.trabajos());
+
+			return "listarTrabajos.html";
 	
-	  @GetMapping("/listarTrabajos2") public String listar(Model model) throws
-	  Exception { try { System.out.println("xxx"); if
-	  (servicio.trabajos().isEmpty()) { model.addAttribute("mensaje",
-	  "NO HAY TRABAJOS NUEVOS"); } model.addAttribute("trabajos",
-	  servicio.trabajos());
-	  
-	  return "listarTrabajos.html"; } catch (Exception e) {
-	  model.addAttribute("error", e.getMessage()); return "/error"; } }
-	 
+	}
 
 	@GetMapping("/crearTrabajo")
 	public String creando() {
@@ -58,26 +61,26 @@ public class TrabajoController {
 
 	@PostMapping("/crearTrabajo")
 	public String crear(Authentication usuario, Model modelo, @RequestParam String puesto, @RequestParam String zona,
-			@RequestParam String lenguaje, @RequestParam String modalidad) throws Exception {
+			@RequestParam String lenguaje, @RequestParam String modalidad) {
 		try {
 			servicio.crearTrabajo(usuario, puesto, zona, modalidad, lenguaje);
 
 			return "redirect:/trabajo/listarTrabajos";
-		} catch (Exception e) {
+		} catch (MyException e) {
 			modelo.addAttribute("error", e.getMessage());
 			return "/error";
 		}
 	}
 
 	@GetMapping("/eliminarTrabajo")
-	public String eliminar(@RequestParam String id, Model model) throws Exception {
+	public String eliminar(@RequestParam String id, Model model){
 		try {
 			if (id != null) {
 				servicio.eliminar(id);
 			} else {
 				System.out.println("tipo null");
 			}
-		} catch (Exception e) {
+		} catch (MyException e) {
 			model.addAttribute("error", e.getMessage());
 			return "/error";
 		}

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.RitApp.web.enums.Rol;
+import com.RitApp.web.error.MyException;
 import com.RitApp.web.servicios.UsuarioServicio;
 
 @Controller
@@ -34,10 +35,15 @@ public class PortalController {
 	}
 
 	@GetMapping("/pagina_inicio")
-	public String paginainicio(HttpSession session, Authentication usuario, Model modelo) throws Exception {
-		modelo.addAttribute("mensaje", "Hola " + usuarioServicio.obtenernombre(usuario));
-		modelo.addAttribute("rol", "Su rol es " + usuario.getAuthorities());
-		return "/pagina_inicio";
+	public String paginainicio(HttpSession session, Authentication usuario, Model modelo) {
+		try {
+			modelo.addAttribute("mensaje", "Hola " + usuarioServicio.obtenernombre(usuario));
+			modelo.addAttribute("rol", "Su rol es " + usuario.getAuthorities());
+			return "/pagina_inicio";
+		} catch (MyException e) {
+			modelo.addAttribute("error", e.getMessage());
+			return "/error";
+		}
 	}
 
 	@GetMapping("/logout")
@@ -57,15 +63,12 @@ public class PortalController {
 
 	@GetMapping("/completar")
 	public String completarperfil(Authentication usuario, Model model) {
-		try {
-			if (usuario.getAuthorities().contains(Rol.POSTULANTE)) {
-				return "perfilpostulante";
-			} else {
-				return "perfilempresa";
-			}
-		} catch (Exception e) {
-			model.addAttribute("error", e.getMessage());
-			return "/error";
+
+		if (usuario.getAuthorities().contains(Rol.POSTULANTE)) {
+			return "perfilpostulante";
+		} else {
+			return "perfilempresa";
 		}
+
 	}
 }

@@ -1,8 +1,5 @@
 package com.RitApp.web.controllers;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -13,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.RitApp.web.entidades.Chat;
+import com.RitApp.web.error.MyException;
 import com.RitApp.web.servicios.ChatServicio;
 
 @Controller
@@ -22,8 +20,7 @@ public class ChatController {
 	ChatServicio chatServicio;
 
 	@PostMapping("/mostrarchat")
-	public String mostrarchat(Authentication usuario, Model modelo, @RequestParam String id_emparejado)
-			throws Exception {
+	public String mostrarchat(Authentication usuario, Model modelo, @RequestParam String id_emparejado) {
 		System.out.println("mostrarchat");
 		try {
 			String tipologeado = chatServicio.Tipologeado(usuario);
@@ -39,17 +36,17 @@ public class ChatController {
 			modelo.addAttribute("mensajes", chatServicio.listadeMensajes(chat.getId()));
 			modelo.addAttribute("id_emparejado", chat.getEmparejado().getId());
 			modelo.addAttribute("id_chat", chat.getId());
-		} catch (Exception e) {
+		} catch (MyException e) {
 			System.err.println("Ocurrió un error" + " mostrar chat");
 			modelo.addAttribute("error", e.getMessage());
-			return "error.html";
+			return "/error";
 		}
 		return "listarchat.html";
 	}
 
 	@PostMapping("/enviarmensaje")
 	public String enviarmensaje(Authentication usuario, Model modelo, @RequestParam String id_emparejado,
-			@RequestParam String mensajeenviado) throws Exception {
+			@RequestParam String mensajeenviado) {
 		System.out.println("entro");
 		try {
 			String mensaje_correjido = mensajeenviado.replaceAll("\n", "<br/>");
@@ -66,24 +63,29 @@ public class ChatController {
 			modelo.addAttribute("mensajes", chatServicio.listadeMensajes(chat.getId()));
 			modelo.addAttribute("id_emparejado", chat.getEmparejado().getId());
 			modelo.addAttribute("id_chat", chat.getId());
-		} catch (Exception e) {
+		} catch (MyException e) {
 			System.err.println("Ocurrió un error" + " no se pudo enviar mensaje");
 			modelo.addAttribute("error", e.getMessage() + "no se pudo enviar el mensaje");
-			return "error.html";
+			return "/error";
 		}
 		return "listarchat.html";
 	}
 
 	@GetMapping("/actualizar")
 	public String actualizar(Authentication usuario, Model modelo, @RequestParam String id_emparejado) {
-		String tipologeado = chatServicio.Tipologeado(usuario);
-		Chat chat = new Chat();
-		chat = chatServicio.buscarchatxEmparejado(id_emparejado);
-		modelo.addAttribute("tipologeado", tipologeado);
-		modelo.addAttribute("mensajes", chatServicio.listadeMensajes(chat.getId()));
-		modelo.addAttribute("id_emparejado", chat.getEmparejado().getId());
-		modelo.addAttribute("id_chat", chat.getId());
-		return "listarchat.html :: #chat";
+		try {
+			String tipologeado = chatServicio.Tipologeado(usuario);
+			Chat chat = new Chat();
+			chat = chatServicio.buscarchatxEmparejado(id_emparejado);
+			modelo.addAttribute("tipologeado", tipologeado);
+			modelo.addAttribute("mensajes", chatServicio.listadeMensajes(chat.getId()));
+			modelo.addAttribute("id_emparejado", chat.getEmparejado().getId());
+			modelo.addAttribute("id_chat", chat.getId());
+			return "listarchat.html :: #chat";
+		} catch (MyException e) {
+			modelo.addAttribute("eeror", e.getMessage());
+			return "/error";
+		}
 	}
 
 }

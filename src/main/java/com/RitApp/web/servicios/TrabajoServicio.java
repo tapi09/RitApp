@@ -30,7 +30,7 @@ public class TrabajoServicio {
 
 	// Crear trabajo (Empresa)
 	public void crearTrabajo(Authentication usuario, String puesto, String zona, String modalidad, String lenguaje)
-			throws Exception {
+			throws MyException {
 		try {
 			validar(puesto, zona, modalidad);
 
@@ -44,12 +44,12 @@ public class TrabajoServicio {
 			trabajoRepositorio.save(trabajo);
 
 		} catch (Exception e) {
-			throw new MyException(e.getMessage());
+			throw new MyException("error al crear trabajo");
 		}
 	}
 
 	// Eliminar trabajo (Empresa)
-	public void eliminar(String id) throws Exception {
+	public void eliminar(String id) throws MyException {
 		try {
 			Trabajo trabajo = buscarXId(id);
 			trabajoRepositorio.delete(trabajo);
@@ -59,7 +59,7 @@ public class TrabajoServicio {
 
 	}
 
-	public Trabajo buscarXId(String id) throws Exception {
+	public Trabajo buscarXId(String id) throws MyException {
 		try {
 			Trabajo respuesta = trabajoRepositorio.buscarPorid(id);
 			System.out.println("llegue");

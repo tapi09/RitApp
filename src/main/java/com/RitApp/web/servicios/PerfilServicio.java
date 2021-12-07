@@ -28,7 +28,7 @@ public class PerfilServicio {
 
 			return perfil;
 		} catch (Exception e) {
-			throw new MyException(e.getMessage());
+			throw new MyException("Error al crear Perfil");
 		}
 
 	}
@@ -49,20 +49,20 @@ public class PerfilServicio {
 	}
 
 	@Transactional(readOnly = true)
-	public Perfil buscarPerfilxId(String id) throws Exception {
+	public Perfil buscarPerfilxId(String id) throws MyException {
 		try {
 			Perfil perfil = perfilRepositorio.getById(id);
 
 			return perfil;
 		} catch (Exception e) {
-			throw new Exception("Error al buscar perfil x id");
+			throw new MyException("Error al buscar perfil x id");
 		}
 
 	}
 
 	@Transactional
 	public Perfil modificarPerfil(String id, String lenguaje, String seniority, String idioma, String estudios,
-			String algoSobreMi) throws Exception {
+			String algoSobreMi) throws MyException {
 		try {
 			Perfil perfil = perfilRepositorio.getById(id);
 			perfil.setLenguaje(lenguaje);
@@ -74,7 +74,7 @@ public class PerfilServicio {
 
 			return perfil;
 		} catch (Exception e) {
-			throw new Exception(e.getMessage());
+			throw new MyException("error al modificar perfil");
 		}
 
 	}

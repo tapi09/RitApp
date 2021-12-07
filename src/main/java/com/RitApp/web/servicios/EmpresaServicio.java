@@ -29,7 +29,7 @@ public class EmpresaServicio {
 
 	@Transactional
 	public void crearEmpresa(String email, String contraseña1, String contraseña2, String nombre, String actividad)
-			throws Exception {
+			throws MyException {
 		try {
 			validarContraseña(email, contraseña1, contraseña2);
 			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -93,7 +93,7 @@ public class EmpresaServicio {
 	}
 
 	@Transactional
-	public void validarContraseña(String email, String clave1, String clave2) throws MyException, Exception {
+	public void validarContraseña(String email, String clave1, String clave2) throws MyException {
 
 		if (clave1.isEmpty()) {
 			throw new MyException("La contraseña esta vacia");
@@ -158,7 +158,7 @@ public class EmpresaServicio {
 		}
 	}
 
-	public Usuario buscaUsuario(String email) throws Exception {
+	public Usuario buscaUsuario(String email) throws MyException {
 		try {
 
 			return usuarioServicio.buscaruserxmail(email);
