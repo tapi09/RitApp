@@ -8,16 +8,14 @@
 	<!-- Navbar -->
 	<head th:replace="/fragmentos/navbar :: nav"></head>
 
-	<div class="pagina" style="margin-bottom: 20px;">
-	
-		<section id="portfolio" class="portfolio">
+	<div  style="margin-bottom: 13%;">
+
 			<div class="container">
 				
 				<h2   th:if="${mensaje != null}" th:text="${mensaje}" class="text-uppercase text-center" style="margin-top: 100px;"></h2>
 				<hr class="star-dark mb-5" />
 				
-				<div class="row" style=" align-items: center; justify-content: center;">
-					
+				<div class="contenedor_iconos">
 					<!-- Postulante -->
 					<div sec:authorize="hasRole('ROLE_POSTULANTE')" class="col-md-6 col-lg-4" style="margin-top:20px;">
 						<a href="/emparejado/listar"> <img class="imag_icono" src="assets/img/gif/Visualizar likes nuevos.gif"/> </a>
@@ -38,11 +36,9 @@
 					<div sec:authorize="hasRole('ROLE_EMPRESA')" class="col-md-6 col-lg-4" style="margin-top:20px;">
 							<a th:href="@{/empresa/modificarEmpresa}"> <img class="imag_icono" src="assets/img/gif/Ver mi perfil.gif" /> </a>
 					</div>
-		
-					
 				</div>
+				
 			</div>
-		</section>
 	</div>
 	
 	<!-- Footer -->
