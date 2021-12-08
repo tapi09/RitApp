@@ -24,17 +24,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Trabajo {
 
-    @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    private String id;
-    private String modalidad;
-    private String puesto;
-    private String zona;
-    private String nombre_empresa;
-    private String lenguajes;
-    @OneToOne
-    private Perfil perfil;
-    @ManyToOne
-    private Empresa empresa;
+	@Id
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid2")
+	private String id;
+	private String modalidad;
+	private String puesto;
+	private String zona;
+	private String nombre_empresa;
+	private String lenguajes;
+	@OneToOne
+	private Perfil perfil;
+	@ManyToOne
+	private Empresa empresa;
 }

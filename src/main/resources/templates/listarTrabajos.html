@@ -53,6 +53,7 @@
 	<link rel="stylesheet" href="assets/css/Team-Boxed.css">
 	<link rel="stylesheet" href="assets/css/untitled-1.css">
 	<link rel="stylesheet" href="assets/css/untitled.css">
+	<link rel="stylesheet" href="assets/css/Tarjeta_style.css">
 </head>
 
 <body>
@@ -90,25 +91,73 @@
 			</div>
 		</div>
 	</nav>
+	
 		<section>
-			<section class="team-boxed">
-				<div class="container">
-
-				</div>
+			<section class="">
+				
 				<div class="row people">
 					<div class="row people">
 						<h th:if="${mensaje != null}" th:text="${mensaje}"></h>
 					</div>
 					<div th:each="trabajo,status : ${trabajos}" class="col-md-6 col-lg-4 item">
-						<div class="box"><img class="rounded-circle" th:if="${trabajo.empresa.foto == null}" src="assets/img/logogoogle.png">
-                                                    <img class="rounded-circle" th:if="${trabajo.empresa.foto != null}" th:src="${'/imagen/usuario/' + trabajo.empresa.id}">
+						
+						
+						<div class="container__card">
+
+					            <div class="card__father">
+					                <div class="card">
+					                    
+					                    <div class="card__front" style="background-image: url(images/globant2.jpg);">
+					                        <div class="bg"></div>
+					                        <div class="body__card_front">
+					                            <img class="card__front card_img" th:if="${trabajo.empresa.foto == null}" src="assets/img/logogoogle.png">
+					                            <img class="card__front card_img" th:if="${trabajo.empresa.foto != null}" th:src="${'/imagen/usuario/' + trabajo.empresa.id}">
+												<p class="card_puesto">Puesto: <spam th:text="${trabajo.puesto}" class=""></spam> </p> 
+												
+												
+					                        </div>
+					                    </div>
+					                    
+					                    <div class="card__back">
+					                        <div class="body__card_back">
+					                                  <!---->
+					                               		<div class="" role="document">  
+					                                   		<div class="card_titulo">
+																<h4 th:text="${trabajo.puesto}"></h4>
+															</div>
+															
+															<div>
+																<p class="card_titulo">Empresa: <spam th:text="${trabajo.nombre_empresa}" class=""></spam> </p>
+																<p class="card_titulo">Puesto: <spam th:text="${trabajo.puesto}" class=""></spam> </p>
+																<p class="card_titulo">Lenguaje: <spam th:text="${trabajo.lenguajes}" class="">></spam> </p>
+																<p class="card_titulo">Modalidad: <spam th:text="${trabajo.modalidad}" class=""></spam> </p>
+																<p class="card_titulo">Zona: <spam th:text="${trabajo.zona}" class=""></spam> </p>
+															</div>
+															<form method="POST" th:action="@{/emparejado/emparejarpostulante}">
+																<input class="" type="hidden" th:value="${trabajo.id}" id="id_trabajo" name="id_trabajo" />
+																<button type="submit" name="submit" value="value" class="pulsador" sec:authorize="hasRole('ROLE_POSTULANTE')" >Like</button>
+															</form>
+														</div>
+					                                  <!---->
+					                        	</div>
+					                    	</div>
+					                </div>
+					            </div>
+					            
+					         </div>   
+						
+							<!--<img class="rounded-circle" th:if="${trabajo.empresa.foto == null}" src="assets/img/logogoogle.png">
+                            <img class="rounded-circle" th:if="${trabajo.empresa.foto != null}" th:src="${'/imagen/usuario/' + trabajo.empresa.id}">
 							<p class="name">Puesto:</p>
 							<p th:text="${trabajo.puesto}" class="title"></p>
+							
 							<p class="name">Lenguaje:</p>
 							<p th:text="${trabajo.lenguajes}" class="title"></p>
-							<div><a sec:authorize="hasRole('ROLE_POSTULANTE')" class="btn btn-primary btn-lg"
-									role="button" th:href="|#userModal${status.index}|" data-bs-toggle="modal">+
-									info</a>
+							
+							<div>
+								<a sec:authorize="hasRole('ROLE_POSTULANTE')" class="btn btn-primary btn-lg" role="button" th:href="|#userModal${status.index}|" data-bs-toggle="modal">
+									+info
+								</a>
 								<div class="modal fade" th:id="'userModal'+${status.index}" tabindex="-1"
 									aria-labelledby="exampleModalLabel" aria-hidden="true">
 									<div class="modal-dialog" role="document">
@@ -116,7 +165,8 @@
 											<div class="modal-header">
 												<h4 th:text="${trabajo.puesto}"></h4>
 											</div>
-											<div class="modal-body">
+											
+											<div class="">
 												<p class="name">Empresa:</p>
 												<p th:text="${trabajo.nombre_empresa}" class="title"></p>
 												<p class="name">Puesto:</p>
@@ -128,6 +178,7 @@
 												<p class="name">Zona:</p>
 												<p th:text="${trabajo.zona}" class="title"></p>
 											</div>
+											
 											<div class="modal-footer">
 												<button class="btn btn-light" type="button"
 													data-bs-dismiss="modal">Close</button>
@@ -138,8 +189,11 @@
 														class="btn btn-primary">Like</button>
 												</form>
 											</div>
-										</div>
+											
+										</div>-->
+										
 									</div>
+									
 								</div>
 							</div><a href="#"></a><a href="#"></a><a href="#"></a>
 						</div>
@@ -149,6 +203,7 @@
 			</div>
 		</section>
 		</section>
+		
 		<footer id="myFooter" style="padding:0px;">
 			<div class="container-fluid" id="footer1" style="background: #212529;">
 				<div class="row text-center">

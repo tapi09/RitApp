@@ -1,15 +1,14 @@
 package com.RitApp.web.entidades;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
-import javax.persistence.CollectionTable;
-import javax.persistence.ElementCollection;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -33,9 +32,8 @@ public class Chat {
 	private String id;
 	@OneToOne
 	Emparejado emparejado;
-	@ElementCollection
-	 @CollectionTable(name="mensajes", joinColumns= {@JoinColumn(name="id")})
-	private List<String> mensajes=new ArrayList<String>();
+	@OneToMany(cascade = { CascadeType.ALL })
+	private List<Mensaje> mensajes = new ArrayList<Mensaje>();
 	@Temporal(TemporalType.DATE)
-	private Date fecha_creacion;
+	private Calendar fecha_creacion;
 }

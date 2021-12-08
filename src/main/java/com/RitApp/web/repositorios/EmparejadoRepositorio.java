@@ -1,4 +1,3 @@
-
 package com.RitApp.web.repositorios;
 
 import java.util.List;
@@ -12,7 +11,6 @@ import com.RitApp.web.entidades.Emparejado;
 import com.RitApp.web.entidades.Empresa;
 import com.RitApp.web.entidades.Postulante;
 import com.RitApp.web.entidades.Trabajo;
-import com.RitApp.web.entidades.Usuario;
 
 @Repository
 public interface EmparejadoRepositorio extends JpaRepository<Emparejado, String> {
