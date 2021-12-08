@@ -8,6 +8,7 @@
 	<!-- Navbar -->
 	<head th:replace="/fragmentos/navbar :: nav"></head>
 		<section th:style="${(trabajos.isEmpty() ? 'margin-bottom:625px;' : 'margin-bottom:10px;')}">
+				
 				<div class="row people" >
 						<div class="row people">
 							<h th:if="${mensaje != null}" th:text="${mensaje}"></h>
