@@ -17,7 +17,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-
 @Entity
 @Data
 @AllArgsConstructor
@@ -25,14 +24,14 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Usuario {
-    @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2") 
-    protected String id;
-    protected String email;
-    protected String clave;
-    private String nombre_usuario;
-    @Enumerated(EnumType.STRING)
-    protected Rol rol;
-    protected byte[] foto;
+	@Id
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid2")
+	protected String id;
+	protected String email;
+	protected String clave;
+	private String nombre_usuario;
+	@Enumerated(EnumType.STRING)
+	protected Rol rol;
+	protected byte[] foto;
 }

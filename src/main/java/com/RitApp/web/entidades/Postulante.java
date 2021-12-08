@@ -1,11 +1,8 @@
 package com.RitApp.web.entidades;
 
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -15,6 +12,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+
 @Entity
 @Data
 @SuperBuilder
@@ -23,17 +21,17 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 public class Postulante extends Usuario {
 
-    private String dni;
-    private String nombre;
-    private String apellido;
-    @Temporal(TemporalType.DATE)
-    private Date fechaNacimiento;
-    private int edad;
-    private Integer telefono;
-    private String genero;
-    private String direccion;
-    private String pais;
-    @OneToOne
-    private Perfil perfil;
-   
+	private String dni;
+	private String nombre;
+	private String apellido;
+	@Temporal(TemporalType.DATE)
+	private Date fechaNacimiento;
+	private int edad;
+	private String telefono;
+	private String genero;
+	private String direccion;
+	private String pais;
+	@OneToOne
+	private Perfil perfil;
+
 }

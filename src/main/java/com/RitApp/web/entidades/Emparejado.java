@@ -14,7 +14,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-
 @Entity
 @Data
 @AllArgsConstructor
@@ -22,25 +21,25 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Emparejado {
-    @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2") 
-    private String id;    
-    @OneToOne
-    private Trabajo trabajo;
-    private String nombre_puesto;
-    @OneToOne
-    private Empresa empresa;
-    private String nombre_empresa;
-    @OneToOne
-    private Postulante postulante;
-    
-    private String nombre_postulante;
-    
-    private Boolean estado_postulante;
-    
-    private Boolean estado_empresa;
-    
-    private Boolean estado_activo;
+	@Id
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid2")
+	private String id;
+	@OneToOne
+	private Trabajo trabajo;
+	private String nombre_puesto;
+	@OneToOne
+	private Empresa empresa;
+	private String nombre_empresa;
+	@OneToOne
+	private Postulante postulante;
+
+	private String nombre_postulante;
+
+	private Boolean estado_postulante;
+
+	private Boolean estado_empresa;
+
+	private Boolean estado_activo;
 
 }
