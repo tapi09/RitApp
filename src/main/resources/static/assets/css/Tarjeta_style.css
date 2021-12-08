@@ -145,7 +145,7 @@
     border: none;
 }
 .pulsador:hover{
-    background-color: orange;
+    background-color: #6B99B8;
     transition: 0.5s;
 }
 

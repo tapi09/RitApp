@@ -4,16 +4,12 @@
 <!-- Head -->
 <head th:replace="/fragmentos/head :: head"></head>
 
-<body>
+<body style="padding-top:70px">
 	<!-- Navbar -->
 	<head th:replace="/fragmentos/navbar :: nav"></head>
-	<section>
+	<section th:style="${(emparejados.isEmpty() ? 'margin-bottom:520px;' : 'margin-bottom:10px;')}">
 		<section class="team-boxed">
 			<div class="container">
-				<div class="intro">
-					<p class="text-center">Nunc luctus in metus eget fringilla. Aliquam sed justo ligula. Vestibulum
-						nibh erat, pellentesque ut laoreet vitae.</p>
-				</div>
 				<div class="row people">
 					<div th:each="emparejado,status : ${emparejados}" class="col-md-6 col-lg-4 item">
 						<div class="box"><img class="rounded-circle" th:if="${emparejado.postulante.foto == null}" src="assets/img/logogoogle.png">
@@ -42,8 +38,6 @@
 					</div>
 				</div>
 		</section>
-		</div>
-	</section>
 	</section>
 	
 	<!-- Footer -->
