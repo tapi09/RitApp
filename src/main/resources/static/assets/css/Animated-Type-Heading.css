@@ -71,16 +71,18 @@
 }
 
 #botonIngresar {
-  background-color: #313437;
+  background: linear-gradient(120deg, #f72585, #7209b7);
+  color: #ffffff;
   display: block;
   width: 100px;
   height: 45px;
   text-align: center;
-  border-radius: 45%;
+  border-radius:15px;
+
 }
 
 #botonIngresar:hover {
-  background-color: #64b5f6;
-  color: #000814;
+  background: linear-gradient(120deg, #7209b7, #f72585);
+  color: #ffffff;
 }
 
