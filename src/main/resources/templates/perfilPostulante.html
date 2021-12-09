@@ -27,10 +27,13 @@
                             <div class="avatar">
                                 <img class="avatar-bg center" th:if="${postulante.foto != null}" th:src="${'/imagen/usuario/' + postulante.id}" alt="">
                         <div th:if="${postulante.foto == null}" class="avatar-bg center"></div>
-                            </div><input class="form-control form-control" type="file" name="foto">
+                        
+                            </div><input class="form-control form-control" style="margin-top: 10px;" type="file" name="foto">
                         </div>
                         <div class="col-md-8">
-                            <h1>Mi Perfil</h1>
+                        	<div style=" display: flex; flex-direction: row; justify-content: center; align-items: center;">
+                            	<h1>Mi Perfil</h1>
+                            </div>
                             <hr>
                             <div class="row">
                                 <div class="col-sm-12 col-md-6">
@@ -41,8 +44,12 @@
                                     <div class="form-group mb-3"><label class="form-label">Apellido</label><input class="form-control" type="text" name="apellido" th:field="*{apellido}"></div>
                                 </div>
                             </div>
-                            <div class="form-group mb-3"><label class="form-label">Email </label><input readonly class="form-control" type="email" required="" name="email" th:field="*{email}"></div>
-                            <div class="form-group mb-3"><label class="form-label">Teléfono </label><input class="form-control" type="text" required="" name="telefono" th:field="*{telefono}"></div>
+                            <div class="row">
+                            	<div class="form-group mb-3"><label class="form-label">Email </label><input readonly class="form-control" type="email" required="" name="email" th:field="*{email}"></div>
+                            </div>
+                            <div class="row">
+                            	<div class="form-group mb-3"><label class="form-label">Teléfono </label><input class="form-control" type="text" required="" name="telefono" th:field="*{telefono}"></div>
+                           	</div>
                             <div class="row">
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-group mb-3"><label class="form-label">Fecha de Nacimiento</label></div>
@@ -80,15 +87,13 @@
                             </div>
                             <div class="row">
                                 <div class="col"><label class="form-label">Algo Sobre Mi</label>
-                                    <div class="row">
-                                        <div class="col"><textarea class="form-control" name="algoSobreMi" th:text="*{perfil.algoSobreMi}"></textarea></div>
-                                    </div>
+                                    <div class="col"><textarea class="form-control" name="algoSobreMi" th:text="*{perfil.algoSobreMi}"></textarea></div>
                                 </div>
                             </div>
                             <hr>
                             <div class="row">
-                                <div class="col-md-12 content-right"><button class="btn btn-primary form-btn" type="submit">Guardar Cambios</button>
-                                    <!--<button class="btn btn-primary form-btn" type="reset">Cancelar</button><button class="btn btn-danger form-btn" type="reset">Eliminar Cuenta</button></div>-->
+                                <div style=" display: flex; flex-direction: row; justify-content: center; align-items: center;">
+                                	<button class="btn btn-primary form-btn" type="submit">Guardar Cambios</button>
                                 </div>
                             </div>
                         </div>

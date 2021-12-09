@@ -20,6 +20,8 @@ import com.RitApp.web.error.MyException;
 import com.RitApp.web.repositorios.ChatRepositorio;
 import com.RitApp.web.repositorios.EmparejadoRepositorio;
 
+import net.bytebuddy.utility.RandomString;
+
 @Service
 public class ChatServicio {
 	@Autowired
@@ -65,10 +67,12 @@ public class ChatServicio {
 				mensaje.setNombre(chat.getEmparejado().getNombre_postulante());
 				mensaje.setTipo("POSTULANTE");
 			}
+
 			mensaje.setFecha_envio(Calendar.getInstance().getTime());
-			mensaje.setMensaje_enviado(texto_mensaje);
+			mensaje.setMensaje_enviado(texto_mensaje.replaceAll("\n", "<br/>"));
 			mensajes_nuevo = chat.getMensajes();
 			mensajes_nuevo.add(mensaje);
+			chat.setId_listamensajes(RandomString.make(10));
 			chat.setMensajes(mensajes_nuevo);
 			chatRepositorio.save(chat);
 		} catch (Exception e) {
@@ -106,16 +110,12 @@ public class ChatServicio {
 		}
 	}
 
-	public Chat buscarchatxid(String id)throws MyException{
+	public Chat buscarchatxid(String id) throws MyException {
 		try {
-		return chatRepositorio.buscarPorid(id);
+			return chatRepositorio.buscarPorid(id);
 		} catch (Exception e) {
 			throw new MyException("error en primer mensaje");
 		}
-	}
-
-	public String generar_Mensaje(String usuario, String mensaje) {
-		return "Mensaje de " + usuario + "/n" + mensaje;
 	}
 
 	public String Tipologeado(Authentication usuario) {
@@ -127,13 +127,31 @@ public class ChatServicio {
 		}
 	}
 
-	public Model perfil_Destinario(Model modelo, Authentication usuario, Chat chat) {
+	public Chat buscarxid(String id) {
+		if (chatRepositorio.findById(id).isPresent()) {
+			return chatRepositorio.getById(id);
+		} else {
+			return null;
+		}
+	}
+
+	public Model add_attibutes(Model modelo, Authentication usuario, Chat chat) throws MyException {
 		String tipologeado = Tipologeado(usuario);
 		if (tipologeado.equals("EMPRESA")) {
 			modelo.addAttribute("destinatario", chat.getEmparejado().getEmpresa());
 		} else {
 			modelo.addAttribute("destinatario", chat.getEmparejado().getEstado_postulante());
 		}
+		modelo.addAttribute("tipologeado", tipologeado);
+		add_msj_ids(modelo, chat);
+		return modelo;
+	}
+
+	public Model add_msj_ids(Model modelo, Chat chat) throws MyException {
+		modelo.addAttribute("mensajes", listadeMensajes(chat.getId()));
+		modelo.addAttribute("id_listamensajes", chat.getId_listamensajes());
+		modelo.addAttribute("id_emparejado", chat.getEmparejado().getId());
+		modelo.addAttribute("id_chat", chat.getId());
 		return modelo;
 	}
 }

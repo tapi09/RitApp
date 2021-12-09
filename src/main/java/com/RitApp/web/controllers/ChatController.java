@@ -1,6 +1,8 @@
 package com.RitApp.web.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,20 +24,10 @@ public class ChatController {
 	@PostMapping("/mostrarchat")
 	public String mostrarchat(Authentication usuario, Model modelo, @RequestParam String id_emparejado) {
 		System.out.println("mostrarchat");
-		try {
-			String tipologeado = chatServicio.Tipologeado(usuario);
-			System.out.println(tipologeado);
+		try {			
 			Chat chat = new Chat();
 			chat = chatServicio.buscarchatxEmparejado(id_emparejado);
-			if (tipologeado.equals("POSTULANTE")) {
-				modelo.addAttribute("destinatario", chat.getEmparejado().getEmpresa());
-			} else {
-				modelo.addAttribute("destinatario", chat.getEmparejado().getPostulante());
-			}
-			modelo.addAttribute("tipologeado", tipologeado);
-			modelo.addAttribute("mensajes", chatServicio.listadeMensajes(chat.getId()));
-			modelo.addAttribute("id_emparejado", chat.getEmparejado().getId());
-			modelo.addAttribute("id_chat", chat.getId());
+			modelo = chatServicio.add_attibutes(modelo, usuario, chat);
 		} catch (MyException e) {
 			System.err.println("Ocurrió un error" + " mostrar chat");
 			modelo.addAttribute("error", e.getMessage());
@@ -45,24 +37,12 @@ public class ChatController {
 	}
 
 	@PostMapping("/enviarmensaje")
-	public String enviarmensaje(Authentication usuario, Model modelo, @RequestParam String id_emparejado,
-			@RequestParam String mensajeenviado) {
-		System.out.println("entro");
+	public String enviarmensaje(Authentication usuario, Model modelo, @RequestParam String id_chat,
+			@RequestParam String textoenviado) {
 		try {
-			String mensaje_correjido = mensajeenviado.replaceAll("\n", "<br/>");
-			String tipologeado = chatServicio.Tipologeado(usuario);
-			Chat chat = new Chat();
-			chat = chatServicio.buscarchatxEmparejado(id_emparejado);
-			chatServicio.enviar_mensaje(chat, usuario, mensaje_correjido);
-			if (tipologeado.equals("POSTULANTE")) {
-				modelo.addAttribute("destinatario", chat.getEmparejado().getEmpresa());
-			} else {
-				modelo.addAttribute("destinatario", chat.getEmparejado().getPostulante());
-			}
-			modelo.addAttribute("tipologeado", tipologeado);
-			modelo.addAttribute("mensajes", chatServicio.listadeMensajes(chat.getId()));
-			modelo.addAttribute("id_emparejado", chat.getEmparejado().getId());
-			modelo.addAttribute("id_chat", chat.getId());
+			Chat chat = chatServicio.buscarchatxid(id_chat);
+			chatServicio.enviar_mensaje(chat, usuario, textoenviado);
+			modelo = chatServicio.add_attibutes(modelo, usuario, chat);
 		} catch (MyException e) {
 			System.err.println("Ocurrió un error" + " no se pudo enviar mensaje");
 			modelo.addAttribute("error", e.getMessage() + "no se pudo enviar el mensaje");
@@ -72,20 +52,30 @@ public class ChatController {
 	}
 
 	@GetMapping("/actualizar")
-	public String actualizar(Authentication usuario, Model modelo, @RequestParam String id_emparejado) {
+	public String actualizar(Authentication usuario, Model modelo, @RequestParam String id_chat) {
 		try {
-			String tipologeado = chatServicio.Tipologeado(usuario);
-			Chat chat = new Chat();
-			chat = chatServicio.buscarchatxEmparejado(id_emparejado);
-			modelo.addAttribute("tipologeado", tipologeado);
-			modelo.addAttribute("mensajes", chatServicio.listadeMensajes(chat.getId()));
-			modelo.addAttribute("id_emparejado", chat.getEmparejado().getId());
-			modelo.addAttribute("id_chat", chat.getId());
+			Chat chat = chatServicio.buscarchatxid(id_chat);			
+			modelo = chatServicio.add_attibutes(modelo, usuario, chat);
 			return "listarchat.html :: #chat";
+
 		} catch (MyException e) {
 			modelo.addAttribute("eeror", e.getMessage());
 			return "/error";
 		}
 	}
 
+	@GetMapping("/estado")
+	public ResponseEntity<String> estado(Authentication usuario, Model modelo, @RequestParam String id_chat,
+			@RequestParam String id_listamensajes) throws MyException {
+		Chat chat = new Chat();
+		chat = chatServicio.buscarxid(id_chat);
+		if (chat.getId_listamensajes().equals(id_listamensajes)) {
+			System.out.println("actualizado");
+			return new ResponseEntity<String>(HttpStatus.OK);
+		} else {
+			System.out.println(
+					"desactualizado" + "lista html:" + id_listamensajes + " lista base: " + chat.getId_listamensajes());
+			return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
+		}
+	}
 }

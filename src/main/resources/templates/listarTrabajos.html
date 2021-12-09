@@ -4,17 +4,17 @@
 <!-- Head -->
 <head th:replace="/fragmentos/head :: head"></head>
 
-<body>
+<body style="padding-top:70px;">
 	<!-- Navbar -->
 	<head th:replace="/fragmentos/navbar :: nav"></head>
-		<section>
-			<section class="">	
-				<div class="row people">
-					<div class="row people">
-						<h th:if="${mensaje != null}" th:text="${mensaje}"></h>
-					</div>
-					<div th:each="trabajo,status : ${trabajos}" class="col-md-6 col-lg-4 item">
-						<div class="container__card">
+		<section th:style="${(trabajos.isEmpty() ? 'margin-bottom:625px;' : 'margin-bottom:10px;')}">
+				
+				<div class="row people" >
+						<div class="row people">
+							<h th:if="${mensaje != null}" th:text="${mensaje}"></h>
+						</div>
+					    <div th:each="trabajo,status : ${trabajos}" class="col-md-6 col-lg-4 item">
+						    <div class="container__card">
 					            <div class="card__father">
 					                <div class="card"> 
 					                    <div class="card__front" style="background-image: url(images/globant2.jpg);">
@@ -48,23 +48,17 @@
 					                                  <!---->
 					                        	</div>
 					                    	</div>
-					                </div>
-					            </div> 
-					         </div>   
-							</div>		
-						  </div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-	</section>
+					                    </div>
+					                </div> 
+					             </div>   
+							  </div>		
+					</section>
 	
 		
-	<!-- Footer -->
-	<head th:replace="/fragmentos/footer :: footer"></head>
-	<!-- Script -->
-	<head th:replace="/fragmentos/scripts :: scripts"></head>
+			<!-- Footer -->
+			<head th:replace="/fragmentos/footer :: footer"></head>
+			<!-- Script -->
+			<head th:replace="/fragmentos/scripts :: scripts"></head>
 	</body>
 
 </html>

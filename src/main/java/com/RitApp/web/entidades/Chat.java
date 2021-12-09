@@ -32,6 +32,7 @@ public class Chat {
 	private String id;
 	@OneToOne
 	Emparejado emparejado;
+	private String id_listamensajes;
 	@OneToMany(cascade = { CascadeType.ALL })
 	private List<Mensaje> mensajes = new ArrayList<Mensaje>();
 	@Temporal(TemporalType.DATE)

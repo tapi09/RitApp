@@ -2,19 +2,23 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <!-- Head -->
-<head th:replace="/fragmentos/head :: head"></head>
+
+<head th:insert="/fragmentos/head :: head"></head>
 
 <body style="padding-top:70px">
 	<!-- Navbar -->
-	<head th:replace="/fragmentos/navbar :: nav"></head>
-	
+
+	<div th:replace="/fragmentos/navbar :: nav"></div>
+
 	<div class="container">
-		
+
 		<div class="row">
-			<div class="col" ></div>
+			<div class="col"></div>
 			<!-- Chat -->
 			<div class="col-md-auto " style="min-width: 50%; margin-top: 10px;" id="chat">
-				
+				<input class="form-control" type="hidden" th:value="${id_listamensajes}" id="id_listamensajes"
+					name="id_listamensajes" />
+
 				<script>
 					window.onload(scroll())
 					function scroll() {
@@ -22,13 +26,13 @@
 						div.scrollTop = div.scrollHeight - div.clientHeight;
 					};
 				</script>
-				
+
 				<div class="list-group align-self-center"
-					style="width: 100%;max-height: 400px;margin-bottom: -4px;overflow:scroll;-webkit-overflow-scrolling: touch;background-color: bisque;min-height: 300px; "
+					style="width: 100%;max-height: 400px;margin-bottom: -4px;overflow:scroll;-webkit-overflow-scrolling: touch;background-color:bisque;min-height: 300px; "
 					id="chat1">
 					<!-- Mensaje -->
-					<li th:each="mensaje,status : ${mensajes}" class="list-group-item" th:style="${(mensaje.Tipo == tipologeado ? 'background-color:powderblue;align-self:end ; margin:5px;' : 'background-color: lightsteelblue;align-self: flex-start;')
-						+'max-width: 75%; border-radius: 25px 10px;min-width: inherit; margin:5px;'}">
+					<li th:each="mensaje,status : ${mensajes}" class="list-group-item" th:style="${(mensaje.Tipo == tipologeado ? 'background-color:#dcf8c6 ;align-self:end ; margin:5px;' : 'background-color: #ffffff;align-self: flex-start;')
+						+'max-width: 75%; border-radius: 25px 10px;min-width: inherit; margin:5px;box-shadow: 2px 2px 5px #999'}">
 						<div>
 							<small th:text="${#strings.capitalize(mensaje.nombre)}+':'"></small>
 						</div>
@@ -43,31 +47,32 @@
 			</div>
 			<!-- Imagen -->
 			<div class="col">
-				<div style=" display: flex; flex-direction: column; justify-content: center; align-items: center;">
+	<!--			<div style=" display: flex; flex-direction: column; justify-content: center; align-items: center;">
 					  <img class="avatar-bg center" th:if="${destinatario.foto != null}" th:src="${'/imagen/usuario/' + destinatario.id}" alt="">
 		              <div th:if="${destinatario.foto == null}" class="avatar-bg center"></div>
 		              <div>
 		                 <p class="avatar-bg center" th:text="${destinatario.nombre}"></p>
-		              </div>
-	        	</div>	
+		              </div>-->
+	        	<!--</div>-->	
 			</div>
 		</div>	
 		<!-- Campo Input -->					
 		<div class="row" style="margin-bottom: 15px;">
 			<div class="col"></div>
-			<div class="col-md-auto " style="min-width: 50%;">
-				<form method="POST" th:action="@{/chat/enviarmensaje}" id="formulario">	
-					<label for="mensajeenviado">Nuevo mensaje</label>
-					<div class="input-group">
-						<textarea class="form-control" type="text" id="mensajeenviado" name="mensajeenviado" rows="1" onkeypress="pulsar(event)" ></textarea>
-						<input class="form-control" type="hidden" th:value="${id_emparejado}" id="id_emparejado" name="id_emparejado" />
-						<span class="input-group-btn">
-							<button type="submit" name="submit" value="value" class="btn btn-primary  btn-sm" id="boton">Enviar</button>
-						</span>
-					 </div>								
+			<div class="col-md-auto " style="padding: 6px 10px;min-width: 50%">
+				<form class="row" method="POST" th:action="@{/chat/enviarmensaje}" id="formulario">	
+					<input class="form-control" type="hidden" th:value="${id_emparejado}" id="id_emparejado" name="id_emparejado" />
+					<input class="form-control" type="hidden" th:value="${id_chat}" id="id_chat"name="id_chat" />
+					<div class="col" style="padding: 0px">
+						<textarea class="form-control" type="text" id="textoenviado" name="textoenviado" rows="1"></textarea>
+					</div>
+					<div class="col-md-auto " style="padding: 0px">			
+						<button type="submit" name="submit" value="value" class="btn btn-primary  btn-sm" id="boton" style="min-width: 100%; min-height: 100%;    background-color: #028677 !important;">Enviar</button>
+					</div>
 				</form>
 		   </div>
-		   <div class="col"></div>			
+		   <div class="col"></div>	
+		   
 		</div>
 	</div>
 	
@@ -77,23 +82,30 @@
 	<!-- Script -->
 	<head th:replace="/fragmentos/scripts :: scripts"></head>
 	
-	<script>
+	<script type="text/javascript">//script para actualizar chat
 		window.setInterval(function () {
-			$("#chat").load("chat/actualizar", $("#id_emparejado").serialize());
+			$.ajax({
+				url: "chat/estado",
+				async: true,
+				type: 'GET',
+				data: {id_chat: $("#id_chat").val(), id_listamensajes: $("#id_listamensajes").val()},
+				complete: function (xhr, statusText) {
+					if (xhr.status == 200) {
+					} else {
+						$("#chat").load("chat/actualizar", $("#id_chat").serialize());
+					}
+				}
+			})
 		}, 3000);
-		function scroll() {
-			var div = document.getElementById("chat1")
-			div.scrollTop = div.scrollHeight - div.clientHeight;
-		};
 	</script>
-	<script>
+	<script>//script para mover scroll bar al fondo
 		window.onload(scroll())
 		function scroll() {
 			var div = document.getElementById("chat1")
 			div.scrollTop = div.scrollHeight - div.clientHeight;
 		};
-	</script>	
-	 <script>
+	</script>		
+	 <script>//script para mandar mensajes con tecla enter
 		function pulsar(e) {
 			if (e.keyIdentifier == 'U+000A' || e.keyIdentifier == 'Enter' || e.keyCode == 13) {
 				e.preventDefault();
@@ -102,6 +114,17 @@
 			}
 		}
 	</script>
-	
+	<script>
+		tinymce.init({
+			selector: "#textoenviado",
+			plugins: "emoticons",
+			toolbar: "emoticons",
+			toolbar_location: "bottom",
+			menubar: false,
+			height: 100,
+			max_width: 500
+
+		});
+	</script>	
 </body>
 </html>
