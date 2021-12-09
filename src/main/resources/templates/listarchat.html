@@ -9,11 +9,12 @@
 	<head th:replace="/fragmentos/navbar :: nav"></head>
 	
 	<div class="container">
+		
 		<div class="row">
-			<div class="col">
-
-			</div>
-			<div class="col-md-auto " style="min-width: 50%;" id="chat">
+			<div class="col" ></div>
+			<!-- Chat -->
+			<div class="col-md-auto " style="min-width: 50%; margin-top: 10px; " id="chat">
+				
 				<script>
 					window.onload(scroll())
 					function scroll() {
@@ -21,51 +22,52 @@
 						div.scrollTop = div.scrollHeight - div.clientHeight;
 					};
 				</script>
+				
 				<div class="list-group align-self-center"
-					style="width: 100%;max-height: 400px;margin-bottom: -4px;overflow:scroll;-webkit-overflow-scrolling: touch;background-color: bisque;"
+					style="width: 100%;height: 450px;margin-bottom: -4px;overflow:scroll;-webkit-overflow-scrolling: touch;background-color: bisque;"
 					id="chat1">
-					<li th:each="mensaje,status : ${mensajes}" class="list-group-item" th:style="${(mensaje.Tipo == tipologeado ? 'background-color:powderblue;align-self:end ;' : 'background-color: lightsteelblue;align-self: flex-start;')
-					+'max-width: 75%; border-radius: 25px 10px;min-width: inherit;'}">
+					<!-- Mensaje -->
+					<li th:each="mensaje,status : ${mensajes}" class="list-group-item" th:style="${(mensaje.Tipo == tipologeado ? 'background-color:powderblue;align-self:end ; margin:5px;' : 'background-color: lightsteelblue;align-self: flex-start;')
+						+'max-width: 75%; border-radius: 25px 10px;min-width: inherit; margin:5px;'}">
 						<div>
 							<small th:text="${#strings.capitalize(mensaje.nombre)}+':'"></small>
-					</div>
-					<div style="clear: both;">
-						<p class="text-break" th:utext="${mensaje.mensaje_enviado}"
-							style="font-size: 0.8rem;margin: 0px 0 0.2rem 0;color: #777;"></p>
-					</div>
-					<div>
-						<span class="time-left" th:text="${#calendars.format(mensaje.fecha_envio, 'dd/MMM/yyyy HH:mm')}" style="font-size: 0.7rem;cursor: default;float: right;color: #999;"></span>
-					</div>
-				</li>
+						</div>
+						<div style="clear: both;">
+							<p class="text-break" th:utext="${mensaje.mensaje_enviado}" style="font-size: 0.8rem;margin: 0px 0 0.2rem 0;color: #777;"></p>
+						</div>
+						<div>
+							<span class="time-left" th:text="${#calendars.format(mensaje.fecha_envio, 'dd/MMM/yyyy HH:mm')}" style="font-size: 0.7rem;cursor: default;float: right;color: #999;"></span>
+						</div>
+					</li>
+				</div>
 			</div>
-			</div>
+			<!-- Imagen -->
 			<div class="col">
-			           <img class="avatar-bg center" th:if="${destinatario.foto != null}" th:src="${'/imagen/usuario/' + destinatario.id}" alt="">
-                      	<div th:if="${destinatario.foto == null}" class="avatar-bg center"></div>
-                      	<div>
-                      		<p th:text="${destinatario.nombre}"></p>
-                      	</div>	
+				<div style=" display: flex; flex-direction: column; justify-content: center; align-items: center;">
+					  <img class="avatar-bg center" th:if="${destinatario.foto != null}" th:src="${'/imagen/usuario/' + destinatario.id}" alt="">
+		              <div th:if="${destinatario.foto == null}" class="avatar-bg center"></div>
+		              <div>
+		                 <p class="avatar-bg center" th:text="${destinatario.nombre}"></p>
+		              </div>
+	        	</div>	
 			</div>
-		</div>						
-		<div class="row">
-			<div class="col">
-			</div>
+		</div>	
+		<!-- Campo Input -->					
+		<div class="row" style="margin-bottom: 100px;">
+			<div class="col"></div>
 			<div class="col-md-auto " style="min-width: 50%;">
 				<form method="POST" th:action="@{/chat/enviarmensaje}" id="formulario">	
 					<label for="mensajeenviado">Nuevo mensaje</label>
 					<div class="input-group">
-					<textarea class="form-control" type="text" id="mensajeenviado" name="mensajeenviado"
-						rows="1" onkeypress="pulsar(event)" ></textarea>
-						<input class="form-control" type="hidden" th:value="${id_emparejado}" id="id_emparejado"
-						name="id_emparejado" />
-					<span class="input-group-btn">
-						<button type="submit" name="submit" value="value" class="btn btn-primary  btn-sm" id="boton">Enviar</button>
-					 </span>
+						<textarea class="form-control" type="text" id="mensajeenviado" name="mensajeenviado" rows="1" onkeypress="pulsar(event)" ></textarea>
+						<input class="form-control" type="hidden" th:value="${id_emparejado}" id="id_emparejado" name="id_emparejado" />
+						<span class="input-group-btn">
+							<button type="submit" name="submit" value="value" class="btn btn-primary  btn-sm" id="boton">Enviar</button>
+						</span>
 					 </div>								
 				</form>
 		   </div>
-		   	<div class="col">
-			</div>			
+		   <div class="col"></div>			
 		</div>
 	</div>
 	

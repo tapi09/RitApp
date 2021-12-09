@@ -20,10 +20,12 @@
                     <div class="avatar">
                         <img class="avatar-bg center" th:if="${empresa.foto != null}" th:src="${'/imagen/usuario/' + empresa.id}" alt="">
                         <div th:if="${empresa.foto == null}" class="avatar-bg center"></div>
-                    </div><input class="form-control form-control" type="file" name="logo">
+                    </div><input class="form-control form-control" style="margin-top: 10px;" type="file" name="logo">
                 </div>
                 <div class="col-md-8">
-                    <h1>Perfil</h1>
+                    <div style=" display: flex; flex-direction: row; justify-content: center; align-items: center;">
+                         <h1>Mi Perfil</h1>
+                    </div>
                     <hr>
                     <div class="row">
                         <div class="col-sm-12 col-md-6">
@@ -33,7 +35,9 @@
                             <div class="form-group mb-3"><label class="form-label">Actividad</label><input class="form-control" type="text" name="actividad" th:field="*{actividad}"></div>
                         </div>
                     </div>
-                    <div class="form-group mb-3"><label class="form-label">Email </label><input readonly class="form-control" type="email" autocomplete="off" required="" name="email" th:field="*{email}"></div>
+                    <div class="row">
+                    	<div class="form-group mb-3"><label class="form-label">Email </label><input readonly class="form-control" type="email" autocomplete="off" required="" name="email" th:field="*{email}"></div>
+                    </div>
                     <div class="row">
                         <div class="col-sm-12 col-md-6">
                             <div class="form-group mb-3"><label class="form-label">País o Países</label><input class="form-control" type="text" name="pais" autocomplete="off" required="" th:field="*{pais}"></div>
@@ -43,18 +47,16 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col"><label class="form-label">Sobre Nosotros</label>
-                            <div class="row">
-                                <div class="col"><textarea class="form-control" name="sobreNosotros" th:field="*{sobreNosotros}"></textarea></div>
-                            </div>
-                        </div>
+                        <div class="col"><label class="form-label">Sobre Nosotros</label><div class="col"><textarea class="form-control" name="sobreNosotros" th:field="*{sobreNosotros}"></textarea></div></div>
                     </div>
                     <div class="row">
                         <div class="col"><label class="form-label">Beneficios de nuestra Empresa</label><textarea class="form-control" name="beneficios" th:field="*{beneficios}"></textarea></div>
                     </div>
                     <hr>
                     <div class="row">
-                        <div class="col-md-12 content-right"><button class="btn btn-primary form-btn" type="submit">Guardar Cambios</button><button class="btn btn-primary form-btn" type="reset">Cancelar</button><button class="btn btn-danger form-btn" type="reset">Eliminar Cuenta</button></div>
+                        <div style=" display: flex; flex-direction: row; justify-content: center; align-items: center;">
+                        	<button class="btn btn-primary form-btn" type="submit">Guardar Cambios</button>
+                        </div>
                     </div>
                 </div>
             </div>
